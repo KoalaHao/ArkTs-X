@@ -1,0 +1,15 @@
+diff --git a/ets2panda/CMakeLists.txt b/ets2panda/CMakeLists.txt
+index 15c8b39d..61670bf4 100644
+--- a/ets2panda/CMakeLists.txt
++++ b/ets2panda/CMakeLists.txt
+@@ -765,6 +765,10 @@ set(ES2PANDA_LIB_SRC
+ # libes2panda does not include bytecode optimizer, because it is used in
+ # libarkruntime, and conflict with JIT setup ensues
+ panda_frontend_add_library(es2panda-lib ${PANDA_DEFAULT_LIB_TYPE} ${ES2PANDA_LIB_SRC})
++if(CMAKE_CXX_COMPILER_ID STREQUAL "AppleClang")
++  set_source_files_properties(lexer/ETSLexer.cpp PROPERTIES
++    COMPILE_OPTIONS "-Wno-error=character-conversion")
++endif()
+ add_dependencies(es2panda-lib isa_gen_es2panda es2panda_options_gen es2panda_diagnostic_gen es2panda_keywords es2panda_signatures)
+ 
+ set(ICU_INCLUDE_DIRS

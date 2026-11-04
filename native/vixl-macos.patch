@@ -1,0 +1,14 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 9ae96af..c01e961 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -97,6 +97,9 @@ target_link_libraries(vixl arkbase)
+ 
+ target_compile_options(vixl PUBLIC ${VIXL_FLAGS})
+ target_compile_options(vixl PRIVATE -Wno-shadow -Wno-deprecated-declarations)
++if(PANDA_TARGET_MACOS)
++    target_compile_options(vixl PRIVATE -Wno-error=format)
++endif()
+ 
+ target_compile_definitions(vixl PUBLIC "VIXL_USE_PANDA_ALLOC")
+ 

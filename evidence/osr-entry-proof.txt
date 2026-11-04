@@ -1,0 +1,18 @@
+(lldb) target create "/Users/wuhao/Projects/arkts-dart-bench/build/ark-source/bin/ark"
+Current executable set to '/Users/wuhao/Projects/arkts-dart-bench/build/ark-source/bin/ark' (arm64).
+(lldb) settings set target.disable-aslr false
+(lldb) settings set -- target.run-args --load-runtimes=ets --boot-panda-files=/Users/wuhao/Projects/arkts-dart-bench/build/ark-source/plugins/ets/etsstdlib.abc --interpreter-type=cpp --compiler-enable-jit=true --compiler-enable-osr=true --compiler-hotness-threshold=100 --compiler-profiling-threshold=50 '--compiler-regex=.*spin.*' /Users/wuhao/Projects/arkts-dart-bench/build/osr_smoke.abc osr_smoke.ETSGLOBAL::main
+(lldb) command script import /Users/wuhao/Projects/arkts-dart-bench/native/jit_proof.py
+(lldb) osr-proof
+Process 31788 exited with status = 9 (0x00000009) killed
+OSR_PREPARE_OBSERVED bc=0x0000000000000028
+OSR_STATE_RECONSTRUCTED entry=0x10094833c
+OSR_EXECUTION_PROVED entry=0x10094833c pc_after_instruction=0x100948340
+->  0x10094833c: stp    x29, x30, [x29, #-0x40]
+    0x100948340: mov    x19, #0x9680              ; =38528 
+    0x100948344: movk   x19, #0x98, lsl #16
+    0x100948348: ldr    d8, 0x100948368
+    0x10094834c: ldr    d9, 0x100948370
+    0x100948350: b      0x1009480c8
+    0x100948354: ldr    xzr, 0x100948378
+    0x100948358: <unknown>

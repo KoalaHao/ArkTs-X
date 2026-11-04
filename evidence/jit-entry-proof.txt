@@ -1,0 +1,17 @@
+(lldb) target create "/Users/wuhao/Projects/arkts-dart-bench/build/ark-source/bin/ark"
+Current executable set to '/Users/wuhao/Projects/arkts-dart-bench/build/ark-source/bin/ark' (arm64).
+(lldb) settings set target.disable-aslr false
+(lldb) settings set -- target.run-args --load-runtimes=ets --boot-panda-files=/Users/wuhao/Projects/arkts-dart-bench/build/ark-source/plugins/ets/etsstdlib.abc --interpreter-type=cpp --compiler-enable-jit=true --compiler-enable-osr=false --no-async-jit=true --compiler-hotness-threshold=0 --compiler-profiling-threshold=0 '--compiler-regex=.*numeric.*' /Users/wuhao/Projects/arkts-dart-bench/build/port_smoke.abc port_smoke.ETSGLOBAL::main
+(lldb) command script import /Users/wuhao/Projects/arkts-dart-bench/native/jit_proof.py
+(lldb) jit-proof
+Process 31781 exited with status = 9 (0x00000009) killed
+JIT_INSTALL_OBSERVED method=0x82f04b7b0 entry=0x104904010
+JIT_EXECUTION_PROVED entry=0x104904010 pc_after_instruction=0x104904014
+->  0x104904010: stp    x29, x30, [sp, #-0x10]!
+    0x104904014: mov    x29, sp
+    0x104904018: mov    x30, #0x2                 ; =2 
+    0x10490401c: stp    x30, x0, [sp, #-0x10]!
+    0x104904020: stp    x19, x20, [sp, #-0x40]
+    0x104904024: stp    d8, d9, [sp, #-0xa0]
+    0x104904028: stp    d10, d11, [sp, #-0x90]
+    0x10490402c: sub    sp, sp, #0x220

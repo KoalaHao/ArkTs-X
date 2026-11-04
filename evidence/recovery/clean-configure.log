@@ -1,0 +1,275 @@
+-- The CXX compiler identification is AppleClang 21.0.0.21000101
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/clang++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- CMAKE_BUILD_TYPE                       = Release
+-- PANDA_TARGET_MOBILE_WITH_MANAGED_LIBS  = 
+-- PANDA_TARGET_UNIX                      = 1
+-- PANDA_TARGET_LINUX                     = 
+-- PANDA_TARGET_MOBILE                    = 
+-- PANDA_USE_FUTEX                        = 
+-- PANDA_TARGET_WINDOWS                   = 
+-- PANDA_TARGET_OHOS                      = 
+-- PANDA_TARGET_MACOS                     = 1
+-- PANDA_CROSS_COMPILER                   = OFF
+-- PANDA_CROSS_AMD64_X86                  = 
+-- PANDA_TARGET_AMD64                     = 
+-- PANDA_TARGET_X86                       = 
+-- PANDA_TARGET_ARM64                     = 1
+-- PANDA_TARGET_ARM32                     = 
+-- PANDA_TARGET_64                        = 1
+-- PANDA_TARGET_32                        = 
+-- PANDA_TARGET_CPU_FEATURES              = 
+-- PANDA_ENABLE_GLOBAL_REGISTER_VARIABLES = 
+-- PANDA_ENABLE_LTO                       = 
+-- PANDA_WITH_RUNTIME                     = true
+-- PANDA_WITH_COMPILER                    = true
+-- PANDA_COMPILER_ENABLE                  = TRUE
+-- PANDA_WITH_TOOLCHAIN                   = true
+-- PANDA_WITH_TESTS                       = OFF
+-- PANDA_WITH_BENCHMARKS                  = OFF
+-- PANDA_WITH_BYTECODE_OPTIMIZER          = ON
+-- PANDA_PGO_INSTRUMENT                   = 
+-- PANDA_PGO_OPTIMIZE                     = 
+-- PANDA_PRODUCT_BUILD                    = ON
+-- PANDA_QEMU_BUILD                       = 
+-- PANDA_LLVM_BACKEND                     = OFF
+-- PANDA_LLVM_INTERPRETER                 = 
+-- PANDA_LLVM_FASTPATH                    = 
+-- PANDA_LLVM_AOT                         = 
+-- PANDA_ENABLE_CCACHE                    = OFF
+-- PANDA_ENABLE_DFX_MEMORY_CHECK          = OFF
+-- PANDA_ENABLE_HISYSEVENT                 = OFF
+-- PANDA_USE_CUSTOM_SIGNAL_STACK          = 1
+-- PANDA_USE_PREBUILT_TARGETS             = 
+-- CMAKE_NO_SYSTEM_FROM_IMPORTED          = 
+-- ES2PANDA_PATH                          = /Users/wuhao/Projects/arkts-macos/vendor/ets_frontend/ets2panda
+-- PANDA_32_BIT_MANAGED_POINTER           = 
+-- PANDA_ENABLE_THREAD_SANITIZER          = 
+CMake Warning at cmake/toolchain/coverage/unit_tests_lcov.cmake:24 (message):
+  ERROR: The lcov utility is required!
+
+  Install ways:
+
+  • script: static_core/scripts/install-deps-ubuntu -i=coverage-tools
+
+Call Stack (most recent call first):
+  cmake/toolchain/coverage/unit_tests_lcov.cmake:31 (check_required_program)
+  CMakeLists.txt:84 (include)
+
+
+CMake Warning at cmake/toolchain/coverage/unit_tests_lcov.cmake:24 (message):
+  ERROR: The genhtml utility is required!
+
+  Install ways:
+
+  • script: static_core/scripts/install-deps-ubuntu -i=coverage-tools
+
+Call Stack (most recent call first):
+  cmake/toolchain/coverage/unit_tests_lcov.cmake:32 (check_required_program)
+  CMakeLists.txt:84 (include)
+
+
+-- Full coverage will not be calculated (may be enabled by -DENABLE_UNIT_TESTS_FULL_COVERAGE=true ).
+-- PANDA_WITH_ETS = ON
+-- PANDA_CI_TESTING_MODE         = Default
+-- The C compiler identification is AppleClang 21.0.0.21000101
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/clang - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- The ASM compiler identification is AppleClang
+-- Found assembler: /usr/bin/clang
+cmd ['/Users/wuhao/Projects/arkts-macos/vendor/runtime_core/static_core/third_party/openssl/make_openssl_build_all_generated.sh', '/Users/wuhao/Projects/arkts-macos/vendor/runtime_core/static_core/third_party/openssl', '/Users/wuhao/Projects/arkts-macos/build/ark-source/third_party/openssl/generated', 'darwin64-arm64-cc'] start
+result.returncode = 0
+result.stdout = /Users/wuhao/Projects/arkts-macos/vendor/runtime_core/static_core
+~/Projects/arkts-macos/build/ark-source/third_party/openssl/generated/darwin64-arm64-cc ~/Projects/arkts-macos/vendor/runtime_core/static_core
+/Users/wuhao/Projects/arkts-macos/vendor/runtime_core/static_core/third_party/openssl/Configure darwin64-arm64-cc no-shared no-module no-filenames
+Configuring OpenSSL version 3.0.9 for target darwin64-arm64-cc
+Using os-specific seed configuration
+Created configdata.pm
+Running configdata.pm
+Created Makefile.in
+Created Makefile
+Created include/openssl/configuration.h
+
+**********************************************************************
+***                                                                ***
+***   OpenSSL has been successfully configured                     ***
+***                                                                ***
+***   If you encounter a problem while building, please open an    ***
+***   issue on GitHub <https://github.com/openssl/openssl/issues>  ***
+***   and include the output from the following command:           ***
+***                                                                ***
+***       perl configdata.pm --dump                                ***
+***                                                                ***
+***   (If you are new to OpenSSL, you might want to consult the    ***
+***   'Troubleshooting' section in the INSTALL.md file first)      ***
+***                                                                ***
+**********************************************************************
+~/Projects/arkts-macos/vendor/runtime_core/static_core
+
+cmd ['/Users/wuhao/Projects/arkts-macos/vendor/runtime_core/static_core/third_party/openssl/make_openssl_build_all_generated.sh', '/Users/wuhao/Projects/arkts-macos/vendor/runtime_core/static_core/third_party/openssl', '/Users/wuhao/Projects/arkts-macos/build/ark-source/third_party/openssl/generated', 'darwin64-arm64-cc'] ok
+CMake Warning at cmake/toolchain/coverage/unit_tests_lcov.cmake:24 (message):
+  ERROR: The lcov utility is required!
+
+  Install ways:
+
+  • script: static_core/scripts/install-deps-ubuntu -i=coverage-tools
+
+Call Stack (most recent call first):
+  cmake/toolchain/coverage/unit_tests_lcov.cmake:31 (check_required_program)
+  libarkbase/cmake/mm_coverage.cmake:17 (include)
+  libarkbase/CMakeLists.txt:18 (include)
+
+
+CMake Warning at cmake/toolchain/coverage/unit_tests_lcov.cmake:24 (message):
+  ERROR: The genhtml utility is required!
+
+  Install ways:
+
+  • script: static_core/scripts/install-deps-ubuntu -i=coverage-tools
+
+Call Stack (most recent call first):
+  cmake/toolchain/coverage/unit_tests_lcov.cmake:32 (check_required_program)
+  libarkbase/cmake/mm_coverage.cmake:17 (include)
+  libarkbase/CMakeLists.txt:18 (include)
+
+
+-- Coverage will not be calculated (may be enabled by -DENABLE_LIBPANDABASE_COVERAGE=true ).
+-- Found Git: /usr/bin/git (found version "2.50.1 (Apple Git-155)")
+-- Git found: /usr/bin/git
+-- Looking for gettid
+-- Looking for gettid - not found
+-- Looking for sys/types.h
+-- Looking for sys/types.h - found
+-- Looking for stdint.h
+-- Looking for stdint.h - found
+-- Looking for stddef.h
+-- Looking for stddef.h - found
+-- Check size of off64_t
+-- Check size of off64_t - failed
+-- Looking for fseeko
+-- Looking for fseeko - found
+-- Looking for unistd.h
+-- Looking for unistd.h - found
+CMake Warning at cmake/toolchain/coverage/unit_tests_lcov.cmake:24 (message):
+  ERROR: The lcov utility is required!
+
+  Install ways:
+
+  • script: static_core/scripts/install-deps-ubuntu -i=coverage-tools
+
+Call Stack (most recent call first):
+  cmake/toolchain/coverage/unit_tests_lcov.cmake:31 (check_required_program)
+  bytecode_optimizer/cmake/coverage.cmake:17 (include)
+  bytecode_optimizer/CMakeLists.txt:18 (include)
+
+
+CMake Warning at cmake/toolchain/coverage/unit_tests_lcov.cmake:24 (message):
+  ERROR: The genhtml utility is required!
+
+  Install ways:
+
+  • script: static_core/scripts/install-deps-ubuntu -i=coverage-tools
+
+Call Stack (most recent call first):
+  cmake/toolchain/coverage/unit_tests_lcov.cmake:32 (check_required_program)
+  bytecode_optimizer/cmake/coverage.cmake:17 (include)
+  bytecode_optimizer/CMakeLists.txt:18 (include)
+
+
+-- Coverage will not be calculated (may be enabled by -DENABLE_BYTECODE_OPTIMIZER_COVERAGE=true ).
+-- Generating cross-values for AARCH64
+--   Configuring subproject in /Users/wuhao/Projects/arkts-macos/build/ark-source/cross_values/auxiliary_panda_binary_dirs/AARCH64 via `execute_process()`
+--   Building `asm_defines` in /Users/wuhao/Projects/arkts-macos/build/ark-source/cross_values/auxiliary_panda_binary_dirs/AARCH64 via `execute_process()`
+-- Compiler backends status:
+-- PANDA_COMPILER_MULTI_TARGET = OFF
+-- PANDA_COMPILER_TARGET: X86=OFF X86_64=OFF AARCH32=OFF AARCH64=ON
+-- Encoder: Build aarch64 target
+CMake Warning at cmake/toolchain/coverage/unit_tests_lcov.cmake:24 (message):
+  ERROR: The lcov utility is required!
+
+  Install ways:
+
+  • script: static_core/scripts/install-deps-ubuntu -i=coverage-tools
+
+Call Stack (most recent call first):
+  cmake/toolchain/coverage/unit_tests_lcov.cmake:31 (check_required_program)
+  compiler/cmake/coverage.cmake:17 (include)
+  compiler/CMakeLists.txt:16 (include)
+
+
+CMake Warning at cmake/toolchain/coverage/unit_tests_lcov.cmake:24 (message):
+  ERROR: The genhtml utility is required!
+
+  Install ways:
+
+  • script: static_core/scripts/install-deps-ubuntu -i=coverage-tools
+
+Call Stack (most recent call first):
+  cmake/toolchain/coverage/unit_tests_lcov.cmake:32 (check_required_program)
+  compiler/cmake/coverage.cmake:17 (include)
+  compiler/CMakeLists.txt:16 (include)
+
+
+-- Coverage will not be calculated (may be enabled by -DENABLE_COMPILER_COVERAGE=true ).
+-- Compiler backends status:
+-- PANDA_COMPILER_MULTI_TARGET = OFF
+-- PANDA_COMPILER_TARGET: X86=OFF X86_64=OFF AARCH32=OFF AARCH64=ON
+-- Could NOT find Doxygen (missing: DOXYGEN_EXECUTABLE) 
+CMake Deprecation Warning at /Users/wuhao/Projects/arkts-macos/vendor/ets_frontend/ets2panda/CMakeLists.txt:14 (cmake_minimum_required):
+  Compatibility with CMake < 3.10 will be removed from a future version of
+  CMake.
+
+  Update the VERSION argument <min> value.  Or, use the <min>...<max> syntax
+  to tell CMake that the project requires at least <min> but has been updated
+  to work with policies introduced by <max> or earlier.
+
+
+CMake Warning at cmake/toolchain/coverage/unit_tests_lcov.cmake:24 (message):
+  ERROR: The lcov utility is required!
+
+  Install ways:
+
+  • script: static_core/scripts/install-deps-ubuntu -i=coverage-tools
+
+Call Stack (most recent call first):
+  cmake/toolchain/coverage/unit_tests_lcov.cmake:31 (check_required_program)
+  /Users/wuhao/Projects/arkts-macos/vendor/ets_frontend/ets2panda/cmake/coverage.cmake:16 (include)
+  /Users/wuhao/Projects/arkts-macos/vendor/ets_frontend/ets2panda/CMakeLists.txt:16 (include)
+
+
+CMake Warning at cmake/toolchain/coverage/unit_tests_lcov.cmake:24 (message):
+  ERROR: The genhtml utility is required!
+
+  Install ways:
+
+  • script: static_core/scripts/install-deps-ubuntu -i=coverage-tools
+
+Call Stack (most recent call first):
+  cmake/toolchain/coverage/unit_tests_lcov.cmake:32 (check_required_program)
+  /Users/wuhao/Projects/arkts-macos/vendor/ets_frontend/ets2panda/cmake/coverage.cmake:16 (include)
+  /Users/wuhao/Projects/arkts-macos/vendor/ets_frontend/ets2panda/CMakeLists.txt:16 (include)
+
+
+-- Coverage will not be calculated (may be enabled by -DENABLE_ES2PANDA_COVERAGE=true ).
+Generate /Users/wuhao/Projects/arkts-macos/build/ark-source/bin/arktsconfig.json (calulated 'baseUrl': ..)
+Generate /Users/wuhao/Projects/arkts-macos/build/ark-source/bin-gtests/arktsconfig.json (calulated 'baseUrl': ..)
+Generate /Users/wuhao/Projects/arkts-macos/build/ark-source/bin/arktsconfig.json (calulated 'baseUrl': ..)
+Generate /Users/wuhao/Projects/arkts-macos/build/ark-source/tools/es2panda/generated/arktsconfig.json (calulated 'baseUrl': ../../..)
+-- Found Python3: /opt/homebrew/Frameworks/Python.framework/Versions/3.11/bin/python3.11 (found version "3.11.5") found components: Interpreter
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Configuring Flatbuffers
+--   Building compiler (flatc) via `execute_process()`
+--   Generating schema for metadata via `execute_process()`
+-- eTS plugin is found
+-- Building ArkTS SDK
+-- Configuring done (63.5s)
+-- Generating done (0.6s)
+-- Build files have been written to: /Users/wuhao/Projects/arkts-macos/build/ark-source

@@ -1,0 +1,62 @@
+[
+  {
+    "mode": "dart-jit",
+    "case": "events_alloc_2k",
+    "samples": 9000,
+    "median_peak_rss_mib": 88.59375,
+    "p99_ms_median_of_processes": 0.036209,
+    "worst_tick_ms": 0.627458,
+    "ticks_above_0_25ms": 27,
+    "ticks_above_0_5ms": 3
+  },
+  {
+    "mode": "dart-jit",
+    "case": "events_pool_2k",
+    "samples": 9000,
+    "median_peak_rss_mib": 59.15625,
+    "p99_ms_median_of_processes": 0.022459,
+    "worst_tick_ms": 0.065875,
+    "ticks_above_0_25ms": 0,
+    "ticks_above_0_5ms": 0
+  },
+  {
+    "mode": "dart-aot",
+    "case": "events_alloc_2k",
+    "samples": 9000,
+    "median_peak_rss_mib": 49.296875,
+    "p99_ms_median_of_processes": 0.062,
+    "worst_tick_ms": 0.498292,
+    "ticks_above_0_25ms": 20,
+    "ticks_above_0_5ms": 0
+  },
+  {
+    "mode": "dart-aot",
+    "case": "events_pool_2k",
+    "samples": 9000,
+    "median_peak_rss_mib": 16.84375,
+    "p99_ms_median_of_processes": 0.036916,
+    "worst_tick_ms": 0.114458,
+    "ticks_above_0_25ms": 0,
+    "ticks_above_0_5ms": 0
+  },
+  {
+    "mode": "ark-jit",
+    "case": "events_alloc_2k",
+    "samples": 9000,
+    "median_peak_rss_mib": 29.171875,
+    "p99_ms_median_of_processes": 0.40504199999999996,
+    "worst_tick_ms": 0.6132909999999999,
+    "ticks_above_0_25ms": 297,
+    "ticks_above_0_5ms": 11
+  },
+  {
+    "mode": "ark-jit",
+    "case": "events_pool_2k",
+    "samples": 9000,
+    "median_peak_rss_mib": 21.828125,
+    "p99_ms_median_of_processes": 0.021124999999999998,
+    "worst_tick_ms": 0.053167,
+    "ticks_above_0_25ms": 0,
+    "ticks_above_0_5ms": 0
+  }
+]

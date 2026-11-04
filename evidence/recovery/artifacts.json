@@ -1,0 +1,14 @@
+{
+  "timestamp": "2026-11-04T13:22:10.518187+08:00",
+  "artifact_sha256": {
+    "build/ark-source/bin/ark": "f47f23885a041aa647e15415f2f1e5a16d7fe0a645d5184577961b06c339bf0b",
+    "build/ark-source/bin/es2panda_stdlib_compiler": "234310d30f8a3ff40d7e7f6f1e9f3beed5424a4a11eec48dc50cb58f01ce6610",
+    "build/ark-source/lib/libarkaotmanager.dylib": "e5486c40ada4b3f4bde59937b7f3b4cfb009ba33aa56f6d57d4e20b938902fb7",
+    "build/ark-source/lib/libarkbase.dylib": "4547b44b78301ac26e2fb3eeb4a9548b99c060c2f1b2bcdb7707a78274670e5b",
+    "build/ark-source/lib/libarkruntime.dylib": "2b3f5228f85bc8fee395131066fbe7555f7b7a8307a337a3ee53f25a2d3cdcc2",
+    "build/ark-source/lib/libarktarget_options.dylib": "d045f57431037a4c1fec38ddaf13467418ad1f66370dcad79a8345adb29add22",
+    "build/ark-source/lib/libirtoc.dylib": "090e9f92ba1a10e2a950f6cd1bbc358297e69c5449f47c77c0c13ab06324ee78",
+    "build/ark-source/plugins/ets/etsstdlib.abc": "5cc9908f925f4ec94349c69d66f988fdeefb91b0c518c23f217bd2d6bdd2e0a7"
+  },
+  "hello_output": "ARK_SMOKE_OK 42"
+}

@@ -1,0 +1,601 @@
+[TID 23868c] I/gc: [1] [FULL (OOM)] Nov 04 11:45:34.193 G1 GC freed 43KB, 0B LOS objects, 99% free, 274KB/32MB,  phase: COMMON_PAUSE paused: 215.500us total: 222.333us
+[TID 23868c] I/gc: Young freed 0 objects (43KB) Young moved 980 objects, 37344 bytes (36KB)
+[TID 23868c] I/gc: G1 GC 214.084us/216.250us
+[TID 23868c] I/gc:     Run Full GC 213.167us/215.250us
+[TID 23868c] I/gc:         FullMarking 81.125us/83.208us
+[TID 23868c] I/gc:             UnMark 1.791us/1.791us
+[TID 23868c] I/gc:             InitialMark 45.875us/45.791us
+[TID 23868c] I/gc:             OnPauseMark 22.792us/24.833us
+[TID 23868c] I/gc:                 VisitInternalStringTable 2.542us/2.542us
+[TID 23868c] I/gc:             SweepNonRegularVmRefs 1.000us/1.000us
+[TID 23868c] I/gc:             ProcessDirtyCards 3.958us/3.959us
+[TID 23868c] I/gc:         CollectEmptyRegions 13.500us/13.500us
+[TID 23868c] I/gc:             CollectNonRegularObjects 11.375us/11.375us
+[TID 23868c] I/gc:             ClearEmptyRegions 1.375us/1.334us
+[TID 23868c] I/gc:                 Region Invalidation 0.583us/0.584us
+[TID 23868c] I/gc:                 Reset regions 0.292us/0.292us
+[TID 23868c] I/gc:         BuildCrossYoungRemSets 18.458us/18.417us
+[TID 23868c] I/gc:         CollectAndMove 95.375us/95.375us
+[TID 23868c] I/gc:             CompactRegions 34.667us/34.625us
+[TID 23868c] I/gc:             UpdateRefsToMovedObjects 55.250us/55.250us
+[TID 23868c] I/gc:                 UpdateMovedObjectsReferences 11.542us/11.541us
+[TID 23868c] I/gc:                 CacheRefsFromRemsets 7.709us/7.708us
+[TID 23868c] I/gc:                 UpdateAndSweep 2.333us/2.458us
+[TID 23868c] I/gc:             ActualizeRemSets 0.917us/0.917us
+[TID 23868c] I/gc:             ResetRegions 0.166us/0.167us
+[TID 23868c] I/gc:             ClearMovedObjects 0.583us/0.542us
+[TID 23868c] I/gc:         Release Pages in Free Pools 1.417us/1.417us
+[TID 23868c] I/gc: 
+[TID 23868c] I/gc: [2] [YOUNG (Young)] Nov 04 11:45:34.208 G1 GC freed 4MB, 0B LOS objects, 99% free, 275KB/32MB,  phase: COMMON_PAUSE paused: 88.583us total: 99.958us
+[TID 23868c] I/gc: Young freed 0 objects (4MB) Young moved 34 objects, 1104 bytes (1KB)
+[TID 23868c] I/gc: G1 GC 89.250us/89.916us
+[TID 23868c] I/gc:     HandlePendingDirtyCards 0.959us/0.958us
+[TID 23868c] I/gc:     GetCollectibleRegions 0.625us/0.625us
+[TID 23868c] I/gc:     RunGC 74.250us/74.250us
+[TID 23868c] I/gc:         CollectInSinglePass 73.709us/73.708us
+[TID 23868c] I/gc:             MergeRemSet 0.708us/0.708us
+[TID 23868c] I/gc:             EvacuateCollectionSet 42.250us/42.250us
+[TID 23868c] I/gc:                 EvacuateNonHeapRoots 35.292us/35.250us
+[TID 23868c] I/gc:                 ScanRemset 1.833us/1.833us
+[TID 23868c] I/gc:                 EvacuateLiveObjects 2.000us/2.000us
+[TID 23868c] I/gc:             UpdateAndSweep 1.459us/1.416us
+[TID 23868c] I/gc:             HandleReferences 1.209us/1.208us
+[TID 23868c] I/gc:                 ProcessDirtyCards 0.542us/0.500us
+[TID 23868c] I/gc:             ActualizeRemSets 0.417us/0.416us
+[TID 23868c] I/gc:             ResetRegions 0.167us/0.167us
+[TID 23868c] I/gc:     ReenqueueDirtyCards 0.166us/0.167us
+[TID 23868c] I/gc: 
+[TID 23868c] I/gc: [3] [YOUNG (Young)] Nov 04 11:45:34.217 G1 GC freed 4MB, 0B LOS objects, 99% free, 275KB/32MB,  phase: COMMON_PAUSE paused: 72.666us total: 83.000us
+[TID 23868c] I/gc: Young freed 0 objects (4MB) Young moved 2 objects, 80 bytes (80B)
+[TID 23868c] I/gc: G1 GC 73.125us/73.708us
+[TID 23868c] I/gc:     HandlePendingDirtyCards 0.833us/0.875us
+[TID 23868c] I/gc:     GetCollectibleRegions 0.583us/0.584us
+[TID 23868c] I/gc:     RunGC 65.000us/65.000us
+[TID 23868c] I/gc:         CollectInSinglePass 64.333us/64.333us
+[TID 23868c] I/gc:             MergeRemSet 0.375us/0.375us
+[TID 23868c] I/gc:             EvacuateCollectionSet 36.458us/36.458us
+[TID 23868c] I/gc:                 EvacuateNonHeapRoots 33.959us/33.916us
+[TID 23868c] I/gc:                 ScanRemset 0.167us/0.166us
+[TID 23868c] I/gc:                 EvacuateLiveObjects 0.375us/0.375us
+[TID 23868c] I/gc:             UpdateAndSweep 1.375us/1.375us
+[TID 23868c] I/gc:             HandleReferences 0.959us/0.958us
+[TID 23868c] I/gc:                 ProcessDirtyCards 0.542us/0.541us
+[TID 23868c] I/gc:             ActualizeRemSets 0.209us/0.250us
+[TID 23868c] I/gc:             ResetRegions 0.166us/0.417us
+[TID 23868c] I/gc:     ReenqueueDirtyCards 0.208us/0.209us
+[TID 23868c] I/gc: 
+[TID 23868c] I/gc: [4] [YOUNG (Young)] Nov 04 11:45:34.228 G1 GC freed 4MB, 0B LOS objects, 99% free, 275KB/32MB,  phase: COMMON_PAUSE paused: 72.166us total: 79.833us
+[TID 23868c] I/gc: Young freed 0 objects (4MB) Young moved 2 objects, 80 bytes (80B)
+[TID 23868c] I/gc: G1 GC 72.750us/73.250us
+[TID 23868c] I/gc:     HandlePendingDirtyCards 0.917us/0.917us
+[TID 23868c] I/gc:     GetCollectibleRegions 0.542us/0.542us
+[TID 23868c] I/gc:     RunGC 65.334us/65.334us
+[TID 23868c] I/gc:         CollectInSinglePass 64.833us/64.833us
+[TID 23868c] I/gc:             MergeRemSet 0.292us/0.292us
+[TID 23868c] I/gc:             EvacuateCollectionSet 34.917us/34.917us
+[TID 23868c] I/gc:                 EvacuateNonHeapRoots 32.458us/32.416us
+[TID 23868c] I/gc:                 ScanRemset 0.166us/0.166us
+[TID 23868c] I/gc:                 EvacuateLiveObjects 0.375us/0.417us
+[TID 23868c] I/gc:             UpdateAndSweep 0.875us/0.875us
+[TID 23868c] I/gc:             HandleReferences 0.917us/0.917us
+[TID 23868c] I/gc:                 ProcessDirtyCards 0.500us/0.500us
+[TID 23868c] I/gc:             ActualizeRemSets 0.292us/0.292us
+[TID 23868c] I/gc:             ResetRegions 0.125us/0.167us
+[TID 23868c] I/gc:     ReenqueueDirtyCards 0.125us/0.125us
+[TID 23868c] I/gc: 
+[TID 23868c] I/gc: [5] [YOUNG (Young)] Nov 04 11:45:34.238 G1 GC freed 4MB, 0B LOS objects, 99% free, 275KB/32MB,  phase: COMMON_PAUSE paused: 76.167us total: 86.042us
+[TID 23868c] I/gc: Young freed 0 objects (4MB) Young moved 2 objects, 80 bytes (80B)
+[TID 23868c] I/gc: G1 GC 76.667us/77.417us
+[TID 23868c] I/gc:     HandlePendingDirtyCards 0.459us/0.458us
+[TID 23868c] I/gc:     GetCollectibleRegions 0.667us/0.667us
+[TID 23868c] I/gc:     RunGC 67.958us/67.958us
+[TID 23868c] I/gc:         CollectInSinglePass 67.417us/67.417us
+[TID 23868c] I/gc:             MergeRemSet 0.375us/0.334us
+[TID 23868c] I/gc:             EvacuateCollectionSet 37.625us/37.625us
+[TID 23868c] I/gc:                 EvacuateNonHeapRoots 34.709us/34.667us
+[TID 23868c] I/gc:                 ScanRemset 0.167us/0.167us
+[TID 23868c] I/gc:                 EvacuateLiveObjects 0.333us/0.334us
+[TID 23868c] I/gc:             UpdateAndSweep 1.042us/1.042us
+[TID 23868c] I/gc:             HandleReferences 0.917us/0.917us
+[TID 23868c] I/gc:                 ProcessDirtyCards 0.458us/0.417us
+[TID 23868c] I/gc:             ActualizeRemSets 0.291us/0.292us
+[TID 23868c] I/gc:             ResetRegions 0.167us/0.166us
+[TID 23868c] I/gc:     ReenqueueDirtyCards 0.167us/0.166us
+[TID 23868c] I/gc: 
+[TID 23868c] I/gc: [6] [YOUNG (Young)] Nov 04 11:45:34.249 G1 GC freed 4MB, 0B LOS objects, 99% free, 276KB/32MB,  phase: COMMON_PAUSE paused: 97.875us total: 107.833us
+[TID 23868c] I/gc: Young freed 0 objects (4MB) Young moved 2 objects, 80 bytes (80B)
+[TID 23868c] I/gc: G1 GC 98.542us/99.000us
+[TID 23868c] I/gc:     HandlePendingDirtyCards 0.542us/0.542us
+[TID 23868c] I/gc:     GetCollectibleRegions 0.709us/0.709us
+[TID 23868c] I/gc:     RunGC 79.834us/79.834us
+[TID 23868c] I/gc:         CollectInSinglePass 79.209us/79.209us
+[TID 23868c] I/gc:             MergeRemSet 0.375us/0.375us
+[TID 23868c] I/gc:             EvacuateCollectionSet 41.041us/41.125us
+[TID 23868c] I/gc:                 EvacuateNonHeapRoots 38.375us/38.292us
+[TID 23868c] I/gc:                 ScanRemset 0.166us/0.166us
+[TID 23868c] I/gc:                 EvacuateLiveObjects 0.375us/0.375us
+[TID 23868c] I/gc:             UpdateAndSweep 1.167us/1.167us
+[TID 23868c] I/gc:             HandleReferences 0.917us/0.917us
+[TID 23868c] I/gc:                 ProcessDirtyCards 0.458us/0.458us
+[TID 23868c] I/gc:             ActualizeRemSets 0.375us/0.375us
+[TID 23868c] I/gc:             ResetRegions 0.167us/0.167us
+[TID 23868c] I/gc:     ReenqueueDirtyCards 0.209us/0.209us
+[TID 23868c] I/gc: 
+[TID 23868c] I/gc: [7] [YOUNG (Young)] Nov 04 11:45:34.261 G1 GC freed 4MB, 0B LOS objects, 99% free, 276KB/32MB,  phase: COMMON_PAUSE paused: 78.042us total: 88.292us
+[TID 23868c] I/gc: Young freed 0 objects (4MB) Young moved 2 objects, 80 bytes (80B)
+[TID 23868c] I/gc: G1 GC 78.708us/79.542us
+[TID 23868c] I/gc:     HandlePendingDirtyCards 1.083us/1.083us
+[TID 23868c] I/gc:     GetCollectibleRegions 0.750us/0.750us
+[TID 23868c] I/gc:     RunGC 69.375us/69.333us
+[TID 23868c] I/gc:         CollectInSinglePass 68.834us/68.834us
+[TID 23868c] I/gc:             MergeRemSet 0.333us/0.333us
+[TID 23868c] I/gc:             EvacuateCollectionSet 38.500us/38.500us
+[TID 23868c] I/gc:                 EvacuateNonHeapRoots 35.042us/35.000us
+[TID 23868c] I/gc:                 ScanRemset 0.166us/0.125us
+[TID 23868c] I/gc:                 EvacuateLiveObjects 0.417us/0.416us
+[TID 23868c] I/gc:             UpdateAndSweep 1.541us/1.541us
+[TID 23868c] I/gc:             HandleReferences 1.083us/1.083us
+[TID 23868c] I/gc:                 ProcessDirtyCards 0.458us/0.458us
+[TID 23868c] I/gc:             ActualizeRemSets 0.333us/0.333us
+[TID 23868c] I/gc:             ResetRegions 0.167us/0.167us
+[TID 23868c] I/gc:     ReenqueueDirtyCards 0.166us/0.166us
+[TID 23868c] I/gc: 
+[TID 23868c] I/gc: [8] [FULL (OOM)] Nov 04 11:45:34.268 G1 GC freed 2MB, 0B LOS objects, 99% free, 275KB/32MB,  phase: COMMON_PAUSE paused: 337.958us total: 346.250us
+[TID 23868c] I/gc: Young freed 0 objects (2MB) Young moved 1 objects, 24 bytes (24B) Tenured freed 504(504B)
+[TID 23868c] I/gc: G1 GC 319.459us/338.959us
+[TID 23868c] I/gc:     Run Full GC 318.375us/337.500us
+[TID 23868c] I/gc:         FullMarking 100.750us/113.333us
+[TID 23868c] I/gc:             UnMark 4.333us/4.333us
+[TID 23868c] I/gc:             InitialMark 46.750us/46.459us
+[TID 23868c] I/gc:             OnPauseMark 42.625us/55.000us
+[TID 23868c] I/gc:                 VisitInternalStringTable 2.750us/2.958us
+[TID 23868c] I/gc:             SweepNonRegularVmRefs 0.667us/0.708us
+[TID 23868c] I/gc:             ProcessDirtyCards 0.750us/0.750us
+[TID 23868c] I/gc:         CollectEmptyRegions 10.708us/10.708us
+[TID 23868c] I/gc:             CollectNonRegularObjects 8.625us/8.625us
+[TID 23868c] I/gc:             ClearEmptyRegions 1.625us/1.625us
+[TID 23868c] I/gc:                 Region Invalidation 0.917us/0.916us
+[TID 23868c] I/gc:                 Reset regions 0.292us/0.292us
+[TID 23868c] I/gc:         BuildCrossYoungRemSets 10.416us/10.417us
+[TID 23868c] I/gc:         CollectAndMove 94.625us/94.625us
+[TID 23868c] I/gc:             CompactRegions 38.542us/38.375us
+[TID 23868c] I/gc:             UpdateRefsToMovedObjects 51.083us/51.084us
+[TID 23868c] I/gc:                 UpdateMovedObjectsReferences 10.917us/10.917us
+[TID 23868c] I/gc:                 CacheRefsFromRemsets 7.959us/7.958us
+[TID 23868c] I/gc:                 UpdateAndSweep 0.667us/0.708us
+[TID 23868c] I/gc:             ActualizeRemSets 1.125us/1.125us
+[TID 23868c] I/gc:             ResetRegions 1.667us/1.666us
+[TID 23868c] I/gc:             ClearMovedObjects 0.375us/0.375us
+[TID 23868c] I/gc:         HandleReferences 0.875us/0.875us
+[TID 23868c] I/gc:             ProcessDirtyCards 0.417us/0.417us
+[TID 23868c] I/gc:         CollectAndMove 94.542us/101.083us
+[TID 23868c] I/gc:             CompactRegions 21.375us/27.791us
+[TID 23868c] I/gc:             UpdateRefsToMovedObjects 41.334us/41.334us
+[TID 23868c] I/gc:                 UpdateMovedObjectsReferences 0.417us/0.417us
+[TID 23868c] I/gc:                 CacheRefsFromRemsets 1.208us/1.208us
+[TID 23868c] I/gc:                 UpdateAndSweep 1.500us/1.542us
+[TID 23868c] I/gc:             ActualizeRemSets 5.875us/5.917us
+[TID 23868c] I/gc:             ResetRegions 0.166us/0.166us
+[TID 23868c] I/gc:             ClearMovedObjects 3.166us/3.166us
+[TID 23868c] I/gc:         Release Pages in Free Pools 2.125us/2.167us
+[TID 23868c] I/gc: 
+[TID 23868c] I/gc: [9] [YOUNG (Young)] Nov 04 11:45:34.277 G1 GC freed 4MB, 0B LOS objects, 99% free, 275KB/32MB,  phase: COMMON_PAUSE paused: 75.042us total: 85.375us
+[TID 23868c] I/gc: Young freed 0 objects (4MB) Young moved 2 objects, 80 bytes (80B)
+[TID 23868c] I/gc: G1 GC 75.375us/75.750us
+[TID 23868c] I/gc:     HandlePendingDirtyCards 0.917us/0.917us
+[TID 23868c] I/gc:     GetCollectibleRegions 0.500us/0.500us
+[TID 23868c] I/gc:     RunGC 69.125us/69.125us
+[TID 23868c] I/gc:         CollectInSinglePass 68.625us/68.625us
+[TID 23868c] I/gc:             MergeRemSet 0.291us/0.291us
+[TID 23868c] I/gc:             EvacuateCollectionSet 43.917us/43.917us
+[TID 23868c] I/gc:                 EvacuateNonHeapRoots 41.708us/41.667us
+[TID 23868c] I/gc:                 ScanRemset 0.167us/0.167us
+[TID 23868c] I/gc:                 EvacuateLiveObjects 0.292us/0.334us
+[TID 23868c] I/gc:             UpdateAndSweep 0.791us/0.791us
+[TID 23868c] I/gc:             HandleReferences 0.708us/0.708us
+[TID 23868c] I/gc:                 ProcessDirtyCards 0.333us/0.333us
+[TID 23868c] I/gc:             ActualizeRemSets 0.292us/0.292us
+[TID 23868c] I/gc:             ResetRegions 0.167us/0.167us
+[TID 23868c] I/gc:     ReenqueueDirtyCards 0.166us/0.166us
+[TID 23868c] I/gc: 
+[TID 23868c] I/gc: [10] [YOUNG (Young)] Nov 04 11:45:34.288 G1 GC freed 4MB, 0B LOS objects, 99% free, 278KB/32MB,  phase: COMMON_PAUSE paused: 99.292us total: 109.541us
+[TID 23868c] I/gc: Young freed 0 objects (4MB) Young moved 2 objects, 80 bytes (80B)
+[TID 23868c] I/gc: G1 GC 99.917us/100.583us
+[TID 23868c] I/gc:     HandlePendingDirtyCards 0.542us/0.584us
+[TID 23868c] I/gc:     GetCollectibleRegions 0.709us/0.708us
+[TID 23868c] I/gc:     RunGC 89.083us/89.084us
+[TID 23868c] I/gc:         CollectInSinglePass 88.625us/88.625us
+[TID 23868c] I/gc:             MergeRemSet 0.375us/0.375us
+[TID 23868c] I/gc:             EvacuateCollectionSet 48.000us/48.042us
+[TID 23868c] I/gc:                 EvacuateNonHeapRoots 44.500us/44.459us
+[TID 23868c] I/gc:                 ScanRemset 0.208us/0.167us
+[TID 23868c] I/gc:                 EvacuateLiveObjects 0.875us/0.875us
+[TID 23868c] I/gc:             UpdateAndSweep 1.250us/1.250us
+[TID 23868c] I/gc:             HandleReferences 1.333us/1.334us
+[TID 23868c] I/gc:                 ProcessDirtyCards 0.583us/0.584us
+[TID 23868c] I/gc:             ActualizeRemSets 0.333us/0.334us
+[TID 23868c] I/gc:             ResetRegions 0.166us/0.167us
+[TID 23868c] I/gc:     ReenqueueDirtyCards 0.167us/0.167us
+[TID 23868c] I/gc: 
+[TID 23868c] I/gc: [11] [YOUNG (Young)] Nov 04 11:45:34.298 G1 GC freed 4MB, 0B LOS objects, 99% free, 278KB/32MB,  phase: COMMON_PAUSE paused: 70.708us total: 76.833us
+[TID 23868c] I/gc: Young freed 0 objects (4MB) Young moved 2 objects, 80 bytes (80B)
+[TID 23868c] I/gc: G1 GC 71.208us/71.541us
+[TID 23868c] I/gc:     HandlePendingDirtyCards 0.458us/0.500us
+[TID 23868c] I/gc:     GetCollectibleRegions 0.625us/0.625us
+[TID 23868c] I/gc:     RunGC 64.792us/64.834us
+[TID 23868c] I/gc:         CollectInSinglePass 64.333us/64.333us
+[TID 23868c] I/gc:             MergeRemSet 0.250us/0.250us
+[TID 23868c] I/gc:             EvacuateCollectionSet 35.625us/35.625us
+[TID 23868c] I/gc:                 EvacuateNonHeapRoots 33.167us/33.083us
+[TID 23868c] I/gc:                 ScanRemset 0.166us/0.166us
+[TID 23868c] I/gc:                 EvacuateLiveObjects 0.292us/0.292us
+[TID 23868c] I/gc:             UpdateAndSweep 1.125us/1.125us
+[TID 23868c] I/gc:             HandleReferences 1.000us/1.042us
+[TID 23868c] I/gc:                 ProcessDirtyCards 0.417us/0.417us
+[TID 23868c] I/gc:             ActualizeRemSets 0.250us/0.291us
+[TID 23868c] I/gc:             ResetRegions 0.167us/0.167us
+[TID 23868c] I/gc:     ReenqueueDirtyCards 0.167us/0.167us
+[TID 23868c] I/gc: 
+[TID 23868c] I/gc: [12] [YOUNG (Young)] Nov 04 11:45:34.308 G1 GC freed 4MB, 0B LOS objects, 99% free, 278KB/32MB,  phase: COMMON_PAUSE paused: 71.459us total: 80.375us
+[TID 23868c] I/gc: Young freed 0 objects (4MB) Young moved 2 objects, 80 bytes (80B)
+[TID 23868c] I/gc: G1 GC 72.000us/72.625us
+[TID 23868c] I/gc:     HandlePendingDirtyCards 1.000us/0.959us
+[TID 23868c] I/gc:     GetCollectibleRegions 0.459us/0.459us
+[TID 23868c] I/gc:     RunGC 64.917us/64.917us
+[TID 23868c] I/gc:         CollectInSinglePass 64.458us/64.458us
+[TID 23868c] I/gc:             MergeRemSet 0.292us/0.292us
+[TID 23868c] I/gc:             EvacuateCollectionSet 36.458us/36.500us
+[TID 23868c] I/gc:                 EvacuateNonHeapRoots 33.416us/33.375us
+[TID 23868c] I/gc:                 ScanRemset 0.167us/0.125us
+[TID 23868c] I/gc:                 EvacuateLiveObjects 0.375us/0.375us
+[TID 23868c] I/gc:             UpdateAndSweep 1.375us/1.416us
+[TID 23868c] I/gc:             HandleReferences 0.917us/0.917us
+[TID 23868c] I/gc:                 ProcessDirtyCards 0.333us/0.375us
+[TID 23868c] I/gc:             ActualizeRemSets 0.334us/0.334us
+[TID 23868c] I/gc:             ResetRegions 0.125us/0.167us
+[TID 23868c] I/gc:     ReenqueueDirtyCards 0.125us/0.125us
+[TID 23868c] I/gc: 
+[TID 23868c] I/gc: [13] [YOUNG (Young)] Nov 04 11:45:34.319 G1 GC freed 4MB, 0B LOS objects, 99% free, 278KB/32MB,  phase: COMMON_PAUSE paused: 67.958us total: 75.334us
+[TID 23868c] I/gc: Young freed 0 objects (4MB) Young moved 2 objects, 80 bytes (80B)
+[TID 23868c] I/gc: G1 GC 68.417us/69.000us
+[TID 23868c] I/gc:     HandlePendingDirtyCards 0.875us/0.916us
+[TID 23868c] I/gc:     GetCollectibleRegions 0.500us/0.458us
+[TID 23868c] I/gc:     RunGC 61.125us/61.125us
+[TID 23868c] I/gc:         CollectInSinglePass 60.625us/60.625us
+[TID 23868c] I/gc:             MergeRemSet 0.292us/0.292us
+[TID 23868c] I/gc:             EvacuateCollectionSet 34.166us/34.167us
+[TID 23868c] I/gc:                 EvacuateNonHeapRoots 32.041us/31.958us
+[TID 23868c] I/gc:                 ScanRemset 0.167us/0.125us
+[TID 23868c] I/gc:                 EvacuateLiveObjects 0.334us/0.375us
+[TID 23868c] I/gc:             UpdateAndSweep 0.792us/0.791us
+[TID 23868c] I/gc:             HandleReferences 0.792us/0.791us
+[TID 23868c] I/gc:                 ProcessDirtyCards 0.292us/0.292us
+[TID 23868c] I/gc:             ActualizeRemSets 0.250us/0.250us
+[TID 23868c] I/gc:             ResetRegions 0.125us/0.208us
+[TID 23868c] I/gc:     ReenqueueDirtyCards 0.167us/0.166us
+[TID 23868c] I/gc: 
+[TID 23868c] I/gc: [14] [YOUNG (Young)] Nov 04 11:45:34.330 G1 GC freed 4MB, 0B LOS objects, 99% free, 278KB/32MB,  phase: COMMON_PAUSE paused: 80.667us total: 92.917us
+[TID 23868c] I/gc: Young freed 0 objects (4MB) Young moved 2 objects, 80 bytes (80B)
+[TID 23868c] I/gc: G1 GC 81.333us/81.875us
+[TID 23868c] I/gc:     HandlePendingDirtyCards 0.459us/0.458us
+[TID 23868c] I/gc:     GetCollectibleRegions 0.542us/0.542us
+[TID 23868c] I/gc:     RunGC 75.083us/75.083us
+[TID 23868c] I/gc:         CollectInSinglePass 74.583us/74.584us
+[TID 23868c] I/gc:             MergeRemSet 0.291us/0.292us
+[TID 23868c] I/gc:             EvacuateCollectionSet 36.083us/36.125us
+[TID 23868c] I/gc:                 EvacuateNonHeapRoots 33.292us/33.250us
+[TID 23868c] I/gc:                 ScanRemset 0.167us/0.167us
+[TID 23868c] I/gc:                 EvacuateLiveObjects 0.333us/0.334us
+[TID 23868c] I/gc:             UpdateAndSweep 1.083us/1.083us
+[TID 23868c] I/gc:             HandleReferences 0.917us/0.917us
+[TID 23868c] I/gc:                 ProcessDirtyCards 0.375us/0.375us
+[TID 23868c] I/gc:             ActualizeRemSets 0.291us/0.292us
+[TID 23868c] I/gc:             ResetRegions 0.166us/0.167us
+[TID 23868c] I/gc:     ReenqueueDirtyCards 0.125us/0.125us
+[TID 23868c] I/gc: 
+[TID 23868c] I/gc: [15] [FULL (OOM)] Nov 04 11:45:34.337 G1 GC freed 2MB, 0B LOS objects, 99% free, 278KB/32MB,  phase: COMMON_PAUSE paused: 327.750us total: 334.708us
+[TID 23868c] I/gc: Young freed 0 objects (2MB) Young moved 1 objects, 24 bytes (24B) Tenured freed 504(504B)
+[TID 23868c] I/gc: G1 GC 295.250us/328.834us
+[TID 23868c] I/gc:     Run Full GC 294.375us/327.375us
+[TID 23868c] I/gc:         FullMarking 96.917us/121.959us
+[TID 23868c] I/gc:             UnMark 7.208us/7.208us
+[TID 23868c] I/gc:             InitialMark 55.833us/55.791us
+[TID 23868c] I/gc:             OnPauseMark 27.167us/52.209us
+[TID 23868c] I/gc:                 VisitInternalStringTable 2.291us/2.333us
+[TID 23868c] I/gc:             SweepNonRegularVmRefs 1.083us/1.083us
+[TID 23868c] I/gc:             ProcessDirtyCards 0.958us/1.000us
+[TID 23868c] I/gc:         CollectEmptyRegions 11.458us/11.458us
+[TID 23868c] I/gc:             CollectNonRegularObjects 8.958us/8.917us
+[TID 23868c] I/gc:             ClearEmptyRegions 2.042us/2.041us
+[TID 23868c] I/gc:                 Region Invalidation 1.250us/1.250us
+[TID 23868c] I/gc:                 Reset regions 0.292us/0.292us
+[TID 23868c] I/gc:         BuildCrossYoungRemSets 6.583us/6.583us
+[TID 23868c] I/gc:         CollectAndMove 94.167us/94.167us
+[TID 23868c] I/gc:             CompactRegions 36.292us/36.291us
+[TID 23868c] I/gc:             UpdateRefsToMovedObjects 53.250us/53.250us
+[TID 23868c] I/gc:                 UpdateMovedObjectsReferences 10.958us/11.042us
+[TID 23868c] I/gc:                 CacheRefsFromRemsets 9.791us/9.792us
+[TID 23868c] I/gc:                 UpdateAndSweep 0.791us/0.833us
+[TID 23868c] I/gc:             ActualizeRemSets 1.000us/1.000us
+[TID 23868c] I/gc:             ResetRegions 1.708us/1.708us
+[TID 23868c] I/gc:             ClearMovedObjects 0.333us/0.333us
+[TID 23868c] I/gc:         HandleReferences 0.791us/0.792us
+[TID 23868c] I/gc:             ProcessDirtyCards 0.291us/0.292us
+[TID 23868c] I/gc:         CollectAndMove 72.416us/80.500us
+[TID 23868c] I/gc:             CompactRegions 14.083us/14.041us
+[TID 23868c] I/gc:             UpdateRefsToMovedObjects 40.125us/48.083us
+[TID 23868c] I/gc:                 UpdateMovedObjectsReferences 0.208us/0.208us
+[TID 23868c] I/gc:                 CacheRefsFromRemsets 0.334us/0.333us
+[TID 23868c] I/gc:                 UpdateAndSweep 1.125us/1.417us
+[TID 23868c] I/gc:             ActualizeRemSets 1.500us/1.500us
+[TID 23868c] I/gc:             ResetRegions 0.167us/0.167us
+[TID 23868c] I/gc:             ClearMovedObjects 1.333us/1.333us
+[TID 23868c] I/gc:         Release Pages in Free Pools 7.375us/7.375us
+[TID 23868c] I/gc: 
+[TID 23868c] I/gc: [16] [YOUNG (Young)] Nov 04 11:45:34.347 G1 GC freed 4MB, 0B LOS objects, 99% free, 278KB/32MB,  phase: COMMON_PAUSE paused: 86.292us total: 96.750us
+[TID 23868c] I/gc: Young freed 0 objects (4MB) Young moved 2 objects, 80 bytes (80B)
+[TID 23868c] I/gc: G1 GC 86.834us/87.417us
+[TID 23868c] I/gc:     HandlePendingDirtyCards 0.583us/0.625us
+[TID 23868c] I/gc:     GetCollectibleRegions 0.583us/0.583us
+[TID 23868c] I/gc:     RunGC 78.292us/78.334us
+[TID 23868c] I/gc:         CollectInSinglePass 77.750us/77.750us
+[TID 23868c] I/gc:             MergeRemSet 0.250us/0.250us
+[TID 23868c] I/gc:             EvacuateCollectionSet 42.417us/42.417us
+[TID 23868c] I/gc:                 EvacuateNonHeapRoots 38.959us/38.917us
+[TID 23868c] I/gc:                 ScanRemset 0.125us/0.125us
+[TID 23868c] I/gc:                 EvacuateLiveObjects 0.958us/0.958us
+[TID 23868c] I/gc:             UpdateAndSweep 1.417us/1.417us
+[TID 23868c] I/gc:             HandleReferences 1.208us/1.208us
+[TID 23868c] I/gc:                 ProcessDirtyCards 0.458us/0.458us
+[TID 23868c] I/gc:             ActualizeRemSets 0.250us/0.250us
+[TID 23868c] I/gc:             ResetRegions 0.125us/0.167us
+[TID 23868c] I/gc:     ReenqueueDirtyCards 0.167us/0.167us
+[TID 23868c] I/gc: 
+[TID 23868c] I/gc: [17] [YOUNG (Young)] Nov 04 11:45:34.357 G1 GC freed 4MB, 0B LOS objects, 99% free, 278KB/32MB,  phase: COMMON_PAUSE paused: 97.792us total: 108.042us
+[TID 23868c] I/gc: Young freed 0 objects (4MB) Young moved 2 objects, 80 bytes (80B)
+[TID 23868c] I/gc: G1 GC 98.375us/101.333us
+[TID 23868c] I/gc:     HandlePendingDirtyCards 0.625us/0.583us
+[TID 23868c] I/gc:     GetCollectibleRegions 0.625us/0.625us
+[TID 23868c] I/gc:     RunGC 88.791us/88.792us
+[TID 23868c] I/gc:         CollectInSinglePass 88.292us/88.292us
+[TID 23868c] I/gc:             MergeRemSet 0.291us/0.292us
+[TID 23868c] I/gc:             EvacuateCollectionSet 45.125us/45.167us
+[TID 23868c] I/gc:                 EvacuateNonHeapRoots 41.750us/41.708us
+[TID 23868c] I/gc:                 ScanRemset 0.167us/0.166us
+[TID 23868c] I/gc:                 EvacuateLiveObjects 0.417us/0.416us
+[TID 23868c] I/gc:             UpdateAndSweep 1.291us/1.292us
+[TID 23868c] I/gc:             HandleReferences 1.167us/1.166us
+[TID 23868c] I/gc:                 ProcessDirtyCards 0.334us/0.333us
+[TID 23868c] I/gc:             ActualizeRemSets 0.334us/0.333us
+[TID 23868c] I/gc:             ResetRegions 0.166us/0.167us
+[TID 23868c] I/gc:     ReenqueueDirtyCards 0.167us/0.166us
+[TID 23868c] I/gc: 
+[TID 23868c] I/gc: [18] [YOUNG (Young)] Nov 04 11:45:34.368 G1 GC freed 4MB, 0B LOS objects, 99% free, 278KB/32MB,  phase: COMMON_PAUSE paused: 82.291us total: 95.250us
+[TID 23868c] I/gc: Young freed 0 objects (4MB) Young moved 2 objects, 80 bytes (80B)
+[TID 23868c] I/gc: G1 GC 83.000us/84.000us
+[TID 23868c] I/gc:     HandlePendingDirtyCards 1.167us/1.167us
+[TID 23868c] I/gc:     GetCollectibleRegions 0.666us/0.625us
+[TID 23868c] I/gc:     RunGC 68.084us/68.083us
+[TID 23868c] I/gc:         CollectInSinglePass 67.541us/67.542us
+[TID 23868c] I/gc:             MergeRemSet 0.500us/0.500us
+[TID 23868c] I/gc:             EvacuateCollectionSet 38.166us/38.167us
+[TID 23868c] I/gc:                 EvacuateNonHeapRoots 34.958us/34.916us
+[TID 23868c] I/gc:                 ScanRemset 0.167us/0.166us
+[TID 23868c] I/gc:                 EvacuateLiveObjects 0.375us/0.375us
+[TID 23868c] I/gc:             UpdateAndSweep 1.333us/1.333us
+[TID 23868c] I/gc:             HandleReferences 0.875us/0.875us
+[TID 23868c] I/gc:                 ProcessDirtyCards 0.417us/0.417us
+[TID 23868c] I/gc:             ActualizeRemSets 0.291us/0.292us
+[TID 23868c] I/gc:             ResetRegions 0.167us/0.167us
+[TID 23868c] I/gc:     ReenqueueDirtyCards 0.292us/0.292us
+[TID 23868c] I/gc: 
+[TID 23868c] I/gc: [19] [YOUNG (Young)] Nov 04 11:45:34.378 G1 GC freed 4MB, 0B LOS objects, 99% free, 278KB/32MB,  phase: COMMON_PAUSE paused: 94.084us total: 105.292us
+[TID 23868c] I/gc: Young freed 0 objects (4MB) Young moved 2 objects, 80 bytes (80B)
+[TID 23868c] I/gc: G1 GC 94.792us/95.542us
+[TID 23868c] I/gc:     HandlePendingDirtyCards 0.500us/0.500us
+[TID 23868c] I/gc:     GetCollectibleRegions 0.625us/0.625us
+[TID 23868c] I/gc:     RunGC 82.000us/82.042us
+[TID 23868c] I/gc:         CollectInSinglePass 81.458us/81.459us
+[TID 23868c] I/gc:             MergeRemSet 0.375us/0.375us
+[TID 23868c] I/gc:             EvacuateCollectionSet 43.542us/43.750us
+[TID 23868c] I/gc:                 EvacuateNonHeapRoots 40.625us/40.542us
+[TID 23868c] I/gc:                 ScanRemset 0.209us/0.167us
+[TID 23868c] I/gc:                 EvacuateLiveObjects 0.459us/0.458us
+[TID 23868c] I/gc:             UpdateAndSweep 1.166us/1.167us
+[TID 23868c] I/gc:             HandleReferences 1.000us/1.000us
+[TID 23868c] I/gc:                 ProcessDirtyCards 0.291us/0.292us
+[TID 23868c] I/gc:             ActualizeRemSets 0.250us/0.250us
+[TID 23868c] I/gc:             ResetRegions 0.125us/0.167us
+[TID 23868c] I/gc:     ReenqueueDirtyCards 0.166us/0.167us
+[TID 23868c] I/gc: 
+[TID 23868c] I/gc: [20] [YOUNG (Young)] Nov 04 11:45:34.389 G1 GC freed 4MB, 0B LOS objects, 99% free, 278KB/32MB,  phase: COMMON_PAUSE paused: 89.333us total: 102.833us
+[TID 23868c] I/gc: Young freed 0 objects (4MB) Young moved 2 objects, 80 bytes (80B)
+[TID 23868c] I/gc: G1 GC 89.875us/92.958us
+[TID 23868c] I/gc:     HandlePendingDirtyCards 0.500us/0.459us
+[TID 23868c] I/gc:     GetCollectibleRegions 0.666us/0.667us
+[TID 23868c] I/gc:     RunGC 77.208us/77.333us
+[TID 23868c] I/gc:         CollectInSinglePass 76.709us/76.708us
+[TID 23868c] I/gc:             MergeRemSet 0.375us/0.375us
+[TID 23868c] I/gc:             EvacuateCollectionSet 37.583us/37.583us
+[TID 23868c] I/gc:                 EvacuateNonHeapRoots 34.292us/34.208us
+[TID 23868c] I/gc:                 ScanRemset 0.250us/0.125us
+[TID 23868c] I/gc:                 EvacuateLiveObjects 0.458us/0.458us
+[TID 23868c] I/gc:             UpdateAndSweep 1.375us/1.333us
+[TID 23868c] I/gc:             HandleReferences 1.292us/1.292us
+[TID 23868c] I/gc:                 ProcessDirtyCards 0.500us/0.500us
+[TID 23868c] I/gc:             ActualizeRemSets 0.334us/0.333us
+[TID 23868c] I/gc:             ResetRegions 0.125us/0.125us
+[TID 23868c] I/gc:     ReenqueueDirtyCards 0.166us/0.167us
+[TID 23868c] I/gc: 
+[TID 23868c] I/gc: [21] [YOUNG (Young)] Nov 04 11:45:34.400 G1 GC freed 4MB, 0B LOS objects, 99% free, 278KB/32MB,  phase: COMMON_PAUSE paused: 77.542us total: 85.292us
+[TID 23868c] I/gc: Young freed 0 objects (4MB) Young moved 2 objects, 80 bytes (80B)
+[TID 23868c] I/gc: G1 GC 78.000us/78.334us
+[TID 23868c] I/gc:     HandlePendingDirtyCards 1.000us/1.000us
+[TID 23868c] I/gc:     GetCollectibleRegions 0.709us/0.709us
+[TID 23868c] I/gc:     RunGC 66.125us/66.125us
+[TID 23868c] I/gc:         CollectInSinglePass 65.583us/65.583us
+[TID 23868c] I/gc:             MergeRemSet 0.292us/0.292us
+[TID 23868c] I/gc:             EvacuateCollectionSet 38.750us/38.792us
+[TID 23868c] I/gc:                 EvacuateNonHeapRoots 36.208us/36.167us
+[TID 23868c] I/gc:                 ScanRemset 0.167us/0.167us
+[TID 23868c] I/gc:                 EvacuateLiveObjects 0.334us/0.334us
+[TID 23868c] I/gc:             UpdateAndSweep 0.875us/0.875us
+[TID 23868c] I/gc:             HandleReferences 0.875us/0.875us
+[TID 23868c] I/gc:                 ProcessDirtyCards 0.417us/0.417us
+[TID 23868c] I/gc:             ActualizeRemSets 0.250us/0.208us
+[TID 23868c] I/gc:             ResetRegions 0.167us/0.167us
+[TID 23868c] I/gc:     ReenqueueDirtyCards 0.167us/0.167us
+[TID 23868c] I/gc: 
+[TID 23868c] I/gc: [22] [FULL (OOM)] Nov 04 11:45:34.406 G1 GC freed 2MB, 0B LOS objects, 99% free, 278KB/32MB,  phase: COMMON_PAUSE paused: 297.916us total: 302.667us
+[TID 23868c] I/gc: Young freed 0 objects (2MB) Young moved 1 objects, 24 bytes (24B) Tenured freed 504(504B)
+[TID 23868c] I/gc: G1 GC 290.417us/298.458us
+[TID 23868c] I/gc:     Run Full GC 289.583us/297.500us
+[TID 23868c] I/gc:         FullMarking 94.667us/102.583us
+[TID 23868c] I/gc:             UnMark 3.666us/3.666us
+[TID 23868c] I/gc:             InitialMark 43.209us/42.875us
+[TID 23868c] I/gc:             OnPauseMark 37.500us/45.209us
+[TID 23868c] I/gc:                 VisitInternalStringTable 9.125us/9.291us
+[TID 23868c] I/gc:             SweepNonRegularVmRefs 1.334us/1.375us
+[TID 23868c] I/gc:             ProcessDirtyCards 1.167us/1.417us
+[TID 23868c] I/gc:         CollectEmptyRegions 12.125us/12.125us
+[TID 23868c] I/gc:             CollectNonRegularObjects 9.541us/9.542us
+[TID 23868c] I/gc:             ClearEmptyRegions 1.917us/1.917us
+[TID 23868c] I/gc:                 Region Invalidation 1.125us/1.125us
+[TID 23868c] I/gc:                 Reset regions 0.291us/0.292us
+[TID 23868c] I/gc:         BuildCrossYoungRemSets 7.166us/7.167us
+[TID 23868c] I/gc:         CollectAndMove 98.417us/98.416us
+[TID 23868c] I/gc:             CompactRegions 36.500us/36.458us
+[TID 23868c] I/gc:             UpdateRefsToMovedObjects 56.709us/56.708us
+[TID 23868c] I/gc:                 UpdateMovedObjectsReferences 11.875us/11.917us
+[TID 23868c] I/gc:                 CacheRefsFromRemsets 8.458us/8.500us
+[TID 23868c] I/gc:                 UpdateAndSweep 0.917us/0.959us
+[TID 23868c] I/gc:             ActualizeRemSets 1.125us/1.125us
+[TID 23868c] I/gc:             ResetRegions 1.666us/1.667us
+[TID 23868c] I/gc:             ClearMovedObjects 0.334us/0.333us
+[TID 23868c] I/gc:         HandleReferences 0.834us/0.833us
+[TID 23868c] I/gc:             ProcessDirtyCards 0.250us/0.250us
+[TID 23868c] I/gc:         CollectAndMove 70.000us/69.959us
+[TID 23868c] I/gc:             CompactRegions 14.333us/14.291us
+[TID 23868c] I/gc:             UpdateRefsToMovedObjects 33.000us/33.000us
+[TID 23868c] I/gc:                 UpdateMovedObjectsReferences 0.375us/0.334us
+[TID 23868c] I/gc:                 CacheRefsFromRemsets 0.292us/0.291us
+[TID 23868c] I/gc:                 UpdateAndSweep 0.416us/0.458us
+[TID 23868c] I/gc:             ActualizeRemSets 0.875us/0.875us
+[TID 23868c] I/gc:             ResetRegions 0.125us/0.125us
+[TID 23868c] I/gc:             ClearMovedObjects 1.167us/1.166us
+[TID 23868c] I/gc:         Release Pages in Free Pools 1.458us/1.459us
+[TID 23868c] I/gc: 
+[TID 23868c] I/gc: [23] [YOUNG (Young)] Nov 04 11:45:34.417 G1 GC freed 4MB, 0B LOS objects, 99% free, 278KB/32MB,  phase: COMMON_PAUSE paused: 72.458us total: 81.584us
+[TID 23868c] I/gc: Young freed 0 objects (4MB) Young moved 2 objects, 80 bytes (80B)
+[TID 23868c] I/gc: G1 GC 72.958us/73.666us
+[TID 23868c] I/gc:     HandlePendingDirtyCards 1.125us/1.125us
+[TID 23868c] I/gc:     GetCollectibleRegions 0.542us/0.541us
+[TID 23868c] I/gc:     RunGC 65.625us/65.625us
+[TID 23868c] I/gc:         CollectInSinglePass 64.875us/64.916us
+[TID 23868c] I/gc:             MergeRemSet 0.375us/0.375us
+[TID 23868c] I/gc:             EvacuateCollectionSet 36.542us/36.542us
+[TID 23868c] I/gc:                 EvacuateNonHeapRoots 33.500us/33.417us
+[TID 23868c] I/gc:                 ScanRemset 0.208us/0.167us
+[TID 23868c] I/gc:                 EvacuateLiveObjects 0.375us/0.375us
+[TID 23868c] I/gc:             UpdateAndSweep 0.959us/0.958us
+[TID 23868c] I/gc:             HandleReferences 0.959us/0.958us
+[TID 23868c] I/gc:                 ProcessDirtyCards 0.333us/0.333us
+[TID 23868c] I/gc:             ActualizeRemSets 0.209us/0.208us
+[TID 23868c] I/gc:             ResetRegions 0.125us/0.167us
+[TID 23868c] I/gc:     ReenqueueDirtyCards 0.167us/0.167us
+[TID 23868c] I/gc: 
+[TID 23868c] I/gc: [24] [YOUNG (Young)] Nov 04 11:45:34.427 G1 GC freed 4MB, 0B LOS objects, 99% free, 278KB/32MB,  phase: COMMON_PAUSE paused: 67.750us total: 76.167us
+[TID 23868c] I/gc: Young freed 0 objects (4MB) Young moved 2 objects, 80 bytes (80B)
+[TID 23868c] I/gc: G1 GC 68.250us/68.917us
+[TID 23868c] I/gc:     HandlePendingDirtyCards 0.875us/0.875us
+[TID 23868c] I/gc:     GetCollectibleRegions 0.667us/0.667us
+[TID 23868c] I/gc:     RunGC 61.583us/61.583us
+[TID 23868c] I/gc:         CollectInSinglePass 61.167us/61.167us
+[TID 23868c] I/gc:             MergeRemSet 0.292us/0.292us
+[TID 23868c] I/gc:             EvacuateCollectionSet 34.125us/34.125us
+[TID 23868c] I/gc:                 EvacuateNonHeapRoots 32.000us/31.958us
+[TID 23868c] I/gc:                 ScanRemset 0.166us/0.166us
+[TID 23868c] I/gc:                 EvacuateLiveObjects 0.250us/0.208us
+[TID 23868c] I/gc:             UpdateAndSweep 0.750us/0.750us
+[TID 23868c] I/gc:             HandleReferences 0.834us/0.834us
+[TID 23868c] I/gc:                 ProcessDirtyCards 0.292us/0.292us
+[TID 23868c] I/gc:             ActualizeRemSets 0.250us/0.250us
+[TID 23868c] I/gc:             ResetRegions 0.125us/0.167us
+[TID 23868c] I/gc:     ReenqueueDirtyCards 0.166us/0.166us
+[TID 23868c] I/gc: 
+[TID 23868c] I/gc: [25] [YOUNG (Young)] Nov 04 11:45:34.438 G1 GC freed 4MB, 0B LOS objects, 99% free, 278KB/32MB,  phase: COMMON_PAUSE paused: 76.667us total: 84.083us
+[TID 23868c] I/gc: Young freed 0 objects (4MB) Young moved 2 objects, 80 bytes (80B)
+[TID 23868c] I/gc: G1 GC 77.209us/78.000us
+[TID 23868c] I/gc:     HandlePendingDirtyCards 0.458us/0.459us
+[TID 23868c] I/gc:     GetCollectibleRegions 0.667us/0.625us
+[TID 23868c] I/gc:     RunGC 70.500us/70.500us
+[TID 23868c] I/gc:         CollectInSinglePass 70.000us/70.000us
+[TID 23868c] I/gc:             MergeRemSet 0.209us/0.208us
+[TID 23868c] I/gc:             EvacuateCollectionSet 37.166us/37.167us
+[TID 23868c] I/gc:                 EvacuateNonHeapRoots 34.458us/34.417us
+[TID 23868c] I/gc:                 ScanRemset 0.125us/0.167us
+[TID 23868c] I/gc:                 EvacuateLiveObjects 0.375us/0.334us
+[TID 23868c] I/gc:             UpdateAndSweep 1.083us/1.084us
+[TID 23868c] I/gc:             HandleReferences 0.875us/0.875us
+[TID 23868c] I/gc:                 ProcessDirtyCards 0.334us/0.333us
+[TID 23868c] I/gc:             ActualizeRemSets 0.292us/0.292us
+[TID 23868c] I/gc:             ResetRegions 0.167us/0.166us
+[TID 23868c] I/gc:     ReenqueueDirtyCards 0.166us/0.167us
+[TID 23868c] I/gc: 
+[TID 23868c] I/gc: [26] [YOUNG (Young)] Nov 04 11:45:34.448 G1 GC freed 4MB, 0B LOS objects, 99% free, 278KB/32MB,  phase: COMMON_PAUSE paused: 83.958us total: 90.708us
+[TID 23868c] I/gc: Young freed 0 objects (4MB) Young moved 2 objects, 80 bytes (80B)
+[TID 23868c] I/gc: G1 GC 84.583us/85.167us
+[TID 23868c] I/gc:     HandlePendingDirtyCards 0.458us/0.458us
+[TID 23868c] I/gc:     GetCollectibleRegions 0.583us/0.583us
+[TID 23868c] I/gc:     RunGC 77.916us/78.041us
+[TID 23868c] I/gc:         CollectInSinglePass 77.333us/77.333us
+[TID 23868c] I/gc:             MergeRemSet 0.291us/0.291us
+[TID 23868c] I/gc:             EvacuateCollectionSet 39.250us/39.291us
+[TID 23868c] I/gc:                 EvacuateNonHeapRoots 36.584us/36.500us
+[TID 23868c] I/gc:                 ScanRemset 0.167us/0.167us
+[TID 23868c] I/gc:                 EvacuateLiveObjects 0.333us/0.333us
+[TID 23868c] I/gc:             UpdateAndSweep 1.333us/1.333us
+[TID 23868c] I/gc:             HandleReferences 1.208us/1.208us
+[TID 23868c] I/gc:                 ProcessDirtyCards 0.541us/0.541us
+[TID 23868c] I/gc:             ActualizeRemSets 0.333us/0.333us
+[TID 23868c] I/gc:             ResetRegions 0.167us/0.209us
+[TID 23868c] I/gc:     ReenqueueDirtyCards 0.167us/0.167us
+[TID 23868c] I/gc: 
+[TID 23868c] I/gc: [27] [YOUNG (Young)] Nov 04 11:45:34.458 G1 GC freed 4MB, 0B LOS objects, 99% free, 278KB/32MB,  phase: COMMON_PAUSE paused: 70.708us total: 78.750us
+[TID 23868c] I/gc: Young freed 0 objects (4MB) Young moved 2 objects, 80 bytes (80B)
+[TID 23868c] I/gc: G1 GC 71.250us/71.542us
+[TID 23868c] I/gc:     HandlePendingDirtyCards 1.000us/1.000us
+[TID 23868c] I/gc:     GetCollectibleRegions 0.542us/0.542us
+[TID 23868c] I/gc:     RunGC 64.750us/64.750us
+[TID 23868c] I/gc:         CollectInSinglePass 64.250us/64.250us
+[TID 23868c] I/gc:             MergeRemSet 0.458us/0.416us
+[TID 23868c] I/gc:             EvacuateCollectionSet 36.541us/36.541us
+[TID 23868c] I/gc:                 EvacuateNonHeapRoots 33.833us/33.792us
+[TID 23868c] I/gc:                 ScanRemset 0.167us/0.125us
+[TID 23868c] I/gc:                 EvacuateLiveObjects 0.375us/0.417us
+[TID 23868c] I/gc:             UpdateAndSweep 1.125us/1.125us
+[TID 23868c] I/gc:             HandleReferences 1.041us/1.041us
+[TID 23868c] I/gc:                 ProcessDirtyCards 0.417us/0.417us
+[TID 23868c] I/gc:             ActualizeRemSets 0.167us/0.167us
+[TID 23868c] I/gc:             ResetRegions 0.166us/0.166us
+[TID 23868c] I/gc:     ReenqueueDirtyCards 0.167us/0.167us
+[TID 23868c] I/gc: 
+[TID 23868c] I/gc: [28] [YOUNG (Young)] Nov 04 11:45:34.469 G1 GC freed 4MB, 0B LOS objects, 99% free, 278KB/32MB,  phase: COMMON_PAUSE paused: 77.917us total: 91.209us
+[TID 23868c] I/gc: Young freed 0 objects (4MB) Young moved 2 objects, 80 bytes (80B)
+[TID 23868c] I/gc: G1 GC 78.459us/80.791us
+[TID 23868c] I/gc:     HandlePendingDirtyCards 0.959us/0.958us
+[TID 23868c] I/gc:     GetCollectibleRegions 0.584us/0.542us
+[TID 23868c] I/gc:     RunGC 69.708us/69.709us
+[TID 23868c] I/gc:         CollectInSinglePass 69.084us/69.083us
+[TID 23868c] I/gc:             MergeRemSet 0.375us/0.375us
+[TID 23868c] I/gc:             EvacuateCollectionSet 40.583us/40.583us
+[TID 23868c] I/gc:                 EvacuateNonHeapRoots 37.792us/37.750us
+[TID 23868c] I/gc:                 ScanRemset 0.166us/0.167us
+[TID 23868c] I/gc:                 EvacuateLiveObjects 0.334us/0.375us
+[TID 23868c] I/gc:             UpdateAndSweep 1.167us/1.166us
+[TID 23868c] I/gc:             HandleReferences 0.959us/0.958us
+[TID 23868c] I/gc:                 ProcessDirtyCards 0.375us/0.375us
+[TID 23868c] I/gc:             ActualizeRemSets 0.250us/0.250us
+[TID 23868c] I/gc:             ResetRegions 0.167us/0.167us
+[TID 23868c] I/gc:     ReenqueueDirtyCards 0.166us/0.167us
+[TID 23868c] I/gc: 

@@ -1,0 +1,84 @@
+[
+  {
+    "mode": "dart-jit",
+    "case": "events_alloc_2k",
+    "command": [
+      "dart",
+      "--verbose_gc",
+      "/Users/wuhao/Projects/arkts-dart-bench/build/game_gc_probe.dill",
+      "events_alloc_2k"
+    ],
+    "log_sha256": "bdde2e43ec1da6d6174be60b87d8c99a00dc4ba179611334eb0724c156b5c78e",
+    "measured_log_lines": 9
+  },
+  {
+    "mode": "dart-aot",
+    "case": "events_alloc_2k",
+    "command": [
+      "/opt/homebrew/Cellar/dart-sdk/3.13.3/libexec/bin/dartaotruntime",
+      "--verbose_gc",
+      "/Users/wuhao/Projects/arkts-dart-bench/build/game_gc_probe.aot",
+      "events_alloc_2k"
+    ],
+    "log_sha256": "4ddcd7de9bd7f0c9bab408fba14b24a2e4759961b512893ffb2db2b82836e06c",
+    "measured_log_lines": 11
+  },
+  {
+    "mode": "ark-jit",
+    "case": "events_alloc_2k",
+    "command": [
+      "/Users/wuhao/Projects/arkts-dart-bench/build/ark-source/bin/ark",
+      "--load-runtimes=ets",
+      "--boot-panda-files=/Users/wuhao/Projects/arkts-dart-bench/build/ark-source/plugins/ets/etsstdlib.abc",
+      "--compiler-enable-jit=true",
+      "--log-info=gc",
+      "/Users/wuhao/Projects/arkts-dart-bench/build/game_gc_probe.abc",
+      "game_gc_probe.ETSGLOBAL::main",
+      "--",
+      "events_alloc_2k"
+    ],
+    "log_sha256": "f7f2838602efe2280bb9f18079b31bcf87dcfa185687c9eff3b2f7ea79d58b13",
+    "measured_log_lines": 83
+  },
+  {
+    "mode": "dart-jit",
+    "case": "events_pool_2k",
+    "command": [
+      "dart",
+      "--verbose_gc",
+      "/Users/wuhao/Projects/arkts-dart-bench/build/game_gc_probe.dill",
+      "events_pool_2k"
+    ],
+    "log_sha256": "9ff7388697f3796242e4f872fe7d68d37997c7f8903ceb492fc8fc6b67e1e34b",
+    "measured_log_lines": 0
+  },
+  {
+    "mode": "dart-aot",
+    "case": "events_pool_2k",
+    "command": [
+      "/opt/homebrew/Cellar/dart-sdk/3.13.3/libexec/bin/dartaotruntime",
+      "--verbose_gc",
+      "/Users/wuhao/Projects/arkts-dart-bench/build/game_gc_probe.aot",
+      "events_pool_2k"
+    ],
+    "log_sha256": "c250ed40d53f1acf852d3d99519f1f1e5033496907d08854732dcccdc71dfe00",
+    "measured_log_lines": 0
+  },
+  {
+    "mode": "ark-jit",
+    "case": "events_pool_2k",
+    "command": [
+      "/Users/wuhao/Projects/arkts-dart-bench/build/ark-source/bin/ark",
+      "--load-runtimes=ets",
+      "--boot-panda-files=/Users/wuhao/Projects/arkts-dart-bench/build/ark-source/plugins/ets/etsstdlib.abc",
+      "--compiler-enable-jit=true",
+      "--log-info=gc",
+      "/Users/wuhao/Projects/arkts-dart-bench/build/game_gc_probe.abc",
+      "game_gc_probe.ETSGLOBAL::main",
+      "--",
+      "events_pool_2k"
+    ],
+    "log_sha256": "0ead26f58a6e4fe5ae99f1f411cd6b6cfce514d061ad972b9683b36060c6e259",
+    "measured_log_lines": 0
+  }
+]

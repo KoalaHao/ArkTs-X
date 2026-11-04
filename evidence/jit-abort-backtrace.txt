@@ -1,0 +1,96 @@
+(lldb) target create "/Users/wuhao/Projects/arkts-dart-bench/build/ark-source/bin/ark"
+Current executable set to '/Users/wuhao/Projects/arkts-dart-bench/build/ark-source/bin/ark' (arm64).
+(lldb) settings set target.disable-aslr false
+(lldb) settings set -- target.run-args --load-runtimes=ets --boot-panda-files=/Users/wuhao/Projects/arkts-dart-bench/build/ark-source/plugins/ets/etsstdlib.abc --interpreter-type=cpp --compiler-enable-jit=true --compiler-enable-osr=false --log-info=compiler /Users/wuhao/Projects/arkts-dart-bench/build/port_smoke.abc port_smoke.ETSGLOBAL::main
+(lldb) process handle -p true -s false -n false SIGUSR1 SIGUSR2
+NAME         PASS     STOP     NOTIFY
+===========  =======  =======  =======
+SIGUSR1      true     false    false  
+SIGUSR2      true     false    false  
+(lldb) breakpoint set --name abort
+Breakpoint 1: 2 locations.
+(lldb) run
+[TID 235ad5] I/compiler: Compile method: std.core.Array::ensureUnusedCapacity (/Users/wuhao/Projects/arkts-dart-bench/build/ark-source/plugins/ets/etsstdlib.abc)
+This line should be unreachable
+Process 27698 launched: '/Users/wuhao/Projects/arkts-dart-bench/build/ark-source/bin/ark' (arm64)
+Process 27698 stopped
+* thread #5, stop reason = breakpoint 1.1
+    frame #0: 0x00000001883a18e4 libsystem_c.dylib`abort
+libsystem_c.dylib`abort:
+->  0x1883a18e4 <+0>:  adrp   x8, 434285
+    0x1883a18e8 <+4>:  ldr    x9, [x8, #0xc48]
+    0x1883a18ec <+8>:  cbnz   x9, 0x1883a18fc           ; <+24>
+    0x1883a18f0 <+12>: adrp   x9, 7
+Target 0: (ark) stopped.
+(lldb) thread backtrace all
+  thread #1, name = 'worker 1', queue = 'com.apple.main-thread'
+    frame #0: 0x0000000103b4ca84 libarkruntime.dylib`void ark::interpreter::ExecuteImpl<ark::interpreter::RuntimeInterface, false, false>(ark::ManagedThread*, unsigned char const*, ark::Frame*, bool) + 7332
+    frame #1: 0x0000000103b58ea4 libarkruntime.dylib`void ark::interpreter::ExecuteImpl<ark::interpreter::RuntimeInterface, false, false>(ark::ManagedThread*, unsigned char const*, ark::Frame*, bool) + 57540
+    frame #2: 0x0000000103b58ea4 libarkruntime.dylib`void ark::interpreter::ExecuteImpl<ark::interpreter::RuntimeInterface, false, false>(ark::ManagedThread*, unsigned char const*, ark::Frame*, bool) + 57540
+  thread #2
+    frame #0: 0x000000018845b50c libsystem_kernel.dylib`__psynch_cvwait + 8
+    frame #1: 0x000000018849c128 libsystem_pthread.dylib`_pthread_cond_wait + 980
+    frame #2: 0x000000010230e270 libarkbase.dylib`ark::os::memory::ConditionVariable::Wait(ark::os::memory::Mutex*) + 28
+    frame #3: 0x00000001022eff48 libarkbase.dylib`ark::taskmanager::internal::TaskScheduler::FillWithTasks(ark::taskmanager::internal::WorkerThread*) + 172
+    frame #4: 0x00000001022f1000 libarkbase.dylib`ark::taskmanager::internal::WorkerThread::WorkerLoop() + 80
+    frame #5: 0x00000001022f1618 libarkbase.dylib`void* std::__1::__thread_proxy[abi:nqn210106]<std::__1::tuple<std::__1::unique_ptr<std::__1::__thread_struct, std::__1::default_delete<std::__1::__thread_struct>>, void (ark::taskmanager::internal::WorkerThread::*)(), ark::taskmanager::internal::WorkerThread*>>(void*) + 64
+    frame #6: 0x000000018849bc58 libsystem_pthread.dylib`_pthread_start + 136
+  thread #3
+    frame #0: 0x000000018845b50c libsystem_kernel.dylib`__psynch_cvwait + 8
+    frame #1: 0x000000018849c128 libsystem_pthread.dylib`_pthread_cond_wait + 980
+    frame #2: 0x000000010230e270 libarkbase.dylib`ark::os::memory::ConditionVariable::Wait(ark::os::memory::Mutex*) + 28
+    frame #3: 0x00000001022eff48 libarkbase.dylib`ark::taskmanager::internal::TaskScheduler::FillWithTasks(ark::taskmanager::internal::WorkerThread*) + 172
+    frame #4: 0x00000001022f1000 libarkbase.dylib`ark::taskmanager::internal::WorkerThread::WorkerLoop() + 80
+    frame #5: 0x00000001022f1618 libarkbase.dylib`void* std::__1::__thread_proxy[abi:nqn210106]<std::__1::tuple<std::__1::unique_ptr<std::__1::__thread_struct, std::__1::default_delete<std::__1::__thread_struct>>, void (ark::taskmanager::internal::WorkerThread::*)(), ark::taskmanager::internal::WorkerThread*>>(void*) + 64
+    frame #6: 0x000000018849bc58 libsystem_pthread.dylib`_pthread_start + 136
+  thread #4
+    frame #0: 0x000000018845b50c libsystem_kernel.dylib`__psynch_cvwait + 8
+    frame #1: 0x000000018849c128 libsystem_pthread.dylib`_pthread_cond_wait + 980
+    frame #2: 0x000000010230e270 libarkbase.dylib`ark::os::memory::ConditionVariable::Wait(ark::os::memory::Mutex*) + 28
+    frame #3: 0x00000001022eff48 libarkbase.dylib`ark::taskmanager::internal::TaskScheduler::FillWithTasks(ark::taskmanager::internal::WorkerThread*) + 172
+    frame #4: 0x00000001022f1000 libarkbase.dylib`ark::taskmanager::internal::WorkerThread::WorkerLoop() + 80
+    frame #5: 0x00000001022f1618 libarkbase.dylib`void* std::__1::__thread_proxy[abi:nqn210106]<std::__1::tuple<std::__1::unique_ptr<std::__1::__thread_struct, std::__1::default_delete<std::__1::__thread_struct>>, void (ark::taskmanager::internal::WorkerThread::*)(), ark::taskmanager::internal::WorkerThread*>>(void*) + 64
+    frame #6: 0x000000018849bc58 libsystem_pthread.dylib`_pthread_start + 136
+* thread #5, stop reason = breakpoint 1.1
+  * frame #0: 0x00000001883a18e4 libsystem_c.dylib`abort
+    frame #1: 0x0000000102948574 libarkaotmanager.dylib`ark::compiler::AotData::GetSharedSlowPathOffset(ark::compiler::RuntimeInterface::EntrypointId, unsigned long) const (.cold.1) + 16
+    frame #2: 0x00000001028c06b8 libarkaotmanager.dylib`void ark::compiler::Codegen::FillCallParams<ark::compiler::TypedImm>(ark::compiler::TypedImm&&) + 372
+    frame #3: 0x00000001028c031c libarkaotmanager.dylib`void ark::compiler::Codegen::CallEntrypoint<false, ark::compiler::TypedImm>(ark::compiler::Inst*, ark::compiler::RuntimeInterface::EntrypointId, ark::compiler::Reg, ark::RegMaskImpl<32ul>, ark::compiler::TypedImm&&) + 272
+    frame #4: 0x00000001028bf2a4 libarkaotmanager.dylib`ark::compiler::SlowPathDeoptimize::GenerateImpl(ark::compiler::Codegen*) + 68
+    frame #5: 0x00000001028bea2c libarkaotmanager.dylib`ark::compiler::SlowPathBase::Generate(ark::compiler::Codegen*) + 60
+    frame #6: 0x000000010288cf80 libarkaotmanager.dylib`ark::compiler::Codegen::VisitGraph() + 772
+    frame #7: 0x000000010288e2d0 libarkaotmanager.dylib`ark::compiler::Codegen::Finalize() + 64
+    frame #8: 0x00000001028003c4 libarkaotmanager.dylib`ark::compiler::Pass::Run() + 52
+    frame #9: 0x0000000102801f68 libarkaotmanager.dylib`ark::compiler::PassManager::RunPass(ark::compiler::Pass*, unsigned long) + 168
+    frame #10: 0x0000000103bdbe24 libarkruntime.dylib`bool ark::compiler::PassManager::RunPass<ark::compiler::Codegen>() + 76
+    frame #11: 0x0000000103bdb518 libarkruntime.dylib`void ark::compiler::Pipeline::RunRegAllocAndCodeGenPass<(ark::compiler::TaskRunnerMode)1>(std::__1::conditional<(ark::compiler::TaskRunnerMode)1 == (ark::compiler::TaskRunnerMode)1, ark::compiler::BackgroundCompilerTaskRunner, ark::compiler::InPlaceCompilerTaskRunner>::type)::'lambda'(ark::compiler::BackgroundCompilerTaskRunner)::operator()(ark::compiler::BackgroundCompilerTaskRunner) const + 100
+    frame #12: 0x0000000103bdb3a8 libarkruntime.dylib`std::__1::__invoke_result_impl<void, void ark::compiler::Pipeline::RunRegAllocAndCodeGenPass<(ark::compiler::TaskRunnerMode)1>(std::__1::conditional<(ark::compiler::TaskRunnerMode)1 == (ark::compiler::TaskRunnerMode)1, ark::compiler::BackgroundCompilerTaskRunner, ark::compiler::InPlaceCompilerTaskRunner>::type)::'lambda'(ark::compiler::BackgroundCompilerTaskRunner)&, ark::compiler::BackgroundCompilerTaskRunner>::type std::__1::__invoke[abi:nqn210106]<void ark::compiler::Pipeline::RunRegAllocAndCodeGenPass<(ark::compiler::TaskRunnerMode)1>(std::__1::conditional<(ark::compiler::TaskRunnerMode)1 == (ark::compiler::TaskRunnerMode)1, ark::compiler::BackgroundCompilerTaskRunner, ark::compiler::InPlaceCompilerTaskRunner>::type)::'lambda'(ark::compiler::BackgroundCompilerTaskRunner)&, ark::compiler::BackgroundCompilerTaskRunner>(void ark::compiler::Pipeline::RunRegAllocAndCodeGenPass<(ark::compiler::TaskRunnerMode)1>(std::__1::conditional<(ark::compiler::TaskRunnerMode)1 == (ark::compiler::TaskRunnerMode)1, ark::compiler::BackgroundCompilerTaskRunner, ark::compiler::InPlaceCompilerTaskRunner>::type)::'lambda'(ark::compiler::BackgroundCompilerTaskRunner)&, ark::compiler::BackgroundCompilerTaskRunner&&) + 348
+    frame #13: 0x00000001037b4660 libarkruntime.dylib`ark::compiler::BackgroundCompilerTaskRunner::StartTask(ark::compiler::BackgroundCompilerTaskRunner, std::__1::function<void (ark::compiler::BackgroundCompilerTaskRunner)>)::'lambda'()::operator()() + 380
+    frame #14: 0x00000001022ee688 libarkbase.dylib`ark::taskmanager::internal::Task::RunTask() + 72
+    frame #15: 0x00000001022f1058 libarkbase.dylib`ark::taskmanager::internal::WorkerThread::WorkerLoop() + 168
+    frame #16: 0x00000001022f1618 libarkbase.dylib`void* std::__1::__thread_proxy[abi:nqn210106]<std::__1::tuple<std::__1::unique_ptr<std::__1::__thread_struct, std::__1::default_delete<std::__1::__thread_struct>>, void (ark::taskmanager::internal::WorkerThread::*)(), ark::taskmanager::internal::WorkerThread*>>(void*) + 64
+    frame #17: 0x000000018849bc58 libsystem_pthread.dylib`_pthread_start + 136
+  thread #6
+    frame #0: 0x000000018845b50c libsystem_kernel.dylib`__psynch_cvwait + 8
+    frame #1: 0x000000018849c128 libsystem_pthread.dylib`_pthread_cond_wait + 980
+    frame #2: 0x000000010230e6b0 libarkbase.dylib`ark::os::memory::ConditionVariable::TimedWait(ark::os::memory::Mutex*, unsigned long long, unsigned long long, bool) + 180
+    frame #3: 0x00000001022f0960 libarkbase.dylib`ark::taskmanager::internal::TimerThread::TimerThreadBodyImpl() + 192
+    frame #4: 0x00000001022f0dd4 libarkbase.dylib`void* std::__1::__thread_proxy[abi:nqn210106]<std::__1::tuple<std::__1::unique_ptr<std::__1::__thread_struct, std::__1::default_delete<std::__1::__thread_struct>>, void (*)(ark::taskmanager::internal::TimerThread*), ark::taskmanager::internal::TimerThread*>>(void*) + 44
+    frame #5: 0x000000018849bc58 libsystem_pthread.dylib`_pthread_start + 136
+  thread #7
+    frame #0: 0x000000018845b50c libsystem_kernel.dylib`__psynch_cvwait + 8
+    frame #1: 0x000000018849c128 libsystem_pthread.dylib`_pthread_cond_wait + 980
+    frame #2: 0x000000010230e270 libarkbase.dylib`ark::os::memory::ConditionVariable::Wait(ark::os::memory::Mutex*) + 28
+    frame #3: 0x000000010384970c libarkruntime.dylib`ark::StackfulCoroutineWorker::WaitForRunnables(unsigned long long) + 280
+    frame #4: 0x00000001038489c0 libarkruntime.dylib`ark::StackfulCoroutineWorker::RequestScheduleImpl() + 312
+    frame #5: 0x0000000103849504 libarkruntime.dylib`ark::StackfulCoroutineWorker::ScheduleLoopBody() + 72
+    frame #6: 0x0000000103847904 libarkruntime.dylib`ark::StackfulCoroutineWorker::ThreadProc() + 284
+    frame #7: 0x000000010384a998 libarkruntime.dylib`void* std::__1::__thread_proxy[abi:nqn210106]<std::__1::tuple<std::__1::unique_ptr<std::__1::__thread_struct, std::__1::default_delete<std::__1::__thread_struct>>, void (ark::StackfulCoroutineWorker::*)(), ark::StackfulCoroutineWorker*>>(void*) + 64
+    frame #8: 0x000000018849bc58 libsystem_pthread.dylib`_pthread_start + 136
+  thread #8
+    frame #0: 0x0000000188463808 libsystem_kernel.dylib`__sigwait + 8
+    frame #1: 0x000000018849c418 libsystem_pthread.dylib`sigwait + 40
+    frame #2: 0x0000000103788294 libarkruntime.dylib`ark::os::unix::SignalCtl::Wait() const + 40
+    frame #3: 0x00000001037880ec libarkruntime.dylib`void ark::os::unix::SignalCatcherThread::Run<void (int, ark::Runtime*), ark::Runtime*>(ark::os::unix::SignalCatcherThread*, void (*)(int, ark::Runtime*), ark::Runtime*) + 112
+    frame #4: 0x00000001037881c8 libarkruntime.dylib`void* ark::os::thread::internal::ProxyFunc<void (ark::os::unix::SignalCatcherThread*, void (*)(int, ark::Runtime*), ark::Runtime*), std::__1::tuple<void (*)(ark::os::unix::SignalCatcherThread*, void (*)(int, ark::Runtime*), ark::Runtime*), ark::os::unix::SignalCatcherThread*, void (*)(int, ark::Runtime*), ark::Runtime*>, 4ul>(void*) + 112
+    frame #5: 0x000000018849bc58 libsystem_pthread.dylib`_pthread_start + 136

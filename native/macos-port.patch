@@ -1,0 +1,918 @@
+diff --git a/static_core/CMakeLists.txt b/static_core/CMakeLists.txt
+index 5fbcd947..1bd3c827 100644
+--- a/static_core/CMakeLists.txt
++++ b/static_core/CMakeLists.txt
+@@ -246,11 +246,13 @@ endif()
+ 
+ # ----- Targets ----------------------------------------------------------------
+ 
+-execute_process(COMMAND ${PANDA_ROOT}/scripts/install-third-party
+-                WORKING_DIRECTORY ${PANDA_ROOT}
+-                RESULT_VARIABLE THIRD_PARTY_OK)
+-if (NOT THIRD_PARTY_OK EQUAL 0)
+-    message(FATAL_ERROR "Unable to install required third-party dependencies")
++if (NOT ARK_BENCH_DEPS_PREPARED)
++    execute_process(COMMAND ${PANDA_ROOT}/scripts/install-third-party
++                    WORKING_DIRECTORY ${PANDA_ROOT}
++                    RESULT_VARIABLE THIRD_PARTY_OK)
++    if (NOT THIRD_PARTY_OK EQUAL 0)
++        message(FATAL_ERROR "Unable to install required third-party dependencies")
++    endif()
+ endif()
+ 
+ if(PANDA_WITH_TOOLCHAIN)
+diff --git a/static_core/compiler/CMakeLists.txt b/static_core/compiler/CMakeLists.txt
+index e63add7d..66f2f468 100644
+--- a/static_core/compiler/CMakeLists.txt
++++ b/static_core/compiler/CMakeLists.txt
+@@ -254,7 +254,7 @@ set(COMPILER_SOURCES
+         ${INST_BUILDER_GEN}
+         ${IRTOC_IR_INLINE_GEN}
+ )
+-if (NOT PANDA_TARGET_MACOS)
++if (NOT PANDA_TARGET_MACOS OR ARK_BENCH_ENABLE_MAC_CODEGEN)
+     list(APPEND COMPILER_SOURCES
+         compile_method.cpp
+         optimizer/code_generator/disassembly.cpp
+@@ -270,6 +270,10 @@ if (NOT PANDA_TARGET_MACOS)
+ endif()
+ 
+ panda_add_library(arkcompiler ${PANDA_DEFAULT_LIB_TYPE} ${COMPILER_SOURCES})
++if(PANDA_TARGET_MACOS AND ARK_BENCH_ENABLE_MAC_CODEGEN)
++    set_property(SOURCE compile_method.cpp APPEND PROPERTY
++        COMPILE_DEFINITIONS ARK_BENCH_ENABLE_MAC_CODEGEN)
++endif()
+ 
+ add_dependencies(arkcompiler isa_gen_${PROJECT_NAME})
+ add_dependencies(arkcompiler instructions_gen_${PROJECT_NAME})
+@@ -293,7 +297,7 @@ if (PANDA_TARGET_MOBILE OR PANDA_TARGET_OHOS)
+ endif()
+ 
+ panda_target_link_libraries(arkcompiler arkbase arkfile)
+-if (NOT PANDA_TARGET_WINDOWS AND NOT PANDA_TARGET_MACOS)
++if (NOT PANDA_TARGET_WINDOWS AND (NOT PANDA_TARGET_MACOS OR ARK_BENCH_ENABLE_MAC_CODEGEN))
+   panda_target_link_libraries(arkcompiler arkencoder)
+ endif()
+ 
+diff --git a/static_core/compiler/compile_method.cpp b/static_core/compiler/compile_method.cpp
+index f56b4c3a..bfc02d42 100644
+--- a/static_core/compiler/compile_method.cpp
++++ b/static_core/compiler/compile_method.cpp
+@@ -326,7 +326,7 @@ void CompileInGraph(RuntimeInterface *runtime, bool isDynamic, Arch arch, Compil
+     LOG(INFO, COMPILER) << "Compile method" << (isOsr ? "(OSR)" : "") << ": " << methodName << " ("
+                         << runtime->GetFileName(method) << ')';
+ 
+-#ifdef __APPLE__
++#if defined(__APPLE__) && !defined(ARK_BENCH_ENABLE_MAC_CODEGEN)
+     LOG(DEBUG, COMPILER) << "Compilation unsupported for this platform!";
+     CompilerTaskRunner<RUNNER_MODE>::EndTask(std::move(taskRunner), false);
+     return;
+diff --git a/static_core/compiler/optimizer/code_generator/target/aarch64/encode.cpp b/static_core/compiler/optimizer/code_generator/target/aarch64/encode.cpp
+index a2c2a764..cb6e22e7 100644
+--- a/static_core/compiler/optimizer/code_generator/target/aarch64/encode.cpp
++++ b/static_core/compiler/optimizer/code_generator/target/aarch64/encode.cpp
+@@ -34,6 +34,8 @@ Encoder (implementation of math and mem Low-level emitters)
+ 
+ #ifndef PANDA_TARGET_MACOS
+ #include "elf.h"
++#else
++#include <mach-o/arm64/reloc.h>
+ #endif  // PANDA_TARGET_MACOS
+ 
+ namespace ark::compiler::aarch64 {
+@@ -396,16 +398,16 @@ void Aarch64Encoder::EncodeJump(Reg dst)
+ 
+ void Aarch64Encoder::EncodeJump([[maybe_unused]] RelocationInfo *relocation)
+ {
+-#ifdef PANDA_TARGET_MACOS
+-    LOG(FATAL, COMPILER) << "Not supported in Macos build";
+-#else
+     auto buffer = GetMasm()->GetBuffer();
+     relocation->offset = GetCursorOffset();
+     relocation->addend = 0;
++#ifdef PANDA_TARGET_MACOS
++    relocation->type = ARM64_RELOC_BRANCH26;
++#else
+     relocation->type = R_AARCH64_CALL26;
++#endif
+     static constexpr uint32_t CALL_WITH_ZERO_OFFSET = 0x14000000;
+     buffer->Emit32(CALL_WITH_ZERO_OFFSET);
+-#endif
+ }
+ 
+ void Aarch64Encoder::EncodeBitTestAndBranch(LabelHolder::LabelId id, compiler::Reg reg, uint32_t bitPos, bool bitValue)
+@@ -426,16 +428,16 @@ void Aarch64Encoder::EncodeNop()
+ 
+ void Aarch64Encoder::MakeCall([[maybe_unused]] compiler::RelocationInfo *relocation)
+ {
+-#ifdef PANDA_TARGET_MACOS
+-    LOG(FATAL, COMPILER) << "Not supported in Macos build";
+-#else
+     auto buffer = GetMasm()->GetBuffer();
+     relocation->offset = GetCursorOffset();
+     relocation->addend = 0;
++#ifdef PANDA_TARGET_MACOS
++    relocation->type = ARM64_RELOC_BRANCH26;
++#else
+     relocation->type = R_AARCH64_CALL26;
++#endif
+     static constexpr uint32_t CALL_WITH_ZERO_OFFSET = 0x94000000;
+     buffer->Emit32(CALL_WITH_ZERO_OFFSET);
+-#endif
+ }
+ 
+ void Aarch64Encoder::MakeCall(const void *entryPoint)
+@@ -3711,6 +3713,18 @@ void Aarch64Encoder::LoadStoreRegisters(RegMask registers, ssize_t slot, size_t
+     }
+ }
+ 
++static CPURegister SaveRestoreRegister(CPURegister reg)
++{
++#ifdef PANDA_TARGET_MACOS
++    // Keep the existing frame slot for x18, but never read or overwrite Darwin's
++    // reserved platform register. Register allocation excludes x18 on this target.
++    if (reg.IsRegister() && reg.GetCode() == vixl::aarch64::x18.GetCode()) {
++        return vixl::aarch64::xzr;
++    }
++#endif
++    return reg;
++}
++
+ template <bool IS_STORE>
+ static void LoadStorePair(vixl::aarch64::MacroAssembler *masm, CPURegister lastReg, CPURegister reg, Reg base,
+                           int32_t idx)
+@@ -3718,9 +3732,11 @@ static void LoadStorePair(vixl::aarch64::MacroAssembler *masm, CPURegister lastR
+     auto baseReg = VixlReg(base);
+     static constexpr int32_t OFFSET = 2;
+     if constexpr (IS_STORE) {  // NOLINT
+-        masm->Stp(lastReg, reg, MemOperand(baseReg, (idx - OFFSET) * DOUBLE_WORD_SIZE_BYTES));
++        masm->Stp(SaveRestoreRegister(lastReg), SaveRestoreRegister(reg),
++                  MemOperand(baseReg, (idx - OFFSET) * DOUBLE_WORD_SIZE_BYTES));
+     } else {  // NOLINT
+-        masm->Ldp(lastReg, reg, MemOperand(baseReg, (idx - OFFSET) * DOUBLE_WORD_SIZE_BYTES));
++        masm->Ldp(SaveRestoreRegister(lastReg), SaveRestoreRegister(reg),
++                  MemOperand(baseReg, (idx - OFFSET) * DOUBLE_WORD_SIZE_BYTES));
+     }
+ }
+ 
+@@ -3729,9 +3745,9 @@ static void LoadStoreReg(vixl::aarch64::MacroAssembler *masm, CPURegister lastRe
+ {
+     auto baseReg = VixlReg(base);
+     if constexpr (IS_STORE) {  // NOLINT
+-        masm->Str(lastReg, MemOperand(baseReg, (idx - 1) * DOUBLE_WORD_SIZE_BYTES));
++        masm->Str(SaveRestoreRegister(lastReg), MemOperand(baseReg, (idx - 1) * DOUBLE_WORD_SIZE_BYTES));
+     } else {  // NOLINT
+-        masm->Ldr(lastReg, MemOperand(baseReg, (idx - 1) * DOUBLE_WORD_SIZE_BYTES));
++        masm->Ldr(SaveRestoreRegister(lastReg), MemOperand(baseReg, (idx - 1) * DOUBLE_WORD_SIZE_BYTES));
+     }
+ }
+ 
+@@ -3834,19 +3850,19 @@ void Aarch64Encoder::LoadStoreRegistersLoop(RegMask registers, ssize_t slot, siz
+         nextReg = getNextReg();
+         if (nextReg.IsValid() && (nextReg.GetCode() - 1 == currReg.GetCode())) {
+             if constexpr (IS_STORE) {  // NOLINT
+-                GetMasm()->Stp(currReg, nextReg,
++                GetMasm()->Stp(SaveRestoreRegister(currReg), SaveRestoreRegister(nextReg),
+                                MemOperand(baseReg, (slot + currReg.GetCode() - startReg) * DOUBLE_WORD_SIZE_BYTES));
+             } else {  // NOLINT
+-                GetMasm()->Ldp(currReg, nextReg,
++                GetMasm()->Ldp(SaveRestoreRegister(currReg), SaveRestoreRegister(nextReg),
+                                MemOperand(baseReg, (slot + currReg.GetCode() - startReg) * DOUBLE_WORD_SIZE_BYTES));
+             }
+             nextReg = getNextReg();
+         } else {
+             if constexpr (IS_STORE) {  // NOLINT
+-                GetMasm()->Str(currReg,
++                GetMasm()->Str(SaveRestoreRegister(currReg),
+                                MemOperand(baseReg, (slot + currReg.GetCode() - startReg) * DOUBLE_WORD_SIZE_BYTES));
+             } else {  // NOLINT
+-                GetMasm()->Ldr(currReg,
++                GetMasm()->Ldr(SaveRestoreRegister(currReg),
+                                MemOperand(baseReg, (slot + currReg.GetCode() - startReg) * DOUBLE_WORD_SIZE_BYTES));
+             }
+         }
+@@ -3888,8 +3904,8 @@ void Aarch64Encoder::PushRegisters(RegMask registers, bool isFp)
+                                vixl::aarch64::VRegister(i, DOUBLE_WORD_SIZE),
+                                MemOperand(vixl::aarch64::sp, -PAIR_OFFSET, vixl::aarch64::AddrMode::PreIndex));
+             } else {
+-                GetMasm()->stp(vixl::aarch64::Register(lastReg, DOUBLE_WORD_SIZE),
+-                               vixl::aarch64::Register(i, DOUBLE_WORD_SIZE),
++                GetMasm()->stp(SaveRestoreRegister(vixl::aarch64::Register(lastReg, DOUBLE_WORD_SIZE)),
++                               SaveRestoreRegister(vixl::aarch64::Register(i, DOUBLE_WORD_SIZE)),
+                                MemOperand(vixl::aarch64::sp, -PAIR_OFFSET, vixl::aarch64::AddrMode::PreIndex));
+             }
+             lastReg = INVALID_REG;
+@@ -3900,7 +3916,7 @@ void Aarch64Encoder::PushRegisters(RegMask registers, bool isFp)
+             GetMasm()->str(vixl::aarch64::VRegister(lastReg, DOUBLE_WORD_SIZE),
+                            MemOperand(vixl::aarch64::sp, -PAIR_OFFSET, vixl::aarch64::AddrMode::PreIndex));
+         } else {
+-            GetMasm()->str(vixl::aarch64::Register(lastReg, DOUBLE_WORD_SIZE),
++            GetMasm()->str(SaveRestoreRegister(vixl::aarch64::Register(lastReg, DOUBLE_WORD_SIZE)),
+                            MemOperand(vixl::aarch64::sp, -PAIR_OFFSET, vixl::aarch64::AddrMode::PreIndex));
+         }
+     }
+@@ -3916,7 +3932,7 @@ void Aarch64Encoder::PopRegisters(RegMask registers, bool isFp)
+             GetMasm()->ldr(vixl::aarch64::VRegister(lastReg, DOUBLE_WORD_SIZE),
+                            MemOperand(vixl::aarch64::sp, PAIR_OFFSET, vixl::aarch64::AddrMode::PostIndex));
+         } else {
+-            GetMasm()->ldr(vixl::aarch64::Register(lastReg, DOUBLE_WORD_SIZE),
++            GetMasm()->ldr(SaveRestoreRegister(vixl::aarch64::Register(lastReg, DOUBLE_WORD_SIZE)),
+                            MemOperand(vixl::aarch64::sp, PAIR_OFFSET, vixl::aarch64::AddrMode::PostIndex));
+         }
+         registers.reset(lastReg);
+@@ -3933,8 +3949,8 @@ void Aarch64Encoder::PopRegisters(RegMask registers, bool isFp)
+                                vixl::aarch64::VRegister(lastReg, DOUBLE_WORD_SIZE),
+                                MemOperand(vixl::aarch64::sp, PAIR_OFFSET, vixl::aarch64::AddrMode::PostIndex));
+             } else {
+-                GetMasm()->ldp(vixl::aarch64::Register(i, DOUBLE_WORD_SIZE),
+-                               vixl::aarch64::Register(lastReg, DOUBLE_WORD_SIZE),
++                GetMasm()->ldp(SaveRestoreRegister(vixl::aarch64::Register(i, DOUBLE_WORD_SIZE)),
++                               SaveRestoreRegister(vixl::aarch64::Register(lastReg, DOUBLE_WORD_SIZE)),
+                                MemOperand(vixl::aarch64::sp, PAIR_OFFSET, vixl::aarch64::AddrMode::PostIndex));
+             }
+             lastReg = INVALID_REG;
+diff --git a/static_core/compiler/optimizer/code_generator/target/aarch64/regfile.cpp b/static_core/compiler/optimizer/code_generator/target/aarch64/regfile.cpp
+index 0ddda35b..d24ac851 100644
+--- a/static_core/compiler/optimizer/code_generator/target/aarch64/regfile.cpp
++++ b/static_core/compiler/optimizer/code_generator/target/aarch64/regfile.cpp
+@@ -165,6 +165,10 @@ RegMask Aarch64RegisterDescription::GetDefaultRegMask() const
+     regMask.set(GetThreadReg(Arch::AARCH64));
+     regMask.set(vixl::aarch64::x29.GetCode());
+     regMask.set(vixl::aarch64::lr.GetCode());
++#ifdef PANDA_TARGET_MACOS
++    // Darwin reserves x18 for the operating system. It must never hold a VM value.
++    regMask.set(vixl::aarch64::x18.GetCode());
++#endif
+     return regMask;
+ }
+ 
+diff --git a/static_core/compiler/optimizer/code_generator/type_info.h b/static_core/compiler/optimizer/code_generator/type_info.h
+index 0aee0b49..92dd0c21 100644
+--- a/static_core/compiler/optimizer/code_generator/type_info.h
++++ b/static_core/compiler/optimizer/code_generator/type_info.h
+@@ -114,6 +114,10 @@ public:
+             typeId_ = INT64;
+         } else if constexpr (std::is_same<T, int64_t>()) {
+             typeId_ = INT64;
++        } else if constexpr (std::is_integral_v<T> && sizeof(T) == sizeof(uint64_t)) {
++            // Darwin's uintptr_t/size_t are unsigned long, whereas uint64_t is
++            // unsigned long long. Native-width immediates still require INT64.
++            typeId_ = INT64;
+         } else if constexpr (std::is_same<T, float>()) {
+             typeId_ = FLOAT32;
+         } else if constexpr (std::is_same<T, double>()) {
+diff --git a/static_core/irtoc/backend/CMakeLists.txt b/static_core/irtoc/backend/CMakeLists.txt
+index 8cb43608..d337c408 100644
+--- a/static_core/irtoc/backend/CMakeLists.txt
++++ b/static_core/irtoc/backend/CMakeLists.txt
+@@ -154,16 +154,28 @@ function(irtoc_compile)
+         set(compiler_cpu_features "--compiler-cpu-features=${PANDA_TARGET_CPU_FEATURES}")
+     endif()
+ 
++    set(IRTOC_GENERATED_OUTPUT ${IRTOC_OUTPUT})
++    set(MACOS_ASSEMBLY_COMMAND)
++    if(PANDA_TARGET_MACOS)
++        if(NOT PANDA_TARGET_ARM64)
++            message(FATAL_ERROR "Native Mach-O IRtoC output currently supports ARM64 only")
++        endif()
++        set(IRTOC_GENERATED_OUTPUT ${BUILD_DIR}/${ARG_TARGET_NAME}.S)
++        set(MACOS_ASSEMBLY_COMMAND COMMAND ${CMAKE_CXX_COMPILER}
++            -arch arm64 -x assembler -c ${IRTOC_GENERATED_OUTPUT} -o ${IRTOC_OUTPUT})
++    endif()
++
+     add_custom_command(OUTPUT ${IRTOC_OUTPUT} ${IRTOC_OUTPUT_LLVM}
+         COMMENT             ${command_comment}
+         COMMAND             touch disasm.txt
+         COMMAND             ${PANDA_RUN_PREFIX} ${IRTOC_EXEC}
+-                                --irtoc-output ${IRTOC_OUTPUT}
++                                --irtoc-output ${IRTOC_GENERATED_OUTPUT}
+                                 --compiler-cross-arch ${IRTOC_TARGET}
+                                 ${compiler_cpu_features}
+                                 ${IRTOC_OUTPUT_LLVM_OPTION}
+                                 --compiler-disasm-dump:single-file
+                                 ${llvm_inline_module}
++        ${MACOS_ASSEMBLY_COMMAND}
+         COMMAND             ${VALIDATION_COMMAND}
+         WORKING_DIRECTORY   ${BUILD_DIR}
+         DEPENDS             ${IRTOC_EXEC} ${llvm_inline_module_bc}
+diff --git a/static_core/irtoc/backend/compilation.cpp b/static_core/irtoc/backend/compilation.cpp
+index d952d4c1..df9cd974 100644
+--- a/static_core/irtoc/backend/compilation.cpp
++++ b/static_core/irtoc/backend/compilation.cpp
+@@ -18,6 +18,10 @@
+ #include "libarkbase/mem/pool_manager.h"
+ #include "elfio.hpp"
+ #include "irtoc_runtime.h"
++#ifdef PANDA_TARGET_MACOS
++#include <fstream>
++#include "macos_assembly.h"
++#endif
+ #ifdef LLVM_INTERPRETER_CHECK_REGS_MASK
+ #include "aarch64/disasm-aarch64.h"
+ #endif
+@@ -129,7 +133,9 @@ private:
+ 
+ // elfio library missed some elf constants, so lets define it here for a while. We can't include elf.h header because
+ // it conflicts with elfio.
++#ifndef PANDA_TARGET_MACOS
+ static constexpr size_t EF_ARM_EABI_VER5 = 0x05000000;
++#endif
+ 
+ void Compilation::CollectUsedRegisters([[maybe_unused]] ark::ArenaAllocator *allocator)
+ {
+@@ -274,6 +280,7 @@ Compilation::Result Compilation::Compile()
+     return 0;
+ }
+ 
++#ifndef PANDA_TARGET_MACOS
+ static size_t GetElfArch(Arch arch)
+ {
+     switch (arch) {
+@@ -406,4 +413,38 @@ Compilation::Result Compilation::MakeElf(std::string_view output)
+ 
+     return 0;
+ }
++#else
++Compilation::Result Compilation::MakeElf(std::string_view output)
++{
++    if (arch_ != Arch::AARCH64) {
++        return Unexpected("Mach-O assembly output supports ARM64 only");
++    }
++    std::ofstream stream {std::string(output)};
++    if (!stream) {
++        return Unexpected("Cannot open Mach-O assembly output");
++    }
++    for (auto unit : units_) {
++        if (unit->IsCompiledByLlvm()) {
++            continue;
++        }
++        const auto code = unit->GetCode();
++        std::vector<uint8_t> bytes(code.begin(), code.end());
++        std::vector<MacAssemblyRelocation> relocations;
++        for (const auto &rel : unit->GetRelocations()) {
++            relocations.push_back({rel.offset, rel.type, rel.addend, unit->GetExternalFunction(rel.data)});
++        }
++        std::string error;
++        if (!WriteMacArm64Function(stream, unit->GetName(), bytes, relocations,
++                                  GetCodeAlignment(arch_), &error)) {
++            LOG(ERROR, COMPILER) << unit->GetName() << ": " << error;
++            return Unexpected("Failed to serialize Mach-O assembly");
++        }
++    }
++    stream.close();
++    if (!stream) {
++        return Unexpected("Failed to flush Mach-O assembly output");
++    }
++    return 0;
++}
++#endif
+ }  // namespace ark::irtoc
+diff --git a/static_core/libarkbase/CMakeLists.txt b/static_core/libarkbase/CMakeLists.txt
+index 03ba105e..367e9140 100644
+--- a/static_core/libarkbase/CMakeLists.txt
++++ b/static_core/libarkbase/CMakeLists.txt
+@@ -180,10 +180,12 @@ endif()
+ if(PANDA_TARGET_UNIX)
+     set(SOURCES ${SOURCES} ${UNIX_SOURCES_COMMON})
+     set(ARKBASE_LTO_SOURCES ${ARKBASE_LTO_SOURCES} ${ARKBASE_LTO_UNIX_SOURCES})
+-    if(NOT PANDA_TARGET_MACOS)
+-        set(SOURCES ${SOURCES}
+-            ${PANDA_ROOT}/platforms/unix/libarkbase/exec.cpp
+-            ${PANDA_ROOT}/platforms/unix/libarkbase/pipe.cpp)
++    set(SOURCES ${SOURCES}
++        ${PANDA_ROOT}/platforms/unix/libarkbase/exec.cpp
++        ${PANDA_ROOT}/platforms/unix/libarkbase/pipe.cpp)
++    if(PANDA_TARGET_MACOS)
++        list(REMOVE_ITEM SOURCES ${PANDA_ROOT}/platforms/unix/libarkbase/mem_hooks.cpp)
++        list(APPEND SOURCES ${PANDA_ROOT}/platforms/darwin/libarkbase/mem_hooks.cpp)
+     endif()
+ elseif (PANDA_TARGET_WINDOWS)
+     set(SOURCES ${WINDOWS_SOURCES})
+@@ -538,5 +540,12 @@ set_target_properties(arkbase_obj PROPERTIES
+ panda_add_library(arkbase_static STATIC $<TARGET_OBJECTS:arkbase_obj>)
+ panda_target_link_libraries(arkbase_static arkbase_obj)
+ 
+-panda_add_library(arkbase ${PANDA_DEFAULT_LIB_TYPE} $<TARGET_OBJECTS:arkbase_obj>)
++set(ARKBASE_LIB_TYPE ${PANDA_DEFAULT_LIB_TYPE})
++if(PANDA_TARGET_MACOS AND ARK_BENCH_ENABLE_MAC_CODEGEN)
++    # Mach-O binds imports to a particular image. A static arkbase in both the
++    # launcher and runtime dependencies duplicates process-wide state (logger,
++    # allocator configuration, etc.) instead of ELF-style symbol interposition.
++    set(ARKBASE_LIB_TYPE SHARED)
++endif()
++panda_add_library(arkbase ${ARKBASE_LIB_TYPE} $<TARGET_OBJECTS:arkbase_obj>)
+ panda_target_link_libraries(arkbase arkbase_obj)
+diff --git a/static_core/libarkbase/arch/aarch64/cpu_features.cpp b/static_core/libarkbase/arch/aarch64/cpu_features.cpp
+index f623675d..d0099595 100644
+--- a/static_core/libarkbase/arch/aarch64/cpu_features.cpp
++++ b/static_core/libarkbase/arch/aarch64/cpu_features.cpp
+@@ -14,9 +14,34 @@
+  */
+ 
+ #include "libarkbase/cpu_features.h"
++#ifdef PANDA_TARGET_MACOS
++#include <sys/sysctl.h>
++#endif
+ 
+ namespace ark::compiler {
+-#if defined(PANDA_TARGET_MOBILE) || defined(PANDA_TARGET_OHOS) || defined(PANDA_TARGET_LINUX) || \
++#if defined(PANDA_TARGET_MACOS)
++static bool MacHasFeature(const char *name)
++{
++    int value = 0;
++    size_t size = sizeof(value);
++    return sysctlbyname(name, &value, &size, nullptr, 0) == 0 && value != 0;
++}
++
++bool CpuFeaturesHasCrc32()
++{
++    return MacHasFeature("hw.optional.armv8_crc32");
++}
++
++bool CpuFeaturesHasJscvt()
++{
++    return MacHasFeature("hw.optional.arm.FEAT_JSCVT");
++}
++
++bool CpuFeaturesHasAtomics()
++{
++    return MacHasFeature("hw.optional.arm.FEAT_LSE");
++}
++#elif defined(PANDA_TARGET_MOBILE) || defined(PANDA_TARGET_OHOS) || defined(PANDA_TARGET_LINUX) || \
+     defined(PANDA_TARGET_UNIX)
+ 
+ #include <asm/hwcap.h>
+diff --git a/static_core/platforms/unix/libarkbase/signal.h b/static_core/platforms/unix/libarkbase/signal.h
+index 0fdc1773..3a57d4aa 100644
+--- a/static_core/platforms/unix/libarkbase/signal.h
++++ b/static_core/platforms/unix/libarkbase/signal.h
+@@ -31,7 +31,7 @@ class SignalCtl {
+ public:
+     SignalCtl(std::initializer_list<int> signalList = {})  // NOLINT(cppcoreguidelines-pro-type-member-init)
+     {
+-        LOG_IF(::sigemptyset(&sigset_) == -1, FATAL, COMMON) << "sigemptyset failed";
++        LOG_IF((::sigemptyset)(&sigset_) == -1, FATAL, COMMON) << "sigemptyset failed";
+         for (int sig : signalList) {
+             Add(sig);
+         }
+@@ -42,17 +42,17 @@ public:
+ 
+     void Add(int sig)
+     {
+-        LOG_IF(::sigaddset(&sigset_, sig) == -1, FATAL, COMMON) << "sigaddset failed";
++        LOG_IF((::sigaddset)(&sigset_, sig) == -1, FATAL, COMMON) << "sigaddset failed";
+     }
+ 
+     void Delete(int sig)
+     {
+-        LOG_IF(::sigdelset(&sigset_, sig) == -1, FATAL, COMMON) << "sigaddset failed";
++        LOG_IF((::sigdelset)(&sigset_, sig) == -1, FATAL, COMMON) << "sigaddset failed";
+     }
+ 
+     bool IsExist(int sig) const
+     {
+-        int ret = ::sigismember(&sigset_, sig);
++        int ret = (::sigismember)(&sigset_, sig);
+         LOG_IF(ret == -1, FATAL, COMMON) << "sigismember failed";
+         return ret == 1;
+     }
+diff --git a/static_core/plugins/ets/compiler/CMakeLists.txt b/static_core/plugins/ets/compiler/CMakeLists.txt
+index 3b06f31b..1b19faa4 100644
+--- a/static_core/plugins/ets/compiler/CMakeLists.txt
++++ b/static_core/plugins/ets/compiler/CMakeLists.txt
+@@ -26,7 +26,7 @@ set(COMPILER_SOURCES
+   ${PANDA_ETS_PLUGIN_SOURCE}/compiler/runtime_adapter_ets.cpp
+ )
+ 
+-if (NOT PANDA_TARGET_MACOS)
++if (NOT PANDA_TARGET_MACOS OR ARK_BENCH_ENABLE_MAC_CODEGEN)
+   list(APPEND COMPILER_SOURCES
+       ${PANDA_ETS_PLUGIN_SOURCE}/compiler/codegen_intrinsics_ets.cpp
+   )
+diff --git a/static_core/plugins/ets/runtime/ani/arch/arm64/ets_ani_entry_point_aarch64.S b/static_core/plugins/ets/runtime/ani/arch/arm64/ets_ani_entry_point_aarch64.S
+index cb82cdfd..9eb11c00 100644
+--- a/static_core/plugins/ets/runtime/ani/arch/arm64/ets_ani_entry_point_aarch64.S
++++ b/static_core/plugins/ets/runtime/ani/arch/arm64/ets_ani_entry_point_aarch64.S
+@@ -176,7 +176,9 @@ MAKE_ASM_NAME(AniCriticalNativeEntryPoint):
+     ldp x12, x13, [fp, #-CALLER_REG0_OFFSET+8*12]
+     ldp x14, x15, [fp, #-CALLER_REG0_OFFSET+8*14]
+     ldp x16, x17, [fp, #-CALLER_REG0_OFFSET+8*16]
++#ifndef PANDA_TARGET_MACOS
+     ldr x18, [fp, #-CALLER_REG0_OFFSET+8*18]
++#endif
+ 
+     b MAKE_ASM_NAME(ThrowNativeExceptionBridge)
+ 
+@@ -503,7 +505,9 @@ MAKE_ASM_NAME(AniCriticalNativeEntryPoint):
+     ldp x12, x13, [fp, #-CALLER_REG0_OFFSET+8*12]
+     ldp x14, x15, [fp, #-CALLER_REG0_OFFSET+8*14]
+     ldp x16, x17, [fp, #-CALLER_REG0_OFFSET+8*16]
++#ifndef PANDA_TARGET_MACOS
+     ldr x18, [fp, #-CALLER_REG0_OFFSET+8*18]
++#endif
+ 
+     b MAKE_ASM_NAME(ThrowNativeExceptionBridge)
+ 
+diff --git a/static_core/plugins/ets/runtime/ani/arch/arm64/ets_async_entry_point_aarch64.S b/static_core/plugins/ets/runtime/ani/arch/arm64/ets_async_entry_point_aarch64.S
+index 7fb9ed33..c4f63c03 100644
+--- a/static_core/plugins/ets/runtime/ani/arch/arm64/ets_async_entry_point_aarch64.S
++++ b/static_core/plugins/ets/runtime/ani/arch/arm64/ets_async_entry_point_aarch64.S
+@@ -159,7 +159,9 @@ MAKE_ASM_NAME(EtsAsyncEntryPoint):
+     ldp x12, x13, [fp, #-CALLER_REG0_OFFSET+8*12]
+     ldp x14, x15, [fp, #-CALLER_REG0_OFFSET+8*14]
+     ldp x16, x17, [fp, #-CALLER_REG0_OFFSET+8*16]
++#ifndef PANDA_TARGET_MACOS
+     ldr x18, [fp, #-CALLER_REG0_OFFSET+8*18]
++#endif
+ 
+     b MAKE_ASM_NAME(ThrowNativeExceptionBridge)
+ 
+diff --git a/static_core/plugins/ets/runtime/tooling/hprof/heap_dump_coordinator.cpp b/static_core/plugins/ets/runtime/tooling/hprof/heap_dump_coordinator.cpp
+index 000436bf..1a7a966e 100644
+--- a/static_core/plugins/ets/runtime/tooling/hprof/heap_dump_coordinator.cpp
++++ b/static_core/plugins/ets/runtime/tooling/hprof/heap_dump_coordinator.cpp
+@@ -36,10 +36,12 @@
+ 
+ namespace ark::tooling::hprof {
+ 
++#if defined(__linux__)
+ static constexpr uint8_t DUMP_SUCCESS = 0;
+ static constexpr uint8_t DUMP_FORK_FAILED = 1;
+ static constexpr uint8_t DUMP_FAILED_TO_WAIT = 2;
+ static constexpr uint8_t DUMP_WAIT_TIMEOUT = 3;
++#endif
+ 
+ namespace {
+ 
+diff --git a/static_core/plugins/ets/templates/stdlib/genlib.sh b/static_core/plugins/ets/templates/stdlib/genlib.sh
+index 900016d3..b7dec7d8 100755
+--- a/static_core/plugins/ets/templates/stdlib/genlib.sh
++++ b/static_core/plugins/ets/templates/stdlib/genlib.sh
+@@ -37,7 +37,18 @@ if ! [[ -f "${JINJA_PATH}" ]]; then
+ fi
+ 
+ function format_file() {
+-    sed -e 's/\b \s\+\b/ /g' | sed -e 's/\s\+$//g' | sed -e 's+/\*\s*\*/\s*++g' | cat -s
++    if [[ "$(uname -s)" == "Darwin" ]]; then
++        # BSD sed does not implement the GNU \b / \s expressions below.
++        # Process one line at a time, like sed, preserving the final newline.
++        python3 -c 'import re, sys
++for line in sys.stdin:
++    line = re.sub(r"\b \s+\b", " ", line.rstrip("\n"))
++    line = re.sub(r"\s+$", "", line)
++    line = re.sub(r"/\*\s*\*/\s*", "", line)
++    print(line)' | cat -s
++    else
++        sed -e 's/\b \s\+\b/ /g' | sed -e 's/\s\+$//g' | sed -e 's+/\*\s*\*/\s*++g' | cat -s
++    fi
+ }
+ 
+ mkdir -p "${GEN_ESCOMPAT_PATH}"
+diff --git a/static_core/runtime/CMakeLists.txt b/static_core/runtime/CMakeLists.txt
+index 69395e75..156b154e 100644
+--- a/static_core/runtime/CMakeLists.txt
++++ b/static_core/runtime/CMakeLists.txt
+@@ -664,7 +664,7 @@ panda_target_include_directories(arkruntime_obj
+ )
+ 
+ panda_target_link_libraries(arkruntime_obj arkbase arkfile arkcompiler dprof arkaotmanager arktarget_options arkassembler)
+-if (NOT PANDA_TARGET_OHOS)
++if (NOT PANDA_TARGET_OHOS AND NOT PANDA_TARGET_MACOS)
+   panda_target_link_libraries(arkruntime_obj atomic)
+ endif()
+ 
+diff --git a/static_core/runtime/arch/aarch64/call_runtime.S b/static_core/runtime/arch/aarch64/call_runtime.S
+index c989a388..ad0ac0a2 100644
+--- a/static_core/runtime/arch/aarch64/call_runtime.S
++++ b/static_core/runtime/arch/aarch64/call_runtime.S
+@@ -130,7 +130,11 @@
+     stp x12, x13, [\fp_reg, #-CALLER_REG0_OFFSET+8*12]
+     stp x14, x15, [\fp_reg, #-CALLER_REG0_OFFSET+8*14]
+     stp x16, x17, [\fp_reg, #-CALLER_REG0_OFFSET+8*16]
++#ifdef PANDA_TARGET_MACOS
++    str xzr, [\fp_reg, #-CALLER_REG0_OFFSET+8*18]
++#else
+     str x18, [\fp_reg, #-CALLER_REG0_OFFSET+8*18]
++#endif
+ .endm
+ 
+ .macro RESTORE_CALLER_GP_REGS fp_reg, tmp_reg, ret_type
+@@ -148,7 +152,9 @@
+     ldp x12, x13, [\fp_reg, #-CALLER_REG0_OFFSET+8*12]
+     ldp x14, x15, [\fp_reg, #-CALLER_REG0_OFFSET+8*14]
+     ldp x16, x17, [\fp_reg, #-CALLER_REG0_OFFSET+8*16]
++#ifndef PANDA_TARGET_MACOS
+     ldr x18, [\fp_reg, #-CALLER_REG0_OFFSET+8*18]
++#endif
+ .endm
+ 
+ .macro SAVE_CALLER_FP_REGS fp_reg, tmp_reg, ret_type
+diff --git a/static_core/runtime/arch/aarch64/osr_aarch64.S b/static_core/runtime/arch/aarch64/osr_aarch64.S
+index 6cf960ca..c3aa1ae1 100644
+--- a/static_core/runtime/arch/aarch64/osr_aarch64.S
++++ b/static_core/runtime/arch/aarch64/osr_aarch64.S
+@@ -21,6 +21,13 @@
+ #define REGS_BUFFER_SIZE (REGS_COUNT * 8)
+ #define FP_REGS_BUFFER_SIZE (FP_REGS_COUNT * 8)
+ 
++#ifdef PANDA_TARGET_MACOS
++// Scratch before OSR_ENTRY, which restores x13 from the register buffer.
++#define OSR_FRAME_END x13
++#else
++#define OSR_FRAME_END x18
++#endif
++
+ .extern MAKE_ASM_NAME(ConvertIFrameToCFrame)
+ .extern MAKE_ASM_NAME(PrepareOsrEntry)
+ .extern MAKE_ASM_NAME(SetResult)
+@@ -78,7 +85,12 @@
+     ldp x12, x13, [x16], #16
+     ldp x14, x15, [x16], #16
+     add x16, x16 ,16
++#ifdef PANDA_TARGET_MACOS
++    ldr x19, [x16, #8]
++    add x16, x16, #16
++#else
+     ldp x18, x19, [x16], #16
++#endif
+     ldp x20, x21, [x16], #16
+     ldp x22, x23, [x16], #16
+     ldp x24, x25, [x16], #16
+@@ -108,7 +120,7 @@ MAKE_ASM_NAME(OsrEntryAfterCFrame):
+ 
+     // We're going to replace C2I frame by new cframe
+     ldr x16, [x0, #FRAME_PREV_FRAME_OFFSET]
+-    add x18, x16, #24
++    add OSR_FRAME_END, x16, #24
+ 
+     // We will return to the caller cframe skipping interpreter and C2I bridge
+     ldr fp, [x16]
+@@ -116,9 +128,9 @@ MAKE_ASM_NAME(OsrEntryAfterCFrame):
+ 
+     // Copy callee saved registers from boundary frame into cframe.
+     // Destination - callee saved stack in the cframe
+-    sub x17, x18, #((CFRAME_HEADER_SIZE + CFRAME_LOCALS_COUNT) * 8 + CALLEE_SAVED_SIZE)
++    sub x17, OSR_FRAME_END, #((CFRAME_HEADER_SIZE + CFRAME_LOCALS_COUNT) * 8 + CALLEE_SAVED_SIZE)
+     // Source - callee saved stack in the bounadary frame
+-    sub x16, x18, #((CFRAME_HEADER_SIZE * 8) + CALLEE_SAVED_SIZE)
++    sub x16, OSR_FRAME_END, #((CFRAME_HEADER_SIZE * 8) + CALLEE_SAVED_SIZE)
+ 
+     ldp x14, x15, [x16], #16
+     stp x14, x15, [x17], #16
+@@ -140,13 +152,13 @@ MAKE_ASM_NAME(OsrEntryAfterCFrame):
+     stp x14, x15, [x17], #16
+ 
+     // Create CFrame
+-    stp fp, lr, [x18, #-16]
++    stp fp, lr, [OSR_FRAME_END, #-16]
+     ldr x16, [x0, #FRAME_METHOD_OFFSET]
+-    stp xzr, x16, [x18, #-32]
++    stp xzr, x16, [OSR_FRAME_END, #-32]
+ 
+     mov x4, x3
+     // Set x3 to created cframe
+-    sub x3, x18, #16
++    sub x3, OSR_FRAME_END, #16
+     mov fp, x3
+ 
+     CFI_DEF_CFA(fp, (2 * 8))
+@@ -172,7 +184,7 @@ MAKE_ASM_NAME(OsrEntryAfterCFrame):
+     CFI_REL_OFFSET(d8, -((CFRAME_CALLEE_REGS_START_SLOT + 17) * 8))
+ 
+     // Adjust stack for the whole cframe
+-    sub sp, x18, x4
++    sub sp, OSR_FRAME_END, x4
+ 
+     OSR_ENTRY
+ 
+diff --git a/static_core/runtime/asm_defines/CMakeLists.txt b/static_core/runtime/asm_defines/CMakeLists.txt
+index 579baf39..f57e821c 100644
+--- a/static_core/runtime/asm_defines/CMakeLists.txt
++++ b/static_core/runtime/asm_defines/CMakeLists.txt
+@@ -71,6 +71,13 @@ panda_target_compile_options(asm_defines PUBLIC "-Wno-attributes")
+ panda_target_compile_options(asm_defines PUBLIC "-Wno-invalid-offsetof")
+ panda_target_compile_options(asm_defines PUBLIC "-S")
+ 
++# Apple's libtool drops assembly text from a static archive. This target is
++# consumed as text by generators, so preserve the compiler output directly.
++if (PANDA_TARGET_MACOS)
++    set(CMAKE_CXX_ARCHIVE_CREATE "${CMAKE_COMMAND} -E copy <OBJECTS> <TARGET>")
++    set(CMAKE_CXX_ARCHIVE_FINISH "")
++endif()
++
+ if (PANDA_TARGET_WINDOWS)
+     panda_target_compile_options(asm_defines PUBLIC "-Wno-inconsistent-dllimport")
+ endif()
+diff --git a/static_core/runtime/bridge/arch/aarch64/proxy_entrypoint_aarch64.S b/static_core/runtime/bridge/arch/aarch64/proxy_entrypoint_aarch64.S
+index 873a17ff..22c01fe6 100644
+--- a/static_core/runtime/bridge/arch/aarch64/proxy_entrypoint_aarch64.S
++++ b/static_core/runtime/bridge/arch/aarch64/proxy_entrypoint_aarch64.S
+@@ -174,7 +174,9 @@
+     ldp x12, x13, [fp, #-CALLER_REG0_OFFSET+8*12]
+     ldp x14, x15, [fp, #-CALLER_REG0_OFFSET+8*14]
+     ldp x16, x17, [fp, #-CALLER_REG0_OFFSET+8*16]
++#ifndef PANDA_TARGET_MACOS
+     ldr x18, [fp, #-CALLER_REG0_OFFSET+8*18]
++#endif
+ 
+     b MAKE_ASM_NAME(ThrowNativeExceptionBridge)
+ 
+diff --git a/static_core/runtime/fibers/arch/aarch64/helpers.S b/static_core/runtime/fibers/arch/aarch64/helpers.S
+index 4edc549e..f937b75d 100644
+--- a/static_core/runtime/fibers/arch/aarch64/helpers.S
++++ b/static_core/runtime/fibers/arch/aarch64/helpers.S
+@@ -21,7 +21,12 @@
+ .macro STORE_CONTEXT ctx_baseaddr_regid, tmp_regid
+     /* save GPR */
+     // gpr (incl. fp): assuming that X18..X29 reside in a contiguous block
++#ifdef PANDA_TARGET_MACOS
++    // Keep the existing context layout; Darwin's x18 slot is unused.
++    str x19, [x\ctx_baseaddr_regid, GPR_O(R19)]
++#else
+     stp x18, x19, [x\ctx_baseaddr_regid, GPR_O(R18)]
++#endif
+     stp x20, x21, [x\ctx_baseaddr_regid, GPR_O(R20)]
+     stp x22, x23, [x\ctx_baseaddr_regid, GPR_O(R22)]
+     stp x24, x25, [x\ctx_baseaddr_regid, GPR_O(R24)]
+@@ -52,4 +57,4 @@
+     str w\tmp_regid, [x\ctx_baseaddr_regid, FP_O(FPCR)]
+ .endm
+ 
+-#endif /* PANDA_RUNTIME_FIBERS_ARCH_AARCH64_HELPERS_S */
+\ No newline at end of file
++#endif /* PANDA_RUNTIME_FIBERS_ARCH_AARCH64_HELPERS_S */
+diff --git a/static_core/runtime/fibers/arch/aarch64/switch.S b/static_core/runtime/fibers/arch/aarch64/switch.S
+index 4a1d1cde..0f8bbe88 100644
+--- a/static_core/runtime/fibers/arch/aarch64/switch.S
++++ b/static_core/runtime/fibers/arch/aarch64/switch.S
+@@ -37,7 +37,11 @@ MAKE_ASM_NAME(SwitchContext):
+     /*** restore next context ***/
+     /* restore GPR */
+     // gpr (incl. fp): assuming that X18..X29 reside in a contiguous block
++#ifdef PANDA_TARGET_MACOS
++    ldr x19, [x1, GPR_O(R19)]
++#else
+     ldp x18, x19, [x1, GPR_O(R18)]
++#endif
+     ldp x20, x21, [x1, GPR_O(R20)]
+     ldp x22, x23, [x1, GPR_O(R22)]
+     ldp x24, x25, [x1, GPR_O(R24)]
+diff --git a/static_core/runtime/icu.cmake b/static_core/runtime/icu.cmake
+index 64712f2c..3862136e 100644
+--- a/static_core/runtime/icu.cmake
++++ b/static_core/runtime/icu.cmake
+@@ -35,7 +35,7 @@ set(ICU_INCLUDE_DIR
+ )
+ 
+ set(ICU_LIB_TYPE SHARED)
+-if (PANDA_TARGET_MOBILE OR PANDA_TARGET_OHOS)
++if (PANDA_TARGET_MOBILE OR PANDA_TARGET_OHOS OR PANDA_TARGET_MACOS)
+     set(ICU_LIB_TYPE STATIC)
+ endif()
+ 
+@@ -67,4 +67,13 @@ panda_target_include_directories(asm_defines
+     SYSTEM PRIVATE ${ICU_INCLUDE_DIR}
+ )
+ 
+-panda_target_link_libraries(arkruntime_obj init_icu hmicuuc.z hmicui18n.z)
++if(PANDA_TARGET_MACOS)
++    # Run initialization in the same image as the static ICU implementation.
++    # A separate Darwin dylib cannot leave ICU symbols unresolved as on ELF,
++    # and linking another static ICU copy there would initialize the wrong copy.
++    panda_target_sources(arkruntime_obj PRIVATE ${PANDA_ROOT}/runtime/init_icu.cpp)
++    panda_target_include_directories(arkruntime_obj PRIVATE ${GEN_INCLUDE_DIR} ${ICU_INCLUDE_DIR})
++    panda_target_link_libraries(arkruntime_obj hmicuuc.z hmicui18n.z)
++else()
++    panda_target_link_libraries(arkruntime_obj init_icu hmicuuc.z hmicui18n.z)
++endif()
+diff --git a/static_core/runtime/tests/arch/aarch64/stack_walker_hook_bridge.S b/static_core/runtime/tests/arch/aarch64/stack_walker_hook_bridge.S
+index 5a480da6..21fdc48f 100644
+--- a/static_core/runtime/tests/arch/aarch64/stack_walker_hook_bridge.S
++++ b/static_core/runtime/tests/arch/aarch64/stack_walker_hook_bridge.S
+@@ -17,7 +17,7 @@
+ #include "arch/aarch64/call_runtime.S"
+ 
+ .global MAKE_ASM_NAME(StackWalkerHookBridge)
+-.type StackWalkerHookBridge, %function
++TYPE_FUNCTION(StackWalkerHookBridge)
+ MAKE_ASM_NAME(StackWalkerHookBridge):
+     CFI_STARTPROC
+     CFI_DEF_CFA(sp, 0)
+diff --git a/static_core/irtoc/backend/macos_assembly.h b/static_core/irtoc/backend/macos_assembly.h
+new file mode 100644
+index 00000000..0fabbbab
+--- /dev/null
++++ b/static_core/irtoc/backend/macos_assembly.h
+@@ -0,0 +1,112 @@
++/*
++ * Copyright (c) 2026.
++ * Licensed under the Apache License, Version 2.0.
++ */
++#ifndef PANDA_IRTOC_MACOS_ASSEMBLY_H
++#define PANDA_IRTOC_MACOS_ASSEMBLY_H
++
++#include <algorithm>
++#include <cstdint>
++#include <iomanip>
++#include <ostream>
++#include <string>
++#include <string_view>
++#include <vector>
++
++namespace ark::irtoc {
++
++// Darwin's ARM64_RELOC_BRANCH26. Keep this format-specific value separate from
++// ELF's R_AARCH64_CALL26; the instruction distinguishes B from BL in both cases.
++inline constexpr uint32_t MACHO_ARM64_BRANCH26 = 2;
++
++struct MacAssemblyRelocation {
++    uint32_t offset;
++    uint32_t type;
++    int32_t addend;
++    std::string symbol;
++};
++
++inline bool IsMacAssemblySymbol(std::string_view name)
++{
++    if (name.empty()) {
++        return false;
++    }
++    auto first = [](char value) {
++        return (value >= 'A' && value <= 'Z') || (value >= 'a' && value <= 'z') ||
++               value == '_' || value == '.' || value == '$';
++    };
++    if (!first(name.front())) {
++        return false;
++    }
++    return std::all_of(name.begin(), name.end(), [&](char value) {
++        return first(value) || (value >= '0' && value <= '9');
++    });
++}
++
++// Build-time serialization only: no register/ABI/stack-map transformations.
++// Let Apple's assembler produce native relocations rather than constructing
++// Mach-O structures or treating ELF relocation tags as Darwin relocation tags.
++inline bool WriteMacArm64Function(std::ostream &out, std::string_view name,
++                                  const std::vector<uint8_t> &code,
++                                  const std::vector<MacAssemblyRelocation> &relocations,
++                                  uint32_t alignment, std::string *error)
++{
++    auto fail = [&](const char *message) {
++        *error = message;
++        return false;
++    };
++    if (!IsMacAssemblySymbol(name) || code.empty() || code.size() % 4 != 0 ||
++        alignment < 4 || (alignment & (alignment - 1)) != 0) {
++        return fail("invalid ARM64 function, code size, or alignment");
++    }
++    auto sorted = relocations;
++    std::sort(sorted.begin(), sorted.end(), [](const auto &left, const auto &right) {
++        return left.offset < right.offset;
++    });
++    for (size_t i = 0; i < sorted.size(); ++i) {
++        const auto &rel = sorted[i];
++        if (rel.type != MACHO_ARM64_BRANCH26 || rel.offset % 4 != 0 ||
++            static_cast<uint64_t>(rel.offset) + 4 > code.size() ||
++            rel.addend % 4 != 0 || !IsMacAssemblySymbol(rel.symbol) ||
++            (i != 0 && sorted[i - 1].offset == rel.offset)) {
++            return fail("invalid or unsupported Mach-O ARM64 relocation");
++        }
++    }
++    uint32_t power = 0;
++    for (uint32_t value = alignment; value > 1; value >>= 1U) {
++        ++power;
++    }
++    out << ".text\n.p2align " << power << "\n.globl _" << name << "\n_" << name << ":\n";
++    size_t nextRelocation = 0;
++    for (size_t offset = 0; offset < code.size(); offset += 4) {
++        uint32_t instruction = static_cast<uint32_t>(code[offset]) |
++            (static_cast<uint32_t>(code[offset + 1]) << 8U) |
++            (static_cast<uint32_t>(code[offset + 2]) << 16U) |
++            (static_cast<uint32_t>(code[offset + 3]) << 24U);
++        if (nextRelocation < sorted.size() && sorted[nextRelocation].offset == offset) {
++            const auto &rel = sorted[nextRelocation++];
++            const uint32_t opcode = instruction & 0xfc000000U;
++            if ((opcode != 0x14000000U && opcode != 0x94000000U) ||
++                (instruction & 0x03ffffffU) != 0) {
++                return fail("branch relocation does not identify an unresolved B/BL instruction");
++            }
++            out << (opcode == 0x94000000U ? "  bl _" : "  b _") << rel.symbol;
++            if (rel.addend > 0) {
++                out << '+';
++            }
++            if (rel.addend != 0) {
++                out << rel.addend;
++            }
++            out << '\n';
++        } else {
++            out << "  .long 0x" << std::hex << std::setw(8) << std::setfill('0')
++                << instruction << std::dec << '\n';
++        }
++    }
++    if (!out.good()) {
++        return fail("failed to write Mach-O assembly");
++    }
++    return true;
++}
++}  // namespace ark::irtoc
++#endif

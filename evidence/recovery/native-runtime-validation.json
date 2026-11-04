@@ -1,0 +1,79 @@
+[
+  {
+    "mode": "cpp-interpreter",
+    "command": [
+      "/Users/wuhao/Projects/arkts-macos/build/ark-source/bin/ark",
+      "--load-runtimes=ets",
+      "--boot-panda-files=/Users/wuhao/Projects/arkts-macos/build/ark-source/plugins/ets/etsstdlib.abc",
+      "--interpreter-type=cpp",
+      "--compiler-enable-jit=false",
+      "/Users/wuhao/Projects/arkts-macos/build/port_smoke.abc",
+      "port_smoke.ETSGLOBAL::main"
+    ],
+    "output": "PORT_SMOKE 2543718.392064034 57577374 1 113",
+    "gc": "PORT_GC 4 123 7501624"
+  },
+  {
+    "mode": "irtoc-interpreter",
+    "command": [
+      "/Users/wuhao/Projects/arkts-macos/build/ark-source/bin/ark",
+      "--load-runtimes=ets",
+      "--boot-panda-files=/Users/wuhao/Projects/arkts-macos/build/ark-source/plugins/ets/etsstdlib.abc",
+      "--interpreter-type=irtoc",
+      "--compiler-enable-jit=false",
+      "/Users/wuhao/Projects/arkts-macos/build/port_smoke.abc",
+      "port_smoke.ETSGLOBAL::main"
+    ],
+    "output": "PORT_SMOKE 2543718.392064034 57577374 1 113",
+    "gc": "PORT_GC 4 123 7501624"
+  },
+  {
+    "mode": "normal-jit",
+    "command": [
+      "/Users/wuhao/Projects/arkts-macos/build/ark-source/bin/ark",
+      "--load-runtimes=ets",
+      "--boot-panda-files=/Users/wuhao/Projects/arkts-macos/build/ark-source/plugins/ets/etsstdlib.abc",
+      "--interpreter-type=cpp",
+      "--compiler-enable-jit=true",
+      "--compiler-enable-osr=false",
+      "/Users/wuhao/Projects/arkts-macos/build/port_smoke.abc",
+      "port_smoke.ETSGLOBAL::main"
+    ],
+    "output": "PORT_SMOKE 2543718.392064034 57577374 1 113",
+    "gc": "PORT_GC 4 123 7501624"
+  },
+  {
+    "mode": "jit-osr",
+    "command": [
+      "/Users/wuhao/Projects/arkts-macos/build/ark-source/bin/ark",
+      "--load-runtimes=ets",
+      "--boot-panda-files=/Users/wuhao/Projects/arkts-macos/build/ark-source/plugins/ets/etsstdlib.abc",
+      "--interpreter-type=irtoc",
+      "--compiler-enable-jit=true",
+      "--compiler-enable-osr=true",
+      "/Users/wuhao/Projects/arkts-macos/build/port_smoke.abc",
+      "port_smoke.ETSGLOBAL::main"
+    ],
+    "output": "PORT_SMOKE 2543718.392064034 57577374 1 113",
+    "gc": "PORT_GC 4 123 7501624"
+  },
+  {
+    "mode": "gc-stress",
+    "command": [
+      "/Users/wuhao/Projects/arkts-macos/build/ark-source/bin/ark",
+      "--load-runtimes=ets",
+      "--boot-panda-files=/Users/wuhao/Projects/arkts-macos/build/ark-source/plugins/ets/etsstdlib.abc",
+      "--interpreter-type=irtoc",
+      "--compiler-enable-jit=true",
+      "--init-heap-size-limit=16777216",
+      "--heap-size-limit=33554432",
+      "--heap-verifier=pre:post:fail_on_verification",
+      "--log-info=gc",
+      "--log-detailed-gc-info-enabled=true",
+      "/Users/wuhao/Projects/arkts-macos/build/port_smoke.abc",
+      "port_smoke.ETSGLOBAL::main"
+    ],
+    "output": "PORT_SMOKE 2543718.392064034 57577374 1 113",
+    "gc": "PORT_GC 4 123 7501624"
+  }
+]

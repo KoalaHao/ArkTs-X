@@ -1,0 +1,594 @@
+{
+  "metadata": {
+    "timestamp": "2026-11-04T11:48:49.911552+08:00",
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "architecture": "arm64",
+    "cpu": "Apple M1 Max",
+    "dart": "Dart SDK version: 3.13.3 (stable) (Tue Sep 1 01:07:17 2026 -0700) on \"macos_arm64\"",
+    "runtime_commit": "6b3a0de5e971b667a1e46e17283595df67a99f0b",
+    "frontend_commit": "3271e689443900dbce3ad766c881f397a38e2c76",
+    "commands": {
+      "dart-jit": [
+        "dart",
+        "/Users/wuhao/Projects/arkts-dart-bench/bench/suite.dart"
+      ],
+      "dart-aot": [
+        "/Users/wuhao/Projects/arkts-dart-bench/build/dart_aot"
+      ],
+      "ark-static-jit": [
+        "/Users/wuhao/Projects/arkts-dart-bench/build/ark-source/bin/ark",
+        "--load-runtimes=ets",
+        "--boot-panda-files=/Users/wuhao/Projects/arkts-dart-bench/build/ark-source/plugins/ets/etsstdlib.abc",
+        "--compiler-enable-jit=true",
+        "/Users/wuhao/Projects/arkts-dart-bench/build/suite.abc",
+        "suite.ETSGLOBAL::main"
+      ]
+    },
+    "references": {
+      "sieve": 17984,
+      "vectors": 442403.643541095,
+      "objects": 50102750.97802929,
+      "text": 141683
+    },
+    "method": "1s warmup, 5 adaptive-batch samples per process; serial runs",
+    "ark_managed_pointer_bits": 64,
+    "ark_binary_format": "/Users/wuhao/Projects/arkts-dart-bench/build/ark-source/bin/ark: Mach-O 64-bit executable arm64",
+    "local_port_patch_sha256": "d94fdeff0f65d450d651ced1944d1b6adb19c6ba198cca8b5faabb39d0a37601",
+    "toolchain_sha256": "e0e23b4a384937c4bd819b137961022323a909d00c49c2590a973cfeeeaefe4b",
+    "artifact_sha256": {
+      "build/dart_aot": "f3516f86c93a10948d007cd7a4cd6dcc679726abb33905c737a9f295a953d3bf",
+      "build/ark-source/bin/ark": "8c3ab8f66793ea8a93a07bdc8a21dabd3fb3c62319c23fe824325a72ba3264d1",
+      "build/ark-source/bin/es2panda_stdlib_compiler": "7060348bbe70168eff32b41339e41a2b6e500414ef9938b4793c872ef7767420",
+      "build/ark-source/plugins/ets/etsstdlib.abc": "cd816876e2fc075ee1177621d6c610c224228aa809bd8076b4153bf940cdc0df",
+      "build/suite.abc": "de8284502d15d9b5a3b5f5417efd21507aeb6f1fd5fbe7316cacc65aaaec66e3",
+      "build/ark-source/lib/libarkruntime.dylib": "34332eadce2853540a7bd2a8320f2965f7ff0981182c7edafe591c3caf34e00d",
+      "build/ark-source/lib/libarkbase.dylib": "4547b44b78301ac26e2fb3eeb4a9548b99c060c2f1b2bcdb7707a78274670e5b",
+      "build/ark-source/lib/libarkaotmanager.dylib": "90a1113a4d06f464ffbacc96a99e68fb5a9c2cdbff5fda6d84a15ba171b0550e",
+      "build/ark-source/lib/libarktarget_options.dylib": "d045f57431037a4c1fec38ddaf13467418ad1f66370dcad79a8345adb29add22"
+    }
+  },
+  "runs": [
+    {
+      "mode": "dart-jit",
+      "run": 1,
+      "wall_s": 7.59132716699969,
+      "peak_rss_bytes": 204931072,
+      "benchmarks": [
+        {
+          "name": "sieve",
+          "batch": 256,
+          "check": 17984.0,
+          "sink": 59834646.0,
+          "ms_per_op": [
+            0.5234375,
+            0.51953125,
+            0.5234375,
+            0.53515625,
+            0.53515625
+          ]
+        },
+        {
+          "name": "vectors",
+          "batch": 256,
+          "check": 442403.643541095,
+          "sink": 1660687893.1165986,
+          "ms_per_op": [
+            0.57421875,
+            0.6171875,
+            0.59765625,
+            0.5859375,
+            0.55078125
+          ]
+        },
+        {
+          "name": "objects",
+          "batch": 1024,
+          "check": 50102750.97802929,
+          "sink": 667317593779.824,
+          "ms_per_op": [
+            0.125,
+            0.1279296875,
+            0.126953125,
+            0.130859375,
+            0.126953125
+          ]
+        },
+        {
+          "name": "text",
+          "batch": 128,
+          "check": 141683.0,
+          "sink": 235623727.0,
+          "ms_per_op": [
+            1.015625,
+            1.03125,
+            1.0078125,
+            1.0234375,
+            1.140625
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "dart-aot",
+      "run": 1,
+      "wall_s": 7.056705584007432,
+      "peak_rss_bytes": 53673984,
+      "benchmarks": [
+        {
+          "name": "sieve",
+          "batch": 256,
+          "check": 17984.0,
+          "sink": 64438695.0,
+          "ms_per_op": [
+            0.50390625,
+            0.51953125,
+            0.48046875,
+            0.48046875,
+            0.484375
+          ]
+        },
+        {
+          "name": "vectors",
+          "batch": 256,
+          "check": 442403.643541095,
+          "sink": 1799206591.409936,
+          "ms_per_op": [
+            0.51953125,
+            0.51953125,
+            0.5,
+            0.59375,
+            0.50390625
+          ]
+        },
+        {
+          "name": "objects",
+          "batch": 1024,
+          "check": 50102750.97802929,
+          "sink": 615981583914.1777,
+          "ms_per_op": [
+            0.1357421875,
+            0.1376953125,
+            0.140625,
+            0.1357421875,
+            0.142578125
+          ]
+        },
+        {
+          "name": "text",
+          "batch": 128,
+          "check": 141683.0,
+          "sink": 235623727.0,
+          "ms_per_op": [
+            1.0390625,
+            0.9765625,
+            0.96875,
+            1.03125,
+            1.296875
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "ark-static-jit",
+      "run": 1,
+      "wall_s": 7.828192125016358,
+      "peak_rss_bytes": 36618240,
+      "benchmarks": [
+        {
+          "name": "sieve",
+          "batch": 512,
+          "check": 17984,
+          "sink": 101271107,
+          "ms_per_op": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "vectors",
+          "batch": 128,
+          "check": 442403.643541095,
+          "sink": 828912622.8960288,
+          "ms_per_op": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "name": "objects",
+          "batch": 1024,
+          "check": 50102750.97802929,
+          "sink": 538977564095.67834,
+          "ms_per_op": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "text",
+          "batch": 256,
+          "check": 141683,
+          "sink": 435117604,
+          "ms_per_op": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "ark-static-jit",
+      "run": 2,
+      "wall_s": 7.675552583008539,
+      "peak_rss_bytes": 35782656,
+      "benchmarks": [
+        {
+          "name": "sieve",
+          "batch": 512,
+          "check": 17984,
+          "sink": 101271107,
+          "ms_per_op": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "vectors",
+          "batch": 128,
+          "check": 442403.643541095,
+          "sink": 828912622.8960288,
+          "ms_per_op": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "name": "objects",
+          "batch": 1024,
+          "check": 50102750.97802929,
+          "sink": 564645574048.5315,
+          "ms_per_op": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "text",
+          "batch": 256,
+          "check": 141683,
+          "sink": 435117604,
+          "ms_per_op": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "dart-aot",
+      "run": 2,
+      "wall_s": 6.87057550001191,
+      "peak_rss_bytes": 52723712,
+      "benchmarks": [
+        {
+          "name": "sieve",
+          "batch": 256,
+          "check": 17984.0,
+          "sink": 64438695.0,
+          "ms_per_op": [
+            0.48828125,
+            0.484375,
+            0.484375,
+            0.484375,
+            0.484375
+          ]
+        },
+        {
+          "name": "vectors",
+          "batch": 256,
+          "check": 442403.643541095,
+          "sink": 1799206591.409936,
+          "ms_per_op": [
+            0.49609375,
+            0.49609375,
+            0.49609375,
+            0.49609375,
+            0.48828125
+          ]
+        },
+        {
+          "name": "objects",
+          "batch": 1024,
+          "check": 50102750.97802929,
+          "sink": 667317593779.824,
+          "ms_per_op": [
+            0.154296875,
+            0.142578125,
+            0.1328125,
+            0.1328125,
+            0.1318359375
+          ]
+        },
+        {
+          "name": "text",
+          "batch": 128,
+          "check": 141683.0,
+          "sink": 235623727.0,
+          "ms_per_op": [
+            0.9921875,
+            0.9921875,
+            0.9921875,
+            0.984375,
+            0.9921875
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "dart-jit",
+      "run": 2,
+      "wall_s": 7.333975207991898,
+      "peak_rss_bytes": 204095488,
+      "benchmarks": [
+        {
+          "name": "sieve",
+          "batch": 256,
+          "check": 17984.0,
+          "sink": 59834646.0,
+          "ms_per_op": [
+            0.52734375,
+            0.57421875,
+            0.5234375,
+            0.5234375,
+            0.5234375
+          ]
+        },
+        {
+          "name": "vectors",
+          "batch": 256,
+          "check": 442403.643541095,
+          "sink": 1660687893.1165986,
+          "ms_per_op": [
+            0.6328125,
+            0.59375,
+            0.609375,
+            0.56640625,
+            0.5390625
+          ]
+        },
+        {
+          "name": "objects",
+          "batch": 1024,
+          "check": 50102750.97802929,
+          "sink": 667317593779.824,
+          "ms_per_op": [
+            0.126953125,
+            0.125,
+            0.1240234375,
+            0.125,
+            0.1533203125
+          ]
+        },
+        {
+          "name": "text",
+          "batch": 128,
+          "check": 141683.0,
+          "sink": 235623727.0,
+          "ms_per_op": [
+            1.015625,
+            1.21875,
+            1.03125,
+            1.09375,
+            1.0859375
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "dart-aot",
+      "run": 3,
+      "wall_s": 6.727358917007223,
+      "peak_rss_bytes": 53329920,
+      "benchmarks": [
+        {
+          "name": "sieve",
+          "batch": 256,
+          "check": 17984.0,
+          "sink": 59834646.0,
+          "ms_per_op": [
+            0.484375,
+            0.484375,
+            0.48828125,
+            0.48046875,
+            0.48828125
+          ]
+        },
+        {
+          "name": "vectors",
+          "batch": 256,
+          "check": 442403.643541095,
+          "sink": 1799206591.409936,
+          "ms_per_op": [
+            0.49609375,
+            0.48828125,
+            0.4921875,
+            0.49609375,
+            0.49609375
+          ]
+        },
+        {
+          "name": "objects",
+          "batch": 1024,
+          "check": 50102750.97802929,
+          "sink": 667317593779.824,
+          "ms_per_op": [
+            0.1298828125,
+            0.1328125,
+            0.1318359375,
+            0.1513671875,
+            0.1318359375
+          ]
+        },
+        {
+          "name": "text",
+          "batch": 128,
+          "check": 141683.0,
+          "sink": 235623727.0,
+          "ms_per_op": [
+            0.96875,
+            0.96875,
+            0.96875,
+            0.9765625,
+            0.96875
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "dart-jit",
+      "run": 3,
+      "wall_s": 7.042742040997837,
+      "peak_rss_bytes": 203341824,
+      "benchmarks": [
+        {
+          "name": "sieve",
+          "batch": 256,
+          "check": 17984.0,
+          "sink": 59834646.0,
+          "ms_per_op": [
+            0.5234375,
+            0.5234375,
+            0.52734375,
+            0.5234375,
+            0.53125
+          ]
+        },
+        {
+          "name": "vectors",
+          "batch": 256,
+          "check": 442403.643541095,
+          "sink": 1660687893.1165986,
+          "ms_per_op": [
+            0.5859375,
+            0.578125,
+            0.57421875,
+            0.5703125,
+            0.53515625
+          ]
+        },
+        {
+          "name": "objects",
+          "batch": 1024,
+          "check": 50102750.97802929,
+          "sink": 667317593779.824,
+          "ms_per_op": [
+            0.125,
+            0.125,
+            0.1240234375,
+            0.1240234375,
+            0.1240234375
+          ]
+        },
+        {
+          "name": "text",
+          "batch": 128,
+          "check": 141683.0,
+          "sink": 235623727.0,
+          "ms_per_op": [
+            1.0234375,
+            1.015625,
+            1.015625,
+            1.015625,
+            1.015625
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "ark-static-jit",
+      "run": 3,
+      "wall_s": 7.5978461659979075,
+      "peak_rss_bytes": 35717120,
+      "benchmarks": [
+        {
+          "name": "sieve",
+          "batch": 512,
+          "check": 17984,
+          "sink": 101271107,
+          "ms_per_op": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "vectors",
+          "batch": 128,
+          "check": 442403.643541095,
+          "sink": 828912622.8960288,
+          "ms_per_op": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "name": "objects",
+          "batch": 1024,
+          "check": 50102750.97802929,
+          "sink": 564645574048.5315,
+          "ms_per_op": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "text",
+          "batch": 256,
+          "check": 141683,
+          "sink": 435117604,
+          "ms_per_op": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    }
+  ],
+  "valid": false,
+  "invalid_reason": "ArkTS elapsed/batch used integral division before the floating-point cast was added; zero/truncated timing samples are not performance results."
+}

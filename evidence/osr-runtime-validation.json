@@ -1,0 +1,31 @@
+[
+  {
+    "mode": "cpp",
+    "expected": 9000054.399517853,
+    "actual": 9000054.399517853,
+    "command": [
+      "/Users/wuhao/Projects/arkts-dart-bench/build/ark-source/bin/ark",
+      "--load-runtimes=ets",
+      "--boot-panda-files=/Users/wuhao/Projects/arkts-dart-bench/build/ark-source/plugins/ets/etsstdlib.abc",
+      "--interpreter-type=cpp",
+      "--compiler-enable-jit=false",
+      "/Users/wuhao/Projects/arkts-dart-bench/build/osr_smoke.abc",
+      "osr_smoke.ETSGLOBAL::main"
+    ]
+  },
+  {
+    "mode": "jit-osr",
+    "expected": 9000054.399517853,
+    "actual": 9000054.399517853,
+    "command": [
+      "/Users/wuhao/Projects/arkts-dart-bench/build/ark-source/bin/ark",
+      "--load-runtimes=ets",
+      "--boot-panda-files=/Users/wuhao/Projects/arkts-dart-bench/build/ark-source/plugins/ets/etsstdlib.abc",
+      "--interpreter-type=irtoc",
+      "--compiler-enable-jit=true",
+      "--compiler-enable-osr=true",
+      "/Users/wuhao/Projects/arkts-dart-bench/build/osr_smoke.abc",
+      "osr_smoke.ETSGLOBAL::main"
+    ]
+  }
+]

@@ -1,0 +1,17 @@
+FAILED: [code=134] irtoc/irtoc_interpreter/irtoc_interpreter.o /Users/wuhao/Projects/arkts-dart-bench/build/ark-source/irtoc/irtoc_interpreter/irtoc_interpreter.o 
+cd /Users/wuhao/Projects/arkts-dart-bench/build/ark-source/irtoc/irtoc_interpreter && touch disasm.txt && /Users/wuhao/Projects/arkts-dart-bench/build/ark-source/bin/irtoc_interpreter_exec --irtoc-output /Users/wuhao/Projects/arkts-dart-bench/build/ark-source/irtoc/irtoc_interpreter/irtoc_interpreter.o --compiler-cross-arch arm64 --compiler-disasm-dump:single-file && ruby /Users/wuhao/Projects/arkts-dart-bench/vendor/runtime_core/static_core/irtoc/lang/validation.rb /Users/wuhao/Projects/arkts-dart-bench/build/ark-source/irtoc/irtoc_interpreter/validation.yaml /Users/wuhao/Projects/arkts-dart-bench/build/ark-source/irtoc/irtoc_interpreter/disasm.txt
+[TID 1d4562] F/compiler: Not supported in Macos build
+FATAL ERROR
+Backtrace [tid=1918306]:
+/bin/sh: line 1: 58052 Abort trap: 6           /Users/wuhao/Projects/arkts-dart-bench/build/ark-source/bin/irtoc_interpreter_exec --irtoc-output /Users/wuhao/Projects/arkts-dart-bench/build/ark-source/irtoc/irtoc_interpreter/irtoc_interpreter.o --compiler-cross-arch arm64 --compiler-disasm-dump:single-file
+[416/1530] Building CXX object cmake/third_party/icu/CMakeFiles/hmicui18n.z.dir/__/__/__/third_party/icu/icu4c/source/i18n/compactdecimalformat.cpp.o
+[417/1530] Building CXX object cmake/third_party/icu/CMakeFiles/hmicui18n.z.dir/__/__/__/third_party/icu/icu4c/source/i18n/rulebasedcollator.cpp.o
+In file included from /Users/wuhao/Projects/arkts-dart-bench/vendor/runtime_core/static_core/third_party/icu/icu4c/source/i18n/rulebasedcollator.cpp:25:
+/Users/wuhao/Projects/arkts-dart-bench/vendor/runtime_core/static_core/third_party/icu/icu4c/source/i18n/unicode/tblcoll.h:245:39: warning: virtual method 'createCollationElementIterator' is inside a 'final' class and can never be overridden [-Wunnecessary-virtual-specifier]
+  245 |     virtual CollationElementIterator* createCollationElementIterator(
+      |                                       ^
+/Users/wuhao/Projects/arkts-dart-bench/vendor/runtime_core/static_core/third_party/icu/icu4c/source/i18n/unicode/tblcoll.h:257:39: warning: virtual method 'createCollationElementIterator' is inside a 'final' class and can never be overridden [-Wunnecessary-virtual-specifier]
+  257 |     virtual CollationElementIterator* createCollationElementIterator(
+      |                                       ^
+2 warnings generated.
+[41

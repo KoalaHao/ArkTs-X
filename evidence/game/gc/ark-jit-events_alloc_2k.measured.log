@@ -1,0 +1,83 @@
+[TID 24b2af] I/gc: [664] [YOUNG (Young)] Nov 04 12:39:57.389 G1 GC freed 3MB, 0B LOS objects, 99% free, 4MB/512MB,  phase: COMMON_PAUSE paused: 321.083us total: 327.208us
+[TID 24b2b1] I/gc: [665] [TENURED (Threshold)] Nov 04 12:39:57.390 G1 GC freed 3MB, 0B LOS objects, 99% free, 4MB/512MB,  phase: COMMON_PAUSE paused: 393.375us phase: REMARK_PAUSE paused: 221.041us total: 894.375us
+[TID 24b2af] I/gc: [666] [MIXED (Young)] Nov 04 12:39:57.392 G1 GC freed 5MB, 0B LOS objects, 100% free, 2MB/512MB,  phase: COMMON_PAUSE paused: 291.709us total: 295.209us
+[TID 24b2af] I/gc: [667] [YOUNG (Young)] Nov 04 12:39:57.393 G1 GC freed 3MB, 0B LOS objects, 99% free, 3MB/512MB,  phase: COMMON_PAUSE paused: 309.416us total: 314.584us
+[TID 24b2af] I/gc: [668] [YOUNG (Young)] Nov 04 12:39:57.395 G1 GC freed 3MB, 0B LOS objects, 99% free, 4MB/512MB,  phase: COMMON_PAUSE paused: 292.708us total: 297.667us
+[TID 24b2b1] I/gc: [669] [TENURED (Threshold)] Nov 04 12:39:57.397 G1 GC freed 3MB, 0B LOS objects, 99% free, 4MB/512MB,  phase: COMMON_PAUSE paused: 346.417us phase: REMARK_PAUSE paused: 155.000us total: 754.041us
+[TID 24b2af] I/gc: [670] [MIXED (Young)] Nov 04 12:39:57.398 G1 GC freed 4MB, 0B LOS objects, 100% free, 2MB/512MB,  phase: COMMON_PAUSE paused: 237.500us total: 241.833us
+[TID 24b2af] I/gc: [671] [YOUNG (Young)] Nov 04 12:39:57.399 G1 GC freed 3MB, 0B LOS objects, 99% free, 3MB/512MB,  phase: COMMON_PAUSE paused: 441.708us total: 448.083us
+[TID 24b2af] I/gc: [672] [YOUNG (Young)] Nov 04 12:39:57.401 G1 GC freed 3MB, 0B LOS objects, 99% free, 4MB/512MB,  phase: COMMON_PAUSE paused: 296.542us total: 300.917us
+[TID 24b2b3] I/gc: [673] [TENURED (Threshold)] Nov 04 12:39:57.403 G1 GC freed 4MB, 0B LOS objects, 99% free, 4MB/512MB,  phase: COMMON_PAUSE paused: 413.250us phase: REMARK_PAUSE paused: 188.500us total: 845.209us
+[TID 24b2af] I/gc: [674] [MIXED (Young)] Nov 04 12:39:57.404 G1 GC freed 5MB, 0B LOS objects, 100% free, 2MB/512MB,  phase: COMMON_PAUSE paused: 236.000us total: 239.083us
+[TID 24b2af] I/gc: [675] [YOUNG (Young)] Nov 04 12:39:57.406 G1 GC freed 3MB, 0B LOS objects, 99% free, 3MB/512MB,  phase: COMMON_PAUSE paused: 305.333us total: 310.041us
+[TID 24b2af] I/gc: [676] [YOUNG (Young)] Nov 04 12:39:57.407 G1 GC freed 3MB, 0B LOS objects, 99% free, 4MB/512MB,  phase: COMMON_PAUSE paused: 298.500us total: 302.750us
+[TID 24b2b3] I/gc: [677] [TENURED (Threshold)] Nov 04 12:39:57.409 G1 GC freed 4MB, 0B LOS objects, 99% free, 3MB/512MB,  phase: COMMON_PAUSE paused: 313.000us phase: REMARK_PAUSE paused: 158.959us total: 690.292us
+[TID 24b2af] I/gc: [678] [MIXED (Young)] Nov 04 12:39:57.410 G1 GC freed 4MB, 0B LOS objects, 100% free, 2MB/512MB,  phase: COMMON_PAUSE paused: 210.458us total: 217.500us
+[TID 24b2af] I/gc: [679] [YOUNG (Young)] Nov 04 12:39:57.412 G1 GC freed 3MB, 0B LOS objects, 99% free, 3MB/512MB,  phase: COMMON_PAUSE paused: 322.875us total: 327.209us
+[TID 24b2af] I/gc: [680] [YOUNG (Young)] Nov 04 12:39:57.413 G1 GC freed 3MB, 0B LOS objects, 99% free, 4MB/512MB,  phase: COMMON_PAUSE paused: 323.625us total: 329.042us
+[TID 24b2b3] I/gc: [681] [TENURED (Threshold)] Nov 04 12:39:57.415 G1 GC freed 4MB, 0B LOS objects, 99% free, 3MB/512MB,  phase: COMMON_PAUSE paused: 333.459us phase: REMARK_PAUSE paused: 222.667us total: 819.208us
+[TID 24b2af] I/gc: [682] [MIXED (Young)] Nov 04 12:39:57.416 G1 GC freed 4MB, 0B LOS objects, 100% free, 2MB/512MB,  phase: COMMON_PAUSE paused: 257.625us total: 260.750us
+[TID 24b2af] I/gc: [683] [YOUNG (Young)] Nov 04 12:39:57.418 G1 GC freed 3MB, 0B LOS objects, 99% free, 3MB/512MB,  phase: COMMON_PAUSE paused: 223.459us total: 226.417us
+[TID 24b2af] I/gc: [684] [YOUNG (Young)] Nov 04 12:39:57.419 G1 GC freed 3MB, 0B LOS objects, 99% free, 4MB/512MB,  phase: COMMON_PAUSE paused: 366.250us total: 371.250us
+[TID 24b2b0] I/gc: [685] [TENURED (Threshold)] Nov 04 12:39:57.421 G1 GC freed 4MB, 0B LOS objects, 99% free, 3MB/512MB,  phase: COMMON_PAUSE paused: 301.792us phase: REMARK_PAUSE paused: 175.459us total: 704.709us
+[TID 24b2af] I/gc: [686] [MIXED (Young)] Nov 04 12:39:57.422 G1 GC freed 4MB, 0B LOS objects, 100% free, 2MB/512MB,  phase: COMMON_PAUSE paused: 247.250us total: 251.833us
+[TID 24b2af] I/gc: [687] [YOUNG (Young)] Nov 04 12:39:57.424 G1 GC freed 3MB, 0B LOS objects, 99% free, 3MB/512MB,  phase: COMMON_PAUSE paused: 343.334us total: 348.416us
+[TID 24b2af] I/gc: [688] [YOUNG (Young)] Nov 04 12:39:57.425 G1 GC freed 3MB, 0B LOS objects, 99% free, 4MB/512MB,  phase: COMMON_PAUSE paused: 259.042us total: 262.541us
+[TID 24b2b3] I/gc: [689] [TENURED (Threshold)] Nov 04 12:39:57.427 G1 GC freed 4MB, 0B LOS objects, 99% free, 3MB/512MB,  phase: COMMON_PAUSE paused: 372.083us phase: REMARK_PAUSE paused: 290.084us total: 904.208us
+[TID 24b2af] I/gc: [690] [MIXED (Young)] Nov 04 12:39:57.428 G1 GC freed 4MB, 0B LOS objects, 100% free, 2MB/512MB,  phase: COMMON_PAUSE paused: 257.500us total: 262.084us
+[TID 24b2af] I/gc: [691] [YOUNG (Young)] Nov 04 12:39:57.430 G1 GC freed 3MB, 0B LOS objects, 100% free, 2MB/512MB,  phase: COMMON_PAUSE paused: 217.542us total: 220.667us
+[TID 24b2af] I/gc: [692] [YOUNG (Young)] Nov 04 12:39:57.431 G1 GC freed 3MB, 0B LOS objects, 99% free, 3MB/512MB,  phase: COMMON_PAUSE paused: 299.333us total: 302.833us
+[TID 24b2b1] I/gc: [693] [TENURED (Threshold)] Nov 04 12:39:57.433 G1 GC freed 4MB, 0B LOS objects, 99% free, 3MB/512MB,  phase: COMMON_PAUSE paused: 355.250us phase: REMARK_PAUSE paused: 135.167us total: 732.833us
+[TID 24b2af] I/gc: [694] [MIXED (Young)] Nov 04 12:39:57.434 G1 GC freed 4MB, 0B LOS objects, 100% free, 2MB/512MB,  phase: COMMON_PAUSE paused: 241.292us total: 245.250us
+[TID 24b2af] I/gc: [695] [YOUNG (Young)] Nov 04 12:39:57.436 G1 GC freed 3MB, 0B LOS objects, 99% free, 3MB/512MB,  phase: COMMON_PAUSE paused: 333.667us total: 337.708us
+[TID 24b2af] I/gc: [696] [YOUNG (Young)] Nov 04 12:39:57.437 G1 GC freed 3MB, 0B LOS objects, 99% free, 4MB/512MB,  phase: COMMON_PAUSE paused: 285.250us total: 289.833us
+[TID 24b2b3] I/gc: [697] [TENURED (Threshold)] Nov 04 12:39:57.439 G1 GC freed 4MB, 0B LOS objects, 99% free, 3MB/512MB,  phase: COMMON_PAUSE paused: 330.541us phase: REMARK_PAUSE paused: 268.791us total: 832.833us
+[TID 24b2af] I/gc: [698] [MIXED (Young)] Nov 04 12:39:57.440 G1 GC freed 4MB, 0B LOS objects, 100% free, 2MB/512MB,  phase: COMMON_PAUSE paused: 303.375us total: 315.041us
+[TID 24b2af] I/gc: [699] [YOUNG (Young)] Nov 04 12:39:57.442 G1 GC freed 3MB, 0B LOS objects, 99% free, 3MB/512MB,  phase: COMMON_PAUSE paused: 357.084us total: 365.000us
+[TID 24b2af] I/gc: [700] [YOUNG (Young)] Nov 04 12:39:57.444 G1 GC freed 3MB, 0B LOS objects, 99% free, 3MB/512MB,  phase: COMMON_PAUSE paused: 346.708us total: 349.292us
+[TID 24b2b1] I/gc: [701] [TENURED (Threshold)] Nov 04 12:39:57.445 G1 GC freed 5MB, 0B LOS objects, 100% free, 2MB/512MB,  phase: COMMON_PAUSE paused: 283.166us phase: REMARK_PAUSE paused: 140.083us total: 657.167us
+[TID 24b2af] I/gc: [702] [MIXED (Young)] Nov 04 12:39:57.447 G1 GC freed 3MB, 0B LOS objects, 100% free, 2MB/512MB,  phase: COMMON_PAUSE paused: 266.584us total: 269.417us
+[TID 24b2af] I/gc: [703] [YOUNG (Young)] Nov 04 12:39:57.448 G1 GC freed 3MB, 0B LOS objects, 99% free, 3MB/512MB,  phase: COMMON_PAUSE paused: 417.583us total: 427.584us
+[TID 24b2af] I/gc: [704] [YOUNG (Young)] Nov 04 12:39:57.450 G1 GC freed 3MB, 0B LOS objects, 99% free, 4MB/512MB,  phase: COMMON_PAUSE paused: 259.166us total: 262.625us
+[TID 24b2b1] I/gc: [705] [TENURED (Threshold)] Nov 04 12:39:57.452 G1 GC freed 4MB, 0B LOS objects, 99% free, 3MB/512MB,  phase: COMMON_PAUSE paused: 399.834us phase: REMARK_PAUSE paused: 334.709us total: 1.000ms
+[TID 24b2af] I/gc: [706] [MIXED (Young)] Nov 04 12:39:57.453 G1 GC freed 4MB, 0B LOS objects, 100% free, 2MB/512MB,  phase: COMMON_PAUSE paused: 288.792us total: 293.083us
+[TID 24b2af] I/gc: [707] [YOUNG (Young)] Nov 04 12:39:57.455 G1 GC freed 3MB, 0B LOS objects, 99% free, 3MB/512MB,  phase: COMMON_PAUSE paused: 253.875us total: 257.875us
+[TID 24b2af] I/gc: [708] [YOUNG (Young)] Nov 04 12:39:57.456 G1 GC freed 3MB, 0B LOS objects, 99% free, 4MB/512MB,  phase: COMMON_PAUSE paused: 317.125us total: 325.291us
+[TID 24b2b2] I/gc: [709] [TENURED (Threshold)] Nov 04 12:39:57.458 G1 GC freed 3MB, 0B LOS objects, 99% free, 4MB/512MB,  phase: COMMON_PAUSE paused: 370.667us phase: REMARK_PAUSE paused: 157.583us total: 801.291us
+[TID 24b2af] I/gc: [710] [MIXED (Young)] Nov 04 12:39:57.459 G1 GC freed 5MB, 0B LOS objects, 100% free, 2MB/512MB,  phase: COMMON_PAUSE paused: 289.500us total: 293.583us
+[TID 24b2af] I/gc: [711] [YOUNG (Young)] Nov 04 12:39:57.461 G1 GC freed 3MB, 0B LOS objects, 99% free, 3MB/512MB,  phase: COMMON_PAUSE paused: 342.792us total: 347.041us
+[TID 24b2af] I/gc: [712] [YOUNG (Young)] Nov 04 12:39:57.462 G1 GC freed 3MB, 0B LOS objects, 99% free, 4MB/512MB,  phase: COMMON_PAUSE paused: 246.583us total: 249.416us
+[TID 24b2b1] I/gc: [713] [TENURED (Threshold)] Nov 04 12:39:57.464 G1 GC freed 4MB, 0B LOS objects, 99% free, 3MB/512MB,  phase: COMMON_PAUSE paused: 339.291us phase: REMARK_PAUSE paused: 171.292us total: 735.167us
+[TID 24b2af] I/gc: [714] [MIXED (Young)] Nov 04 12:39:57.465 G1 GC freed 4MB, 0B LOS objects, 100% free, 2MB/512MB,  phase: COMMON_PAUSE paused: 228.250us total: 233.459us
+[TID 24b2af] I/gc: [715] [YOUNG (Young)] Nov 04 12:39:57.467 G1 GC freed 3MB, 0B LOS objects, 99% free, 3MB/512MB,  phase: COMMON_PAUSE paused: 333.792us total: 338.666us
+[TID 24b2af] I/gc: [716] [YOUNG (Young)] Nov 04 12:39:57.468 G1 GC freed 3MB, 0B LOS objects, 99% free, 4MB/512MB,  phase: COMMON_PAUSE paused: 242.292us total: 245.375us
+[TID 24b2b1] I/gc: [717] [TENURED (Threshold)] Nov 04 12:39:57.470 G1 GC freed 3MB, 0B LOS objects, 99% free, 4MB/512MB,  phase: COMMON_PAUSE paused: 273.834us phase: REMARK_PAUSE paused: 195.250us total: 685.792us
+[TID 24b2af] I/gc: [718] [MIXED (Young)] Nov 04 12:39:57.471 G1 GC freed 5MB, 0B LOS objects, 100% free, 2MB/512MB,  phase: COMMON_PAUSE paused: 240.875us total: 243.375us
+[TID 24b2af] I/gc: [719] [YOUNG (Young)] Nov 04 12:39:57.473 G1 GC freed 3MB, 0B LOS objects, 99% free, 3MB/512MB,  phase: COMMON_PAUSE paused: 414.583us total: 419.792us
+[TID 24b2af] I/gc: [720] [YOUNG (Young)] Nov 04 12:39:57.474 G1 GC freed 3MB, 0B LOS objects, 99% free, 4MB/512MB,  phase: COMMON_PAUSE paused: 244.958us total: 252.917us
+[TID 24b2b2] I/gc: [721] [TENURED (Threshold)] Nov 04 12:39:57.476 G1 GC freed 4MB, 0B LOS objects, 99% free, 3MB/512MB,  phase: COMMON_PAUSE paused: 379.083us phase: REMARK_PAUSE paused: 158.959us total: 768.166us
+[TID 24b2af] I/gc: [722] [MIXED (Young)] Nov 04 12:39:57.477 G1 GC freed 4MB, 0B LOS objects, 100% free, 2MB/512MB,  phase: COMMON_PAUSE paused: 235.500us total: 244.791us
+[TID 24b2af] I/gc: [723] [YOUNG (Young)] Nov 04 12:39:57.479 G1 GC freed 3MB, 0B LOS objects, 99% free, 3MB/512MB,  phase: COMMON_PAUSE paused: 308.083us total: 313.083us
+[TID 24b2af] I/gc: [724] [YOUNG (Young)] Nov 04 12:39:57.480 G1 GC freed 3MB, 0B LOS objects, 99% free, 3MB/512MB,  phase: COMMON_PAUSE paused: 312.083us total: 315.542us
+[TID 24b2b1] I/gc: [725] [TENURED (Threshold)] Nov 04 12:39:57.482 G1 GC freed 4MB, 0B LOS objects, 99% free, 3MB/512MB,  phase: COMMON_PAUSE paused: 343.208us phase: REMARK_PAUSE paused: 151.584us total: 715.208us
+[TID 24b2af] I/gc: [726] [MIXED (Young)] Nov 04 12:39:57.483 G1 GC freed 5MB, 0B LOS objects, 100% free, 2MB/512MB,  phase: COMMON_PAUSE paused: 215.292us total: 218.417us
+[TID 24b2af] I/gc: [727] [YOUNG (Young)] Nov 04 12:39:57.485 G1 GC freed 3MB, 0B LOS objects, 100% free, 2MB/512MB,  phase: COMMON_PAUSE paused: 311.375us total: 314.041us
+[TID 24b2af] I/gc: [728] [YOUNG (Young)] Nov 04 12:39:57.486 G1 GC freed 3MB, 0B LOS objects, 99% free, 3MB/512MB,  phase: COMMON_PAUSE paused: 255.000us total: 257.792us
+[TID 24b2b0] I/gc: [729] [TENURED (Threshold)] Nov 04 12:39:57.488 G1 GC freed 3MB, 0B LOS objects, 99% free, 3MB/512MB,  phase: COMMON_PAUSE paused: 290.666us phase: REMARK_PAUSE paused: 154.417us total: 656.750us
+[TID 24b2af] I/gc: [730] [MIXED (Young)] Nov 04 12:39:57.489 G1 GC freed 4MB, 0B LOS objects, 100% free, 2MB/512MB,  phase: COMMON_PAUSE paused: 218.417us total: 221.166us
+[TID 24b2af] I/gc: [731] [YOUNG (Young)] Nov 04 12:39:57.490 G1 GC freed 3MB, 0B LOS objects, 99% free, 3MB/512MB,  phase: COMMON_PAUSE paused: 320.959us total: 324.709us
+[TID 24b2af] I/gc: [732] [YOUNG (Young)] Nov 04 12:39:57.492 G1 GC freed 3MB, 0B LOS objects, 99% free, 4MB/512MB,  phase: COMMON_PAUSE paused: 341.583us total: 345.459us
+[TID 24b2b3] I/gc: [733] [TENURED (Threshold)] Nov 04 12:39:57.494 G1 GC freed 4MB, 0B LOS objects, 99% free, 3MB/512MB,  phase: COMMON_PAUSE paused: 401.333us phase: REMARK_PAUSE paused: 148.916us total: 773.292us
+[TID 24b2af] I/gc: [734] [MIXED (Young)] Nov 04 12:39:57.495 G1 GC freed 4MB, 0B LOS objects, 100% free, 2MB/512MB,  phase: COMMON_PAUSE paused: 246.708us total: 250.458us
+[TID 24b2af] I/gc: [735] [YOUNG (Young)] Nov 04 12:39:57.496 G1 GC freed 3MB, 0B LOS objects, 99% free, 3MB/512MB,  phase: COMMON_PAUSE paused: 275.583us total: 284.292us
+[TID 24b2af] I/gc: [736] [YOUNG (Young)] Nov 04 12:39:57.498 G1 GC freed 3MB, 0B LOS objects, 99% free, 3MB/512MB,  phase: COMMON_PAUSE paused: 496.791us total: 501.041us
+[TID 24b2b0] I/gc: [737] [TENURED (Threshold)] Nov 04 12:39:57.500 G1 GC freed 4MB, 0B LOS objects, 99% free, 3MB/512MB,  phase: COMMON_PAUSE paused: 311.917us phase: REMARK_PAUSE paused: 302.250us total: 884.541us
+[TID 24b2af] I/gc: [738] [MIXED (Young)] Nov 04 12:39:57.501 G1 GC freed 4MB, 0B LOS objects, 100% free, 2MB/512MB,  phase: COMMON_PAUSE paused: 261.666us total: 266.583us
+[TID 24b2af] I/gc: [739] [YOUNG (Young)] Nov 04 12:39:57.503 G1 GC freed 3MB, 0B LOS objects, 99% free, 3MB/512MB,  phase: COMMON_PAUSE paused: 253.625us total: 257.958us
+[TID 24b2af] I/gc: [740] [YOUNG (Young)] Nov 04 12:39:57.504 G1 GC freed 3MB, 0B LOS objects, 99% free, 4MB/512MB,  phase: COMMON_PAUSE paused: 347.083us total: 350.834us
+[TID 24b2b0] I/gc: [741] [TENURED (Threshold)] Nov 04 12:39:57.506 G1 GC freed 4MB, 0B LOS objects, 99% free, 3MB/512MB,  phase: COMMON_PAUSE paused: 378.126us phase: REMARK_PAUSE paused: 242.875us total: 844.667us
+[TID 24b2af] I/gc: [742] [MIXED (Young)] Nov 04 12:39:57.507 G1 GC freed 4MB, 0B LOS objects, 100% free, 2MB/512MB,  phase: COMMON_PAUSE paused: 226.541us total: 231.375us
+[TID 24b2af] I/gc: [743] [YOUNG (Young)] Nov 04 12:39:57.509 G1 GC freed 3MB, 0B LOS objects, 99% free, 3MB/512MB,  phase: COMMON_PAUSE paused: 345.709us total: 349.292us
+[TID 24b2af] I/gc: [744] [YOUNG (Young)] Nov 04 12:39:57.511 G1 GC freed 3MB, 0B LOS objects, 99% free, 3MB/512MB,  phase: COMMON_PAUSE paused: 256.209us total: 267.416us
+[TID 24b2b3] I/gc: [745] [TENURED (Threshold)] Nov 04 12:39:57.513 G1 GC freed 4MB, 0B LOS objects, 99% free, 3MB/512MB,  phase: COMMON_PAUSE paused: 445.375us phase: REMARK_PAUSE paused: 275.416us total: 987.666us
+[TID 24b2af] I/gc: [746] [MIXED (Young)] Nov 04 12:39:57.514 G1 GC freed 4MB, 0B LOS objects, 100% free, 2MB/512MB,  phase: COMMON_PAUSE paused: 250.542us total: 257.916us

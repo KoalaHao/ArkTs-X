@@ -1,0 +1,55 @@
+{
+  "note": "One instrumented run per mode/case; logging overhead; completed collection logs between measured-stage markers. Not used for primary timing/RSS ranking. Dart time is the verbose-GC collection-time column; Ark times are explicit pause intervals.",
+  "runs": [
+    {
+      "mode": "dart-jit",
+      "case": "events_alloc_2k",
+      "scavenges_completed": 9,
+      "reported_time_median_ms": 0.3,
+      "reported_time_max_ms": 0.7,
+      "reported_time_total_ms": 3.4999999999999996
+    },
+    {
+      "mode": "dart-jit",
+      "case": "events_pool_2k",
+      "scavenges_completed": 0,
+      "reported_time_median_ms": null,
+      "reported_time_max_ms": null,
+      "reported_time_total_ms": 0
+    },
+    {
+      "mode": "dart-aot",
+      "case": "events_alloc_2k",
+      "scavenges_completed": 8,
+      "reported_time_median_ms": 0.2,
+      "reported_time_max_ms": 0.4,
+      "reported_time_total_ms": 1.8999999999999997
+    },
+    {
+      "mode": "dart-aot",
+      "case": "events_pool_2k",
+      "scavenges_completed": 0,
+      "reported_time_median_ms": null,
+      "reported_time_max_ms": null,
+      "reported_time_total_ms": 0
+    },
+    {
+      "mode": "ark-jit",
+      "case": "events_alloc_2k",
+      "collections_completed": 83,
+      "pause_intervals": 104,
+      "pause_interval_median_ms": 0.289792,
+      "pause_interval_max_ms": 0.496791,
+      "pause_interval_total_ms": 29.71633600000001
+    },
+    {
+      "mode": "ark-jit",
+      "case": "events_pool_2k",
+      "collections_completed": 0,
+      "pause_intervals": 0,
+      "pause_interval_median_ms": null,
+      "pause_interval_max_ms": null,
+      "pause_interval_total_ms": 0
+    }
+  ]
+}

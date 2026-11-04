@@ -1,0 +1,23 @@
+{
+  "command": [
+    "lldb",
+    "--batch",
+    "/Users/wuhao/Projects/arkts-dart-bench/build/ark-source/bin/ark",
+    "-o",
+    "settings set target.disable-aslr false",
+    "-o",
+    "settings set -- target.run-args --load-runtimes=ets --boot-panda-files=/Users/wuhao/Projects/arkts-dart-bench/build/ark-source/plugins/ets/etsstdlib.abc --compiler-enable-jit=true /Users/wuhao/Projects/arkts-dart-bench/build/game.abc game.ETSGLOBAL::main",
+    "-o",
+    "process handle -p true -s false -n false SIGUSR1 SIGUSR2",
+    "-k",
+    "thread backtrace all",
+    "-k",
+    "register read",
+    "-o",
+    "run"
+  ],
+  "lldb_exit": 0,
+  "last_stage": "GAME_STAGE events_alloc_2k checks",
+  "bad_access": true,
+  "program_sha256": "bd177014d91ebc5eb890c73dcb28355b487d190b6b60459c6041e45d2a3f2388"
+}

@@ -1,0 +1,16 @@
+ArkTs-X: experimental cross-platform ArkTS port and reproduction kit
+Copyright 2026 KoalaHao
+
+Based on OpenHarmony ArkCompiler Runtime Core and ETS Frontend.
+Upstream: https://github.com/openharmony/arkcompiler_runtime_core
+          https://github.com/openharmony/arkcompiler_ets_frontend
+
+This repository distributes macOS modifications as patches against the exact
+upstream commits in source-revisions.json. Patches retain upstream copyright
+headers. Changes are described in native/PORTING.md. No upstream endorsement
+is implied. Upstream source and third-party dependencies are fetched separately;
+their own LICENSE, NOTICE and copyright files remain in their checkouts and
+continue to apply. See the dependency manifest in runtime_core/static_core.
+
+New build scripts, probes and benchmarks in this repository are made available
+under the Apache License, Version 2.0; see LICENSE.

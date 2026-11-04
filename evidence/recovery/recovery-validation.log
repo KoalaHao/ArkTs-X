@@ -1,0 +1,92 @@
+Requirement already satisfied: Jinja2==3.1.6 in ./build/venv/lib/python3.11/site-packages (from -r native/build-requirements.txt (line 1)) (3.1.6)
+Requirement already satisfied: jinja2-cli==1.0.1 in ./build/venv/lib/python3.11/site-packages (from -r native/build-requirements.txt (line 2)) (1.0.1)
+Requirement already satisfied: MarkupSafe==3.0.4 in ./build/venv/lib/python3.11/site-packages (from -r native/build-requirements.txt (line 3)) (3.0.4)
+Requirement already satisfied: ninja==1.11.1.4 in ./build/venv/lib/python3.11/site-packages (from -r native/build-requirements.txt (line 4)) (1.11.1.4)
+Requirement already satisfied: PyYAML==6.0.3 in ./build/venv/lib/python3.11/site-packages (from -r native/build-requirements.txt (line 5)) (6.0.3)
+
+[notice] A new release of pip is available: 23.2.1 -> 26.3
+[notice] To update, run: /Users/wuhao/Projects/arkts-macos/build/venv/bin/python -m pip install --upgrade pip
+Verified runtime_core @ 6b3a0de5e971
+Verified ets_frontend @ 3271e6894439
+Verified third_party/utils_native @ 0041291980cb
+Verified third_party/zlib @ 03c5d7d1eef6
+Verified third_party/elfio @ 5b75e8d5fa6b
+Verified third_party/websocketpp @ 56123c87598f
+Verified third_party/asio @ c465349fa5cd
+Verified third_party/flatbuffers @ d3d8eedd4041
+Verified third_party/openssl @ 8f958ea7032f
+Verified third_party/arkcompiler/toolchain @ a69502ef3d4d
+Verified third_party/json @ 899cae79d1ac
+Verified third_party/libxml2 @ c10a7d6a3925
+Verified third_party/pcre2 @ f8a0e9703ec3
+Verified third_party/icu @ 51f74f896f73
+Verified third_party/vixl @ 4d97e1c9709b
+All pinned sources and complete macOS patches verified.
+Verified runtime_core @ 6b3a0de5e971
+Verified ets_frontend @ 3271e6894439
+Verified third_party/elfio @ 5b75e8d5fa6b
+Verified third_party/utils_native @ 0041291980cb
+Verified third_party/zlib @ 03c5d7d1eef6
+Verified third_party/websocketpp @ 56123c87598f
+Verified third_party/asio @ c465349fa5cd
+Verified third_party/flatbuffers @ d3d8eedd4041
+Verified third_party/arkcompiler/toolchain @ a69502ef3d4d
+Verified third_party/openssl @ 8f958ea7032f
+Verified third_party/json @ 899cae79d1ac
+Verified third_party/libxml2 @ c10a7d6a3925
+Verified third_party/pcre2 @ f8a0e9703ec3
+Verified third_party/icu @ 51f74f896f73
+Verified third_party/vixl @ 4d97e1c9709b
+All pinned sources and complete macOS patches verified.
+configure: 0
+build: 0
+compile-stdlib 0
+compile-suite 0
+cpp-interpreter passed: PORT_SMOKE 2543718.392064034 57577374 1 113
+irtoc-interpreter passed: PORT_SMOKE 2543718.392064034 57577374 1 113
+normal-jit passed: PORT_SMOKE 2543718.392064034 57577374 1 113
+jit-osr passed: PORT_SMOKE 2543718.392064034 57577374 1 113
+gc-stress passed: PORT_SMOKE 2543718.392064034 57577374 1 113
+All execution-mode checksums passed. JIT-entry proof is a separate debugger check.
+Mach-O BL, B, and branch-addend execution passed
+Native Darwin fiber save/restore passed 1000 switches
+Native RW-to-RX executable memory passed
+In file included from native/test_macos_integer_types.cpp:2:
+In file included from vendor/runtime_core/static_core/compiler/optimizer/code_generator/operands.h:26:
+In file included from vendor/runtime_core/static_core/compiler/optimizer/code_generator/type_info.h:27:
+In file included from vendor/runtime_core/static_core/libarkbase/utils/arena_containers.h:32:
+In file included from vendor/runtime_core/static_core/libarkbase/mem/arena_allocator.h:28:
+In file included from vendor/runtime_core/static_core/libarkbase/mem/malloc_mem_pool-inl.h:19:
+In file included from vendor/runtime_core/static_core/libarkbase/mem/malloc_mem_pool.h:19:
+In file included from vendor/runtime_core/static_core/libarkbase/mem/mem_pool.h:21:
+vendor/runtime_core/static_core/libarkbase/mem/mem.h:186:31: warning: identifier '_KB' preceded by whitespace in a literal operator declaration is deprecated [-Wdeprecated-literal-operator]
+  186 | constexpr uint64_t operator"" _KB(long double count)
+      |                    ~~~~~~~~~~~^~~
+      |                    operator""_KB
+vendor/runtime_core/static_core/libarkbase/mem/mem.h:192:31: warning: identifier '_KB' preceded by whitespace in a literal operator declaration is deprecated [-Wdeprecated-literal-operator]
+  192 | constexpr uint64_t operator"" _KB(unsigned long long count)
+      |                    ~~~~~~~~~~~^~~
+      |                    operator""_KB
+vendor/runtime_core/static_core/libarkbase/mem/mem.h:197:31: warning: identifier '_MB' preceded by whitespace in a literal operator declaration is deprecated [-Wdeprecated-literal-operator]
+  197 | constexpr uint64_t operator"" _MB(long double count)
+      |                    ~~~~~~~~~~~^~~
+      |                    operator""_MB
+vendor/runtime_core/static_core/libarkbase/mem/mem.h:203:31: warning: identifier '_MB' preceded by whitespace in a literal operator declaration is deprecated [-Wdeprecated-literal-operator]
+  203 | constexpr uint64_t operator"" _MB(unsigned long long count)
+      |                    ~~~~~~~~~~~^~~
+      |                    operator""_MB
+vendor/runtime_core/static_core/libarkbase/mem/mem.h:208:31: warning: identifier '_GB' preceded by whitespace in a literal operator declaration is deprecated [-Wdeprecated-literal-operator]
+  208 | constexpr uint64_t operator"" _GB(long double count)
+      |                    ~~~~~~~~~~~^~~
+      |                    operator""_GB
+vendor/runtime_core/static_core/libarkbase/mem/mem.h:214:31: warning: identifier '_GB' preceded by whitespace in a literal operator declaration is deprecated [-Wdeprecated-literal-operator]
+  214 | constexpr uint64_t operator"" _GB(unsigned long long count)
+      |                    ~~~~~~~~~~~^~~
+      |                    operator""_GB
+6 warnings generated.
+Native intptr_t/uintptr_t/size_t immediates passed; unsupported types stay rejected
+irtoc_interpreter: native arm64 object, no x18/w18 instructions
+irtoc_fastpath: native arm64 object, no x18/w18 instructions
+irtoc_ets_fastpath: native arm64 object, no x18/w18 instructions
+Native ABI probes passed. Runtime/JIT execution needs separate validation.
+Native macOS ArkTS build and focused validation completed.

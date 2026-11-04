@@ -1,0 +1,26 @@
+static_core/CMakeLists.txt
+static_core/compiler/CMakeLists.txt
+static_core/compiler/compile_method.cpp
+static_core/compiler/optimizer/code_generator/target/aarch64/encode.cpp
+static_core/compiler/optimizer/code_generator/target/aarch64/regfile.cpp
+static_core/compiler/optimizer/code_generator/type_info.h
+static_core/irtoc/backend/CMakeLists.txt
+static_core/irtoc/backend/compilation.cpp
+static_core/libarkbase/CMakeLists.txt
+static_core/libarkbase/arch/aarch64/cpu_features.cpp
+static_core/platforms/unix/libarkbase/signal.h
+static_core/plugins/ets/compiler/CMakeLists.txt
+static_core/plugins/ets/runtime/ani/arch/arm64/ets_ani_entry_point_aarch64.S
+static_core/plugins/ets/runtime/ani/arch/arm64/ets_async_entry_point_aarch64.S
+static_core/plugins/ets/runtime/tooling/hprof/heap_dump_coordinator.cpp
+static_core/plugins/ets/templates/stdlib/genlib.sh
+static_core/runtime/CMakeLists.txt
+static_core/runtime/arch/aarch64/call_runtime.S
+static_core/runtime/arch/aarch64/osr_aarch64.S
+static_core/runtime/asm_defines/CMakeLists.txt
+static_core/runtime/bridge/arch/aarch64/proxy_entrypoint_aarch64.S
+static_core/runtime/fibers/arch/aarch64/helpers.S
+static_core/runtime/fibers/arch/aarch64/switch.S
+static_core/runtime/icu.cmake
+static_core/runtime/tests/arch/aarch64/stack_walker_hook_bridge.S
+static_core/irtoc/backend/macos_assembly.h (new)

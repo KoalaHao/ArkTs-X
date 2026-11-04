@@ -21,6 +21,17 @@ PATCHES = {
     'ets_frontend': 'frontend-appleclang.patch',
     'third_party/vixl': 'vixl-macos.patch',
 }
+# x86_64 JIT backend dependencies (Linux/WSL2). Upstream marks these
+# "with_patches"; apply upstream's own static_core/patches/<lib>/*.patch.
+UPSTREAM_PATCHED = {'third_party/asmjit', 'third_party/zydis'}
+
+
+def patch_files(name):
+    if name in UPSTREAM_PATCHED:
+        return sorted((CORE / 'patches' / name.split('/', 1)[1]).glob('*.patch'))
+    if name in PATCHES:
+        return [ROOT / 'native' / PATCHES[name]]
+    return []
 
 
 def git(dest, *args, **kwargs):
@@ -35,14 +46,18 @@ def destination(name):
 
 
 def verify_patch(dest, patch):
-    """Compare the entire working diff against a patched temporary Git index."""
+    """Compare the entire working diff against a patched temporary Git index.
+
+    ``patch`` is one patch file or an ordered list of them."""
+    patches = [patch] if isinstance(patch, (str, Path)) else list(patch)
     handle, index = tempfile.mkstemp(prefix='arkts-index-')
     os.close(handle)
     os.unlink(index)  # read-tree creates a real index, not an empty file.
     environment = dict(os.environ, GIT_INDEX_FILE=index)
     try:
         git(dest, 'read-tree', 'HEAD', env=environment)
-        git(dest, 'apply', '--cached', str(patch), env=environment)
+        for item in patches:
+            git(dest, 'apply', '--cached', str(item), env=environment)
         expected = git(dest, 'diff', '--cached', '--name-only', '--diff-filter=A',
                        env=environment).decode().splitlines()
         for name in expected:
@@ -84,15 +99,15 @@ def fetch(name, url, reference_root, verify_only):
         raise RuntimeError(f'{name}: expected {revision}, found {actual}; refusing reset')
     if git(dest, 'diff', '--cached', '--name-only').strip():
         raise RuntimeError(f'{name}: staged changes present; refusing to proceed')
-    patch_name = PATCHES.get(name)
-    if patch_name:
-        patch = ROOT / 'native' / patch_name
+    patches = patch_files(name)
+    if patches:
         if not git(dest, 'status', '--porcelain', '--untracked-files=all').strip():
             if verify_only:
-                raise RuntimeError(f'{name}: macOS patch has not been applied')
-            git(dest, 'apply', '--check', str(patch))
-            git(dest, 'apply', str(patch))
-        verify_patch(dest, patch)
+                raise RuntimeError(f'{name}: patch has not been applied')
+            for patch in patches:
+                git(dest, 'apply', '--check', str(patch))
+                git(dest, 'apply', str(patch))
+        verify_patch(dest, patches)
     elif git(dest, 'status', '--porcelain', '--untracked-files=all').strip():
         raise RuntimeError(f'{name}: unexpected local source changes')
     print(f'Verified {name} @ {revision[:12]}', flush=True)

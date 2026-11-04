@@ -1,3 +1,8 @@
 # Preserve upstream patch context and historical logs byte-for-byte.
-*.patch -whitespace
-evidence/** -whitespace
+# -text also stops core.autocrlf on Windows from rewriting them to CRLF,
+# which would break the patch-sha256.json fingerprints.
+*.patch -text -whitespace
+evidence/** -text -whitespace
+*.sh text eol=lf
+*.py text eol=lf
+*.cmake text eol=lf

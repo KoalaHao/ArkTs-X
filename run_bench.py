@@ -1,4 +1,4 @@
-"""Run native macOS suites serially, validate checksums, retain raw samples."""
+"""Run native suites (macOS ARM64 or Linux/WSL2) serially, validate checksums, retain raw samples."""
 import argparse
 import datetime
 import hashlib
@@ -11,6 +11,8 @@ import re
 import statistics
 import subprocess
 import time
+
+import hostinfo
 
 ROOT = pathlib.Path(__file__).resolve().parent
 
@@ -71,7 +73,7 @@ def main():
     metadata = {
         'timestamp': datetime.datetime.now().astimezone().isoformat(),
         'platform': platform.platform(), 'architecture': platform.machine(),
-        'cpu': capture(['sysctl', '-n', 'machdep.cpu.brand_string']),
+        'cpu': hostinfo.cpu_name(), 'wsl': hostinfo.is_wsl(),
         'dart': capture(['dart', '--version']),
         'runtime_commit': capture(['git', '-C', 'vendor/runtime_core',
                                    'rev-parse', 'HEAD']),
@@ -84,15 +86,13 @@ def main():
     artifacts = [ROOT / 'build/dart_aot', kernel]
     if not args.dart_only:
         artifacts.extend([ark, compiler, stdlib, ROOT / 'build/suite.abc'])
-        artifacts.extend(ROOT / 'build/ark-source/lib' / name for name in (
-            'libarkruntime.dylib', 'libarkbase.dylib',
-            'libarkaotmanager.dylib', 'libarktarget_options.dylib'))
-        metadata['ark_managed_pointer_bits'] = 64
+        artifacts.extend(path for path in hostinfo.runtime_libs() if path.exists())
+        metadata['ark_managed_pointer_bits'] = hostinfo.MANAGED_POINTER_BITS
         metadata['ark_binary_format'] = capture(['file', str(ark)])
         metadata['local_port_patch_sha256'] = hashlib.sha256(
             (ROOT / 'native/macos-port.patch').read_bytes()).hexdigest()
         metadata['toolchain_sha256'] = hashlib.sha256(
-            (ROOT / 'native/macos-arm64.cmake').read_bytes()).hexdigest()
+            (ROOT / hostinfo.TOOLCHAIN).read_bytes()).hexdigest()
     metadata['artifact_sha256'] = {
         str(path.relative_to(ROOT)): hashlib.sha256(path.read_bytes()).hexdigest()
         for path in artifacts
@@ -102,7 +102,7 @@ def main():
         order = list(modes)
         random.Random(841 + run).shuffle(order)
         for mode in order:
-            command = ['/usr/bin/time', '-l'] + modes[mode]
+            command = hostinfo.TIME_PREFIX + modes[mode]
             start = time.perf_counter()
             process = subprocess.run(command, cwd=ROOT, capture_output=True,
                                      text=True, timeout=180)
@@ -126,9 +126,8 @@ def main():
                 rows.append(row)
             if len(rows) != 4:
                 raise SystemExit(f'Expected 4 benchmarks: {process.stdout}')
-            match = re.search(r'(\d+)\s+maximum resident set size',process.stderr)
             results.append({'mode': mode, 'run': run+1, 'wall_s': wall,
-                'peak_rss_bytes': int(match[1]) if match else None,
+                'peak_rss_bytes': hostinfo.peak_rss_bytes(process.stderr),
                 'benchmarks': rows})
             (ROOT / 'results/results.json').write_text(json.dumps(
                 {'metadata':metadata,'runs':results}, indent=2))

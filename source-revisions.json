@@ -13,5 +13,7 @@
   "third_party/json": "899cae79d1accbd475b9737167417eabc82c4b52",
   "third_party/icu": "51f74f896f73d333e8fa565247c4ddd7b7ac7eda",
   "third_party/pcre2": "f8a0e9703ec3f36b6411012f5611cd2f3db55dda",
-  "third_party/libxml2": "c10a7d6a39254123828eb2e1451577ec39440314"
+  "third_party/libxml2": "c10a7d6a39254123828eb2e1451577ec39440314",
+  "third_party/asmjit": "8474400e82c3ea65bd828761539e5d9b25f6bd83",
+  "third_party/zydis": "4022f22f9280650082a9480519c86a6e2afde2f3"
 }

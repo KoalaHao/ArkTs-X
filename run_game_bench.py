@@ -1,4 +1,4 @@
-"""Build and compare persistent game-world CPU ticks on native macOS ARM64."""
+"""Build and compare persistent game-world CPU ticks on macOS ARM64 or Linux/WSL2."""
 import argparse
 import datetime
 import hashlib
@@ -15,6 +15,7 @@ import subprocess
 import time
 
 from game_references import references
+import hostinfo
 
 ROOT = pathlib.Path(__file__).resolve().parent
 OUTPUT = ROOT / 'results/game'
@@ -62,17 +63,16 @@ def main():
         'bench/game.ets', 'bench/game.dart', 'game_references.py', 'generate_game_dart.py',
         'run_game_bench.py', 'build/game.dill', 'build/game_dart_aot', 'build/game.abc',
         'build/ark-source/bin/ark', 'build/ark-source/bin/es2panda_stdlib_compiler',
-        'build/ark-source/lib/libarkruntime.dylib', 'build/ark-source/lib/libarkbase.dylib',
-        'build/ark-source/lib/libarkaotmanager.dylib', 'build/ark-source/lib/libarktarget_options.dylib',
-        'build/ark-source/plugins/ets/etsstdlib.abc', 'native/macos-arm64.cmake', 'native/macos-port.patch')]
+        'build/ark-source/plugins/ets/etsstdlib.abc', hostinfo.TOOLCHAIN, 'native/macos-port.patch')]
+    artifact_paths += [path for path in hostinfo.runtime_libs() if path.exists()]
     metadata = {
         'timestamp': datetime.datetime.now().astimezone().isoformat(),
         'platform': platform.platform(), 'architecture': platform.machine(),
-        'cpu': capture(['sysctl', '-n', 'machdep.cpu.brand_string']),
+        'cpu': hostinfo.cpu_name(), 'wsl': hostinfo.is_wsl(),
         'dart': capture(['dart', '--version']), 'commands': modes, 'build_commands': commands,
         'runtime_commit': capture(['git', '-C', 'vendor/runtime_core', 'rev-parse', 'HEAD']),
         'frontend_commit': capture(['git', '-C', 'vendor/ets_frontend', 'rev-parse', 'HEAD']),
-        'ark_managed_pointer_bits': 64, 'references': expected,
+        'ark_managed_pointer_bits': hostinfo.MANAGED_POINTER_BITS, 'references': expected,
         'method': 'one workload per fresh process; persistent worlds; 1s warmup; fresh world; 3000 unpaced CPU ticks; monotonic clocks; checkpoints before and after timing',
         'percentile': 'nearest rank; p50 uses median; summaries are medians of process metrics',
         'artifact_sha256': {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest()
@@ -83,7 +83,7 @@ def main():
         order = [(mode, name) for mode in modes for name in expected]
         random.Random(1291 + run).shuffle(order)
         for mode, case in order:
-            command = ['/usr/bin/time', '-l', *modes[mode],
+            command = [*hostinfo.TIME_PREFIX, *modes[mode],
                        *(['--'] if mode == 'ark-jit' else []), case]
             started = time.perf_counter()
             stdout_path = OUTPUT / f'{mode}-{case}-{run+1}.stdout'
@@ -132,11 +132,11 @@ def main():
             measured = sum(sum(row['frames_ms']) for row in rows) / 1000
             if measured + .95 > wall * 1.05:
                 raise SystemExit(f'{mode}: monotonic clock units/warmup disagree with process wall time')
-            rss = re.search(r'(\d+)\s+maximum resident set size', stderr_text)
+            rss = hostinfo.peak_rss_bytes(stderr_text)
             if rss is None:
                 raise SystemExit('Missing native peak RSS')
             results.append({'mode': mode, 'case': case, 'command': command, 'run': run+1, 'wall_s': wall,
-                            'peak_rss_bytes': int(rss[1]), 'benchmarks': rows})
+                            'peak_rss_bytes': rss, 'benchmarks': rows})
             (OUTPUT / 'results.json').write_text(json.dumps({'metadata': metadata, 'runs': results}, indent=2))
             print(mode, run+1, {row['name']: [round(row['p50_ms'],4), round(row['p99_ms'],4)]
                                 for row in rows}, flush=True)

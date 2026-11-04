@@ -27,7 +27,8 @@ recovery/build path; the name is a direction, not a claim of tested support.
 |---|---|---|
 | macOS ARM64 | Upstream has macOS host tooling/platform code | Native static runtime, interpreter, JIT/OSR and focused tests work experimentally; combined GC fault remains |
 | Linux | Upstream documents Ubuntu development, native runtime execution and ARM cross-compilation | Existing upstream platform; no Linux recipe or validation added here yet |
-| Windows | Upstream has Windows host-tool targets and a MinGW toolchain configuration | Full standalone runtime/JIT support has not been established by this project |
+| Windows (WSL2) | Linux x86_64 runtime running under WSL2 | Builds unmodified; both interpreters, JIT, OSR and GC-stress validation pass; benchmarks complete with checksums (see [WINDOWS_REPORT.md](WINDOWS_REPORT.md)) |
+| Windows (native Win32) | Upstream has Windows host-tool targets and a MinGW toolchain configuration | Full standalone runtime/JIT is not ported; use WSL2 |
 | macOS x86_64 | Not exercised in this experiment | Unvalidated |
 
 See the upstream [static runtime development guide](https://github.com/openharmony/arkcompiler_runtime_core/blob/master/static_core/README.md)
@@ -109,6 +110,41 @@ build/ark-source/bin/ark --load-runtimes=ets \
   build/hello.abc native_hello.ETSGLOBAL::main
 ```
 
+### Windows (WSL2) and Linux x86_64
+
+The static runtime's execution engine (signals, `mmap`, fibers, futexes, JIT
+code publication) targets Unix, so on Windows it runs as the Linux x86_64
+build inside WSL2. Linux x86_64 is an upstream platform, so the pinned sources
+build without extra runtime patches. The Mac patches are guarded by
+`__APPLE__`/`PANDA_TARGET_MACOS` and have no effect there. The kit adds
+`native/linux-x86_64.cmake`, pins the x86_64 JIT backend dependencies
+(asmjit, zydis, with upstream's own patches), and makes the runners portable
+(`hostinfo.py`: GNU `time -v`, `/proc/cpuinfo`, `.so` names).
+
+From PowerShell (WSL2 with Debian or Ubuntu installed):
+
+```powershell
+powershell -ExecutionPolicy Bypass -File build_windows.ps1 -InstallPackages -Bench
+```
+
+This copies the kit into `~/ArkTs-X` inside WSL, which avoids slow `/mnt/c`
+builds and CRLF-converted patches, then runs `build_linux.sh`. To do the same
+by hand inside WSL or on Linux:
+
+```sh
+sudo apt-get install -y git cmake ninja-build clang ruby python3-venv wget xz-utils unzip time file rsync
+git clone https://github.com/KoalaHao/ArkTs-X.git ~/ArkTs-X && cd ~/ArkTs-X
+sh build_linux.sh
+dart compile exe bench/suite.dart -o build/dart_aot   # optional, for benchmarks
+python3 run_bench.py --runs 5
+python3 run_game_bench.py --runs 3
+```
+
+Validated on Windows 11 (26200), WSL2 Debian 13, clang 19.1.7, Intel i5-13600KF.
+The Linux configure downloads Node.js v18.13 headers (upstream's
+`install-third-party --node`) for the frontend's N-API bindings. Linux keeps
+upstream's default 32-bit managed pointers.
+
 The bootstrap is idempotent and checks every pinned commit plus the complete
 patched source contents. It refuses to reset or overwrite a different revision
 or unexpected edits. `python3 bootstrap_deps.py --verify` is offline and makes
@@ -178,8 +214,9 @@ checks performed when packaging this repository.
 - Native Ark AOT `.an` output/loading and JIT debug-image emission remain
   unported or unvalidated. Working JIT does not establish AOT support.
 - The full upstream test suite has not been run.
-- Intel Macs, Windows, older macOS releases and other HarmonyOS runtime
-  variants are not validated. Do not infer support from build target defaults.
+- Windows is supported only through WSL2 (Linux x86_64 build); native Win32
+  execution is not ported. Intel Macs, older macOS releases and other HarmonyOS
+  runtime variants are not validated. Do not infer support from build target defaults.
 - This does not supply ArkUI, a desktop widget toolkit, or HarmonyOS APIs.
 
 ## Upstream and licensing

@@ -1,5 +1,6 @@
 {
   "macos-port.patch": "d94fdeff0f65d450d651ced1944d1b6adb19c6ba198cca8b5faabb39d0a37601",
   "frontend-appleclang.patch": "d00dfb634a29318f23e2b249de0e39ac130b67d5d3dd2ec76d1cc2af35407399",
-  "vixl-macos.patch": "a4c4d82ffce1ad11354665c84b9c959548bb7fec2f71cfea76309252f2f464e6"
+  "vixl-macos.patch": "a4c4d82ffce1ad11354665c84b9c959548bb7fec2f71cfea76309252f2f464e6",
+  "aot-gnu-stack.patch": "8ba68332e55ad71f06c403d1963d9d93b8af10266633f676cda4802bfeee0fff"
 }

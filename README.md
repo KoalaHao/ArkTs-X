@@ -14,7 +14,8 @@ repository. No DevEco SDK or proprietary Huawei binary is required.
 
 > **Experimental:** isolated benchmarks and focused interpreter/JIT/OSR checks
 > pass, but running all game workloads sequentially in one process reproduces
-> an unresolved GC root-scan crash. Native Ark AOT is not ported/validated.
+> an unresolved GC root-scan crash. Native Ark AOT is not ported to macOS;
+> it works on Linux x86_64 / Windows WSL2 (see below).
 > Do not treat this as a production-ready runtime or an ArkUI port.
 
 ## Platform scope
@@ -86,7 +87,8 @@ python3 native/verify_port.py
 ```
 
 `build_source.py` defaults to the supported `ark` and
-`es2panda_stdlib_compiler` targets. It deliberately excludes native AOT.
+`es2panda_stdlib_compiler` targets. On macOS it deliberately excludes native AOT;
+on Linux it also builds `ark_aot` (skip with `--no-aot`).
 It locks its build directory to prevent two builds corrupting Ninja's state.
 To resume after interruption: `python3 build_source.py --resume`.
 `--runtime-only` and `--compiler-only` are available for incremental work.
@@ -141,6 +143,24 @@ python3 run_game_bench.py --runs 3
 ```
 
 Validated on Windows 11 (26200), WSL2 Debian 13, clang 19.1.7, Intel i5-13600KF.
+
+#### Ahead-of-time compilation (Linux / WSL2)
+
+The Linux build also produces `ark_aot`, upstream's AOT compiler. It turns
+`.abc` bytecode into native x86-64 ELF images (`.an`) that `ark` loads at startup:
+
+```sh
+python3 aot.py build/suite.abc        # -> build/aot/etsstdlib.an, build/aot/suite.an
+build/ark-source/bin/ark --load-runtimes=ets   --boot-panda-files=build/ark-source/plugins/ets/etsstdlib.abc   --aot-files=build/aot/etsstdlib.an:build/aot/suite.an --compiler-enable-jit=false   build/suite.abc suite.ETSGLOBAL::main
+```
+
+AOT-compiling the stdlib is a one-off step of about 6 s (15 MiB `.an`); application images take
+milliseconds. `verify_runtime.py` adds `aot` and `aot-gc-stress` modes, and
+the benchmark runners add an AOT mode automatically when `ark_aot` exists.
+`native/aot-gnu-stack.patch` makes the ELF writer emit a non-executable
+`PT_GNU_STACK`. Without it, glibc 2.41+ (Debian 13, recent Ubuntu) refuses to
+load `.an` files ("cannot enable executable stack"). The patch has no effect on
+the Mac port.
 The Linux configure downloads Node.js v18.13 headers (upstream's
 `install-third-party --node`) for the frontend's N-API bindings. Linux keeps
 upstream's default 32-bit managed pointers.
@@ -166,6 +186,8 @@ The toolchain uses the existing 64-bit managed-pointer configuration.
 - [native/frontend-appleclang.patch](native/frontend-appleclang.patch): frontend
   Apple Clang warning accommodation.
 - [native/vixl-macos.patch](native/vixl-macos.patch): VIXL warning accommodation.
+- [native/aot-gnu-stack.patch](native/aot-gnu-stack.patch): non-executable stack
+  marker in AOT `.an` images (host-independent, needed for glibc 2.41+).
 - [source-revisions.json](source-revisions.json): immutable source pins.
 - [patch-sha256.json](patch-sha256.json): patch integrity fingerprints.
 
@@ -211,8 +233,9 @@ checks performed when packaging this repository.
 
 - Combined game workloads can crash in G1 GC root scanning. All 54 historical
   case-isolated game runs passed; that does not resolve the combined failure.
-- Native Ark AOT `.an` output/loading and JIT debug-image emission remain
-  unported or unvalidated. Working JIT does not establish AOT support.
+- On macOS, native Ark AOT `.an` output/loading and JIT debug-image emission remain
+  unported or unvalidated. Working JIT does not establish AOT support. AOT is
+  validated only on Linux x86_64 (WSL2).
 - The full upstream test suite has not been run.
 - Windows is supported only through WSL2 (Linux x86_64 build); native Win32
   execution is not ported. Intel Macs, older macOS releases and other HarmonyOS

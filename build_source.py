@@ -52,8 +52,11 @@ if '--configure-only' not in sys.argv:
     compiler_only = '--compiler-only' in sys.argv
     log_path = ROOT / ('build/compiler-build.log' if compiler_only
                        else 'build/source-build.log')
+    # Native AOT (ark_aot) is built on Linux only; the Mac port excludes it.
+    aot = [] if HOST[0] == 'Darwin' or '--no-aot' in sys.argv else ['ark_aot']
     targets = (['es2panda_stdlib_compiler'] if compiler_only else
-               ['ark'] if '--runtime-only' in sys.argv else ['ark', 'es2panda_stdlib_compiler'])
+               ['ark', *aot] if '--runtime-only' in sys.argv else
+               ['ark', 'es2panda_stdlib_compiler', *aot])
     with log_path.open('w') as log:
         result = subprocess.run(['cmake', '--build', str(ROOT / 'build/ark-source'),
                                  '--target', *targets,

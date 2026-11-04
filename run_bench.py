@@ -12,6 +12,7 @@ import statistics
 import subprocess
 import time
 
+import aot
 import hostinfo
 
 ROOT = pathlib.Path(__file__).resolve().parent
@@ -69,6 +70,10 @@ def main():
         modes['ark-static-jit'] = [str(ark), '--load-runtimes=ets',
             '--boot-panda-files=' + str(stdlib), '--compiler-enable-jit=true',
             str(ROOT / 'build/suite.abc'), 'suite.ETSGLOBAL::main']
+        if aot.supported():
+            modes['ark-static-aot'] = [str(ark), '--load-runtimes=ets',
+                '--boot-panda-files=' + str(stdlib), *aot.run_options(ROOT / 'build/suite.abc'),
+                str(ROOT / 'build/suite.abc'), 'suite.ETSGLOBAL::main']
     expected = references()
     metadata = {
         'timestamp': datetime.datetime.now().astimezone().isoformat(),
@@ -87,6 +92,8 @@ def main():
     if not args.dart_only:
         artifacts.extend([ark, compiler, stdlib, ROOT / 'build/suite.abc'])
         artifacts.extend(path for path in hostinfo.runtime_libs() if path.exists())
+        if 'ark-static-aot' in modes:
+            artifacts.extend([aot.ARK_AOT, aot.STDLIB_AN, aot.an_path('suite.abc')])
         metadata['ark_managed_pointer_bits'] = hostinfo.MANAGED_POINTER_BITS
         metadata['ark_binary_format'] = capture(['file', str(ark)])
         metadata['local_port_patch_sha256'] = hashlib.sha256(

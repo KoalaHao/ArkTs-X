@@ -17,7 +17,9 @@ ROOT = Path(__file__).resolve().parent
 CORE = ROOT / 'vendor/runtime_core/static_core'
 REVISIONS = json.loads((ROOT / 'source-revisions.json').read_text())
 PATCHES = {
-    'runtime_core': 'macos-port.patch',
+    # Applied in order. aot-gnu-stack.patch is host-independent: AOT .an files get a
+    # non-executable PT_GNU_STACK so glibc >= 2.41 will load them.
+    'runtime_core': ['macos-port.patch', 'aot-gnu-stack.patch'],
     'ets_frontend': 'frontend-appleclang.patch',
     'third_party/vixl': 'vixl-macos.patch',
 }
@@ -30,7 +32,8 @@ def patch_files(name):
     if name in UPSTREAM_PATCHED:
         return sorted((CORE / 'patches' / name.split('/', 1)[1]).glob('*.patch'))
     if name in PATCHES:
-        return [ROOT / 'native' / PATCHES[name]]
+        names = PATCHES[name]
+        return [ROOT / 'native' / item for item in ([names] if isinstance(names, str) else names)]
     return []
 
 
@@ -107,6 +110,20 @@ def fetch(name, url, reference_root, verify_only):
             for patch in patches:
                 git(dest, 'apply', '--check', str(patch))
                 git(dest, 'apply', str(patch))
+        elif not verify_only and name in PATCHES:
+            try:
+                verify_patch(dest, patches)
+            except (RuntimeError, subprocess.CalledProcessError):
+                # Upgrade a checkout made before a kit patch was added: apply only the
+                # kit patches not yet present; verify_patch below checks the result.
+                for patch in patches:
+                    applied = subprocess.run(['git', '-C', str(dest), 'apply', '--reverse',
+                                              '--check', str(patch)],
+                                             capture_output=True).returncode == 0
+                    if not applied:
+                        git(dest, 'apply', '--check', str(patch))
+                        git(dest, 'apply', str(patch))
+                        print(f'Applied new patch {patch.name} to {name}', flush=True)
         verify_patch(dest, patches)
     elif git(dest, 'status', '--porcelain', '--untracked-files=all').strip():
         raise RuntimeError(f'{name}: unexpected local source changes')

@@ -4,6 +4,8 @@ import math
 import pathlib
 import subprocess
 
+import aot
+
 ROOT = pathlib.Path(__file__).resolve().parent
 (ROOT / 'results').mkdir(exist_ok=True)
 ARK = ROOT / 'build/ark-source/bin/ark'
@@ -37,6 +39,11 @@ modes = {
                   '--log-info=gc',
                   '--log-detailed-gc-info-enabled=true'],
 }
+if aot.supported():
+    # Pure AOT: stdlib + program compiled by ark_aot, JIT off; plus AOT under GC stress.
+    aot_options = aot.run_options(ROOT / 'build/port_smoke.abc')
+    modes['aot'] = [*aot_options]
+    modes['aot-gc-stress'] = [*aot_options, *modes['gc-stress'][2:]]
 receipts = []
 for name, options in modes.items():
     command = [str(ARK), '--load-runtimes=ets', '--boot-panda-files=' + str(STDLIB),

@@ -75,5 +75,38 @@
     ],
     "output": "PORT_SMOKE 2543718.392064034 57577374 1 113",
     "gc": "PORT_GC 4 123 4202320"
+  },
+  {
+    "mode": "aot",
+    "command": [
+      "/root/arkts-x/build/ark-source/bin/ark",
+      "--load-runtimes=ets",
+      "--boot-panda-files=/root/arkts-x/build/ark-source/plugins/ets/etsstdlib.abc",
+      "--aot-files=/root/arkts-x/build/aot/etsstdlib.an:/root/arkts-x/build/aot/port_smoke.an",
+      "--compiler-enable-jit=false",
+      "/root/arkts-x/build/port_smoke.abc",
+      "port_smoke.ETSGLOBAL::main"
+    ],
+    "output": "PORT_SMOKE 2543718.392064034 57577374 1 113",
+    "gc": "PORT_GC 4 123 4197784"
+  },
+  {
+    "mode": "aot-gc-stress",
+    "command": [
+      "/root/arkts-x/build/ark-source/bin/ark",
+      "--load-runtimes=ets",
+      "--boot-panda-files=/root/arkts-x/build/ark-source/plugins/ets/etsstdlib.abc",
+      "--aot-files=/root/arkts-x/build/aot/etsstdlib.an:/root/arkts-x/build/aot/port_smoke.an",
+      "--compiler-enable-jit=false",
+      "--init-heap-size-limit=16777216",
+      "--heap-size-limit=33554432",
+      "--heap-verifier=pre:post:fail_on_verification",
+      "--log-info=gc",
+      "--log-detailed-gc-info-enabled=true",
+      "/root/arkts-x/build/port_smoke.abc",
+      "port_smoke.ETSGLOBAL::main"
+    ],
+    "output": "PORT_SMOKE 2543718.392064034 57577374 1 113",
+    "gc": "PORT_GC 4 123 4197784"
   }
 ]

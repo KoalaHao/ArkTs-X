@@ -15,6 +15,7 @@ import subprocess
 import time
 
 from game_references import references
+import aot
 import hostinfo
 
 ROOT = pathlib.Path(__file__).resolve().parent
@@ -59,12 +60,18 @@ def main():
         'ark-jit': [str(ark), '--load-runtimes=ets', '--boot-panda-files=' + str(stdlib),
                     '--compiler-enable-jit=true', str(ROOT / 'build/game.abc'), 'game.ETSGLOBAL::main'],
     }
+    if aot.supported():
+        modes['ark-aot'] = [str(ark), '--load-runtimes=ets', '--boot-panda-files=' + str(stdlib),
+                            *aot.run_options(ROOT / 'build/game.abc'),
+                            str(ROOT / 'build/game.abc'), 'game.ETSGLOBAL::main']
     artifact_paths = [ROOT / path for path in (
         'bench/game.ets', 'bench/game.dart', 'game_references.py', 'generate_game_dart.py',
         'run_game_bench.py', 'build/game.dill', 'build/game_dart_aot', 'build/game.abc',
         'build/ark-source/bin/ark', 'build/ark-source/bin/es2panda_stdlib_compiler',
         'build/ark-source/plugins/ets/etsstdlib.abc', hostinfo.TOOLCHAIN, 'native/macos-port.patch')]
     artifact_paths += [path for path in hostinfo.runtime_libs() if path.exists()]
+    if 'ark-aot' in modes:
+        artifact_paths += [aot.ARK_AOT, aot.STDLIB_AN, aot.an_path('game.abc')]
     metadata = {
         'timestamp': datetime.datetime.now().astimezone().isoformat(),
         'platform': platform.platform(), 'architecture': platform.machine(),
@@ -84,7 +91,7 @@ def main():
         random.Random(1291 + run).shuffle(order)
         for mode, case in order:
             command = [*hostinfo.TIME_PREFIX, *modes[mode],
-                       *(['--'] if mode == 'ark-jit' else []), case]
+                       *(['--'] if mode.startswith('ark-') else []), case]
             started = time.perf_counter()
             stdout_path = OUTPUT / f'{mode}-{case}-{run+1}.stdout'
             stderr_path = OUTPUT / f'{mode}-{case}-{run+1}.stderr'

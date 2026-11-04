@@ -1,0 +1,17 @@
+diff --git a/static_core/compiler/aot/aot_builder/elf_builder.h b/static_core/compiler/aot/aot_builder/elf_builder.h
+index b498fc27..32739050 100644
+--- a/static_core/compiler/aot/aot_builder/elf_builder.h
++++ b/static_core/compiler/aot/aot_builder/elf_builder.h
+@@ -869,6 +869,12 @@ void ElfBuilder<ARCH, IS_JIT_MODE>::SettleSectionsForAot()
+     lodDynamicSegment->header.p_type = PT_LOAD;
+     segments_.insert(segments_.end() - 1, lodDynamicSegment);
+ 
++    // Request a non-executable stack. Without PT_GNU_STACK, x86_64 loaders assume an
++    // executable stack, and glibc >= 2.41 refuses to dlopen() such objects (.an files).
++    constexpr ElfWord GNU_STACK_TYPE = 0x6474e551U;  // PT_GNU_STACK
++    // NOLINTNEXTLINE(hicpp-signed-bitwise)
++    segments_.push_back(new Segment(0, 0, GNU_STACK_TYPE, PF_R | PF_W, sizeof(ElfOff) * 2U));
++
+     ASSERT(segments_.size() <= MAX_SEGMENTS_COUNT);
+     phdrSegment->header.p_filesz = phdrSegment->header.p_memsz = segments_.size() * sizeof(ElfPhdr);
+ }
